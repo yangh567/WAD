@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+    <head>
+        <title>PostBar</title>
+        <!-- CSS -->
+        <link rel="stylesheet" href="{% static "css/base.css" %}" />
+        <!-- JavaScript -->
+        <script src="{% static "js/jquery.js" %}"></script>
+    </head>
+
+    <body>
+		<h1>Post Bar</h1>
+		<div>
+			hey there students <br />
+			<strong>{{ boldmessage }}</strong><br />
+		</div>
+		<div>
+			<a href="/PostBar/about/">About</a><br />
+			<!-- Image -->
+			<img src="{% static "images/images.jpg" %}" alt="Picture of emotion"/>
+		</div>
+	</body>
+</html>
