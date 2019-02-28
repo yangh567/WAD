@@ -1,47 +1,36 @@
 from django.db import models
-import datetime
 from django.contrib.auth.models import User
 
+
 class Category(models.Model):
-	title_name = models.CharField(max_length=128, unique=True,primary_key=True)
-	class Meta:
-		verbose_name_plural = 'Categories'
-		
-	def __str__(self):  # For Python 2, use __unicode__ too
-		return self.title_name
-		
-	
+    title_name = models.CharField(max_length=128, unique=True)
+
+    class Meta:
+        verbose_name_plural = 'Categories'
 
 
 class Question(models.Model):
-	category = models.ForeignKey(Category)
-	question_title = models.CharField(max_length=128,primary_key=True)
-	question_content = models.CharField(max_length=1000,blank=True, null=True)
-	views = models.IntegerField(default=0)
-	likes = models.IntegerField(default=0)
-	question_isComplete = models.BooleanField(default=False)
-	latest_question_published = models.DateField(("Date"), auto_now_add=True)
-	username = models.ForeignKey(User,on_delete=models.CASCADE)
-	
-	def __str__(self):  # For Python 2, use __unicode__ too
-		return self.question_title
+    title = models.CharField(max_length=128)
+    content = models.TextField()
+    views = models.PositiveIntegerField(default=0)
+    likes = models.PositiveIntegerField(default=0)
+    completed = models.BooleanField(default=False)
+    last_modified = models.DateTimeField(auto_now=True)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category)
+
 
 class Answer(models.Model):
-	question_title = models.ForeignKey(Question,on_delete=models.CASCADE)
-	answer_id = models.IntegerField(primary_key=True,unique=True)
-	answer_content = models.CharField(max_length=1000,blank=True, null=True)
-	answer_username = models.OneToOneField(User,on_delete=models.CASCADE)
-	latest_question_published =  models.DateField(("Date"), default=datetime.date.today)
-	rank = models.IntegerField(default=0)
-	
-	def __int__(self):  # For Python 2, use __unicode__ too
-		return self.answer_id
+    content = models.TextField()
+    rank_points = models.IntegerField(default=0)
+    rank_count = models.PositiveIntegerField(default=0)
+    last_modified = models.DateTimeField(auto_now=True)
+
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
 
 class UserProfile(models.Model):
-	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	popular = models.IntegerField(default=0,primary_key=True)
-	def __object__(self):  # For Python 2, use __unicode__ too
-	   return self.user
-	
-	
-	
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    popular = models.IntegerField(default=0)
