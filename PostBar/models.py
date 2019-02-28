@@ -28,7 +28,7 @@ class Answer(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
 
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class UserProfile(models.Model):
