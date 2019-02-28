@@ -16,7 +16,7 @@ class Category(models.Model):
 class Question(models.Model):
 	category = models.ForeignKey(Category)
 	question_title = models.CharField(max_length=128,primary_key=True)
-	question_content = models.CharField(max_length=1000)
+	question_content = models.CharField(max_length=1000,blank=True, null=True)
 	views = models.IntegerField(default=0)
 	likes = models.IntegerField(default=0)
 	question_isComplete = models.BooleanField(default=False)
@@ -28,8 +28,8 @@ class Question(models.Model):
 
 class Answer(models.Model):
 	question_title = models.ForeignKey(Question,on_delete=models.CASCADE)
-	answer_id = models.IntegerField(primary_key=True)
-	answer_content = models.CharField(max_length=1000)
+	answer_id = models.IntegerField(primary_key=True,unique=True)
+	answer_content = models.CharField(max_length=1000,blank=True, null=True)
 	answer_username = models.OneToOneField(User,on_delete=models.CASCADE)
 	latest_question_published =  models.DateField(("Date"), default=datetime.date.today)
 	rank = models.IntegerField(default=0)
