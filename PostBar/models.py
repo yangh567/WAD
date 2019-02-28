@@ -17,8 +17,8 @@ class Question(models.Model):
     completed = models.BooleanField(default=False)
     last_modified = models.DateTimeField(auto_now=True)
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category)
+    user = models.ForeignKey(User, related_name="questions", on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name="questions", on_delete=models.CASCADE)
 
 
 class Answer(models.Model):
@@ -27,10 +27,11 @@ class Answer(models.Model):
     rank_count = models.PositiveIntegerField(default=0)
     last_modified = models.DateTimeField(auto_now=True)
 
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, related_name="answers", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="answers", on_delete=models.CASCADE)
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
     popular = models.IntegerField(default=0)
+
+    user = models.OneToOneField(User, related_name="userprofile", on_delete=models.CASCADE)
