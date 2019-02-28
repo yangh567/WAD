@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Post_Bar.settings')
 import django
@@ -47,12 +48,14 @@ def populate():
 
     add_profile(userprofile["popular"], userprofile["user"])
     for c, qs in Cats.items():
-        add_cat(c)
+        cat = add_cat(c)
         for i, q in enumerate(qs["question"]):
-            add_question(c, user, q["question_title"], q["question_content"], q["views"], q["likes"],
+            add_question(cat, user, q["question_title"], q["question_content"], q["views"], q["likes"],
                          q["latest_question_published"], q["question_isComplete"])
-    for ad in answers:
+    # for c, qs in Cats.items():
 
+
+# for ad in answers:
 
 
 def add_cat(name):
@@ -61,25 +64,26 @@ def add_cat(name):
     return c
 
 
-def add_question(category, user, title, content, views, likes, latest_question_published, completed):
-    q = Question.objects.get_or_create(title=title,
-                                       content=content,
-                                       views=views,
-                                       likes=likes,
-                                       user=user,
-                                       category=category,
-                                       latest_question_published=latest_question_published,
-                                       completed=completed)[0]
+def add_question(category, user, title, content, views, likes, last_modified, completed):
+    last_modified = datetime.strptime(last_modified, "%Y-%m-%d")
+    q, _ = Question.objects.get_or_create(title=title,
+                                          content=content,
+                                          views=views,
+                                          likes=likes,
+                                          user=user,
+                                          category=category,
+                                          last_modified=last_modified,
+                                          completed=completed)
     q.save()
     return q
 
 
 def add_answer(user: User, question: Question, content, rank_count=0, rank_points=0):
-    # a = Answer.objects.create(question=question,
-    #                           user=user,
-    #                           content=content,
-    #
-    #                           )
+    a = Answer.objects.create(question=question,
+                              user=user,
+                              content=content,
+
+                              )
     a.user = user
     a.question = question
     a.content = content
