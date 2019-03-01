@@ -20,7 +20,6 @@ class QuestionAdmin(admin.ModelAdmin):
     ]
 
     def icount(self, obj):
-        print(dir(obj))
         return obj.answers.count()
 
     list_display = ["title", "icount"]
@@ -44,7 +43,17 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_display = ["name"]
 
 
+class AnswerAdmin(admin.ModelAdmin):
+    def name(self, obj):
+        return obj.user.username
+
+    def short_content(self, obj):
+        return obj.content[:20]
+
+    list_display = ["name", "short_content"]
+
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Question, QuestionAdmin)
-admin.site.register(Answer)
+admin.site.register(Answer, AnswerAdmin)
 admin.site.register(UserProfile, UserProfileAdmin)
