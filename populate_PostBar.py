@@ -10,36 +10,63 @@ from django.contrib.auth.models import User
 
 
 def populate():
-    user, status = User.objects.get_or_create(username='john', email='jlennon@beatles.com', password='glass onion')
+    status = User.objects.filter(username='john', email='jlennon@beatles.com').exists()
+    if not status:
+        user = User.objects.create_user(username='john', email='jlennon@beatles.com', password='glass onion')
+    else:
+        user = User.objects.filter(username='john', email='jlennon@beatles.com').get()
 
-    answers = [{"answer_id": 0, "question_title": "what is the differentiation?", "answer_content": ".........",
-                "answer_username": user.username},
-               {"answer_id": 1, "question_title": "What is the intergration?", "question_content": "...........",
-                "answer_username": user.username},
-               {"answer_id": 2, "question_title": "How i am i suppose to learn Cs?", "answer_content": ".........",
-                "answer_username": user.username},
-               {"answer_id": 3, "question_title": "What is the best way to unserstand the code?",
-                "answer_content": ".........", "answer_username": user.username},
-               {"answer_id": 4, "question_title": "Do we have to attend any of the lectures?",
-                "answer_content": ".........", "answer_username": user.username},
-               {"answer_id": 5, "question_title": "Do we have to drink water every day?", "answer_content": ".........",
-                "answer_username": user.username},
+    answers = [{"answer_id": 0,
+                "answer_content": "I can swim and you can not",
+                "answer_username": user.username,
+                "rank_counts": 12,
+                "rank_points": 115},
+               {"answer_id": 1,
+                "answer_content": "well that it to combine something togather",
+                "answer_username": user.username,
+                "rank_counts": 12,
+                "rank_points": 13},
+               {"answer_id": 2,
+                "answer_content": "study harder",
+                "answer_username": user.username,
+                "rank_counts": 2,
+                "rank_points": 23},
+               {"answer_id": 3,
+                "answer_content": "read them multiple times",
+                "answer_username": user.username,
+                "rank_counts": 12,
+                "rank_points": 13},
+               {"answer_id": 4,
+                "answer_content": "Yes of course ",
+                "answer_username": user.username,
+                "rank_counts": 12,
+                "rank_points": 131},
+               {"answer_id": 5,
+                "answer_content": "No doubt",
+                "answer_username": user.username, "rank_counts": 12,
+                "rank_points": 131}
                ]
 
     math_questions = [{"question_title": "What is the differentiation?",
                        "question_content": "I heard a lot about differentiation during hight school,what is that exactly",
                        "username": user.username, "id": 0, "views": 31, "likes": 12, "question_isComplete": True,
-                       "latest_question_published": "2009-11-13"}]
+                       "latest_question_published": "2009-11-13",
+                       "answers": answers[:2]
+                       }]
 
     computing_science_questions = [
         {"question_title": "How am i supposed to learn Cs?", "question_content": "cause it is so difficult for me!",
          "username": user.username, "id": 2, "views": 31, "likes": 12, "question_isComplete": True,
-         "latest_question_published": "2009-11-13"}]
+         "latest_question_published": "2009-11-13",
+         "answers": answers[2:4]
+         }]
 
     other_questions = [{"question_title": "Do we have to attend any of the lectures?",
                         "question_content": "i know is not correct to skip any lectures,however i think some of them is not that kind of important",
                         "username": user.username, "id": 4, "views": 31, "likes": 12,
-                        "question_isComplete": True, "latest_question_published": "2009-11-13"}]
+                        "question_isComplete": True, "latest_question_published": "2009-11-13",
+                        "answers": answers[4:6]
+                        }]
 
     Cats = {"Math": {"question": math_questions}, "Computing_Science": {"question": computing_science_questions},
             "Other_Questions": {"question": other_questions}}
@@ -50,12 +77,13 @@ def populate():
     for c, qs in Cats.items():
         cat = add_cat(c)
         for i, q in enumerate(qs["question"]):
-            add_question(cat, user, q["question_title"], q["question_content"], q["views"], q["likes"],
-                         q["latest_question_published"], q["question_isComplete"])
-    # for c, qs in Cats.items():
-
-
-# for ad in answers:
+            qa = add_question(cat, user, q['id'], q["question_title"], q["question_content"], q["views"], q["likes"],
+                             q["latest_question_published"], q["question_isComplete"])
+            q_answers = q["answers"]
+            for ans in q_answers:
+                add_answer(user, qa, content=ans["answer_content"],
+                           rank_count=ans["rank_counts"],
+                           rank_points=ans["rank_points"])
 
 
 def add_cat(name):
@@ -64,29 +92,21 @@ def add_cat(name):
     return c
 
 
-def add_question(category, user, title, content, views, likes, last_modified, completed):
+def add_question(category, user, id, title, content, views, likes, last_modified, completed):
     last_modified = datetime.strptime(last_modified, "%Y-%m-%d")
-    q, _ = Question.objects.get_or_create(title=title,
-                                          content=content,
-                                          views=views,
-                                          likes=likes,
-                                          user=user,
-                                          category=category,
-                                          last_modified=last_modified,
-                                          completed=completed)
+    q, _ = Question.objects.get_or_create(id=id, user=user, category=category)
+    q.title = title
+    q.content = content
+    q.views = views
+    q.likes = likes
+    q.last_modified = last_modified
+    q.completed = completed
     q.save()
     return q
 
 
 def add_answer(user: User, question: Question, content, rank_count=0, rank_points=0):
-    a = Answer.objects.create(question=question,
-                              user=user,
-                              content=content,
-
-                              )
-    a.user = user
-    a.question = question
-    a.content = content
+    a, _ = Answer.objects.get_or_create(question=question, user=user, content=content)
     a.rank_count = rank_count
     a.rank_points = rank_points
     a.save()
@@ -98,12 +118,6 @@ def add_profile(popular, user):
     p.save()
     return p
 
-
-# for cat, cat_data in Cats.items():
-#     c = add_cat(cat)
-#     for q_i in cat_data['question']:
-#         add_question(c, q_i['question_title'], q_i['question_content'], user, q_i['views'], q_i['likes'],
-#                      q_i['question_isComplete'], q_i['latest_question_published'])
 
 if __name__ == '__main__':
     populate()
