@@ -129,3 +129,4 @@ USE_TZ = True
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
+CSS_URL = '/css/'

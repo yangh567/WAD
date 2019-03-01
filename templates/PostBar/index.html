@@ -1,25 +1,50 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="../../static/css/index.css">
+    <script src="{% static "js/jquery.js" %}"></script>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    <div class="navbar">
 
-<html>
-    <head>
-        <title>PostBar</title>
-        <!-- CSS -->
-        <link rel="stylesheet" href="{% static "css/base.css" %}" />
-        <!-- JavaScript -->
-        <script src="{% static "js/jquery.js" %}"></script>
-    </head>
+        <a href="#">Post Bar</a>
 
-    <body>
-		<h1>Post Bar</h1>
-		<div>
-			hey there students <br />
-			<strong>{{ boldmessage }}</strong><br />
-		</div>
-		<div>
-			<a href="/PostBar/about/">About</a><br />
-			<!-- Image -->
-			<img src="{% static "images/images.jpg" %}" alt="Picture of emotion"/>
-		</div>
-	</body>
+        <div class="dropdown">
+
+            <button class="dropbtn">Category</button>
+
+            <div class="dropdown-content">
+              <a href="#">Link 1</a>
+              <a href="#">Link 2</a>
+              <a href="#">Link 3</a>
+            </div>
+
+        </div>
+
+        <input type="text" placeholder="Search..">
+
+        <a href="#">Add Question</a>
+        <a href="#">About</a>
+
+        <div class="auth">
+            <a href="#">Login</a>
+            <a href="#">Register</a>
+        </div>
+
+    </div>
+
+    <div class="title">
+        <strong>Popular Questions</strong>
+    </div>
+
+    <hr/>
+
+    <div class="content">
+
+    </div>
+
+</body>
 </html>
