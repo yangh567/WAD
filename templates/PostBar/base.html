@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="../../static/css/index.css">
+    <script src="{% static "js/jquery.js" %}"></script>
+    <meta charset="UTF-8">
+    {% block title_block %}
+    {% endblock %}
+
+</head>
+<body>
+    <div class="navbar">
+
+        <a href="#">Post Bar</a>
+
+        <div class="dropdown">
+
+            <button class="dropbtn">Category</button>
+
+            <div class="dropdown-content">
+              <a href="#">Link 1</a>
+              <a href="#">Link 2</a>
+              <a href="#">Link 3</a>
+            </div>
+
+        </div>
+
+        <input type="text" placeholder="Search..">
+
+        <a href="#">Add Question</a>
+        <a href="#">About</a>
+
+        <div class="auth">
+            <a href="#">Login</a>
+            <a href="#">Register</a>
+        </div>
+    </div>
+
+    {% block body_block %}
+    {% endblock %}
+
+
+</body>
+</html>
