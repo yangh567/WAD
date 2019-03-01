@@ -1,5 +1,8 @@
 import os
 from datetime import datetime
+from typing import List
+
+from autofixture import AutoFixture
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Post_Bar.settings')
 import django
@@ -78,7 +81,7 @@ def populate():
         cat = add_cat(c)
         for i, q in enumerate(qs["question"]):
             qa = add_question(cat, user, q['id'], q["question_title"], q["question_content"], q["views"], q["likes"],
-                             q["latest_question_published"], q["question_isComplete"])
+                              q["latest_question_published"], q["question_isComplete"])
             q_answers = q["answers"]
             for ans in q_answers:
                 add_answer(user, qa, content=ans["answer_content"],
@@ -119,5 +122,20 @@ def add_profile(popular, user):
     return p
 
 
+def gen_save(class_type, n=10):
+    fixture = AutoFixture(class_type)
+    objs: List[Category] = fixture.create(n)
+    for obj in objs:
+        obj.save()
+
+
+def save_all(objects: List[Category]):
+    for o in objects:
+        o.save()
+
+
 if __name__ == '__main__':
-    populate()
+    gen_save(User)
+    gen_save(Category)
+    gen_save(Question, 20)
+    gen_save(Answer, 50)
