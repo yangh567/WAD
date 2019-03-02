@@ -1,0 +1,28 @@
+{% extends 'PostBar/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    <title>Login</title>
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="title">
+        <strong>Login</strong>
+    </div>
+
+    <hr/>
+
+    <div class="content">
+        <form id="login_form" method="post" action="{% url 'login' %}">
+        Username: <input type="text" name="username"/>
+
+        <br />
+        Password: <input type="password" name="password"/>
+        <br />
+
+        <input type="submit" value="submit" />
+        </form>
+    </div>
+
+{% endblock %}
