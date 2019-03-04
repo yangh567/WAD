@@ -1,25 +1,51 @@
 {% extends 'PostBar/base.html' %}
 {% load staticfiles %}
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="../../static/css/login_and_register.css">
+{% endblock %}
 
 {% block title_block %}
 	<title>Register</title>
 {% endblock %}
 
 {% block body_block %}
-	{% if registered %}
-		<a href="{% url 'index' %}"> You are registered! </a><br />
-	{% else %}
-		<form id="user_form" method="post" action="{% url 'register' %}"
-			enctype="multipart/form-data">
-	
-		{% csrf_token %}
-	
-		<!-- Display each form -->
-		{{ user_form.as_p }}
-		{{ profile_form.as_p }}
-	
-		<!-- Provide a button to click to submit the form. -->
-		<input type="submit" name="submit" value="Register" />
-	</form>
-	{% endif %}
-{% endblock %}  
+    <div id="main_body">
+        Register
+
+        <hr>
+
+        <div class="container">
+            {% if registered %}
+            <a href="{% url 'index' %}"> You are registered! </a><br />
+            {% else %}
+            <form id="register_form" method="post" action="{% url 'register' %}"
+                enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <div class="row">
+                <label>Username:</label>
+                <input type="text" name="username" value="" size="50"/>
+            </div>
+
+            <div class="row">
+                <label>Password:</label>
+                <input type="password" name="password" value="" size="50"/>
+            </div>
+
+            <div class="row">
+                <label>Email:</label>
+                <input type="Email" name="Email" value="" size="50"/>
+            </div>
+
+            <div class="bottom">
+                <input type="submit" name="submit" value="Register" />
+            </div>
+
+            </form>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}
+

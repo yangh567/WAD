@@ -1,0 +1,25 @@
+#main_body {
+    text-align: center;
+    padding: 20px;
+    margin: 100px;
+    font-size: xx-large;
+}
+
+.row {
+    display: table-row;
+}
+
+.row label {
+    display: table-cell;
+    padding: 3px;
+}
+
+.row input {
+    display: table-cell;
+    padding: 3px;
+}
+
+.container {
+    display: block;
+    margin-left: 300px;
+}

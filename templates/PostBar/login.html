@@ -1,22 +1,39 @@
 {% extends 'PostBar/base.html' %}
 {% load staticfiles %}
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="../../static/css/login_and_register.css">
+{% endblock %}
 
 {% block title_block %}
     <title>Login</title>
 {% endblock %}
 
 {% block body_block %}
-	<h1>Login to Rango</h1>
-        <form id="login_form" method="post" action="{% url 'login' %}">
-		{% csrf_token %}
-        Username: <input type="text" name="username" value="" size="50"/>
+    <div id="main_body">
+        Login
+        <hr>
 
-        <br />
-        Password: <input type="password" name="password" value="" size="50"/>
-        <br />
+        <div class="container">
+            <form id="login_form" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
 
-        <input type="submit" value="submit" />
-        </form>
+            <div class="row">
+                <label>Username:</label>
+                <input type="text" name="username" value="" size="50"/>
+            </div>
+
+            <div class="row">
+                <label>Password:</label>
+                <input type="password" name="password" value="" size="50"/>
+            </div>
+
+            <div class="bottom">
+                <input type="submit" value="submit" />
+            </div>
+
+            </form>
+        </div>
+
     </div>
 
 {% endblock %}
