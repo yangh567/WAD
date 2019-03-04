@@ -1,14 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-<<<<<<< HEAD
 from PostBar.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-=======
->>>>>>> 219e6a19a9e31be40f45ee78b5ab14e33b92de29
 
 def index(request):
     context_dict = {'boldmessage':"How's the day"}
@@ -16,7 +13,6 @@ def index(request):
 
 def about(request):
 	context_dict = {'boldmessage':"Zhouyang shen    ,   Yixuan Dai   ,   Ming Ho Wu"}
-<<<<<<< HEAD
 	return render(request, 'PostBar/about.html', context=context_dict)
 
 
@@ -125,6 +121,3 @@ def user_logout(request):
     logout(request)
     # Take the user back to the homepage.
     return HttpResponseRedirect(reverse('index'))
-=======
-	return render(request, 'PostBar/about.html', context=context_dict)
->>>>>>> 219e6a19a9e31be40f45ee78b5ab14e33b92de29

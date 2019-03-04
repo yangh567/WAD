@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block body_block %}
-<<<<<<< HEAD
 	<h1>Login to Rango</h1>
         <form id="login_form" method="post" action="{% url 'login' %}">
 		{% csrf_token %}
@@ -14,21 +13,6 @@
 
         <br />
         Password: <input type="password" name="password" value="" size="50"/>
-=======
-
-    <div class="title">
-        <strong>Login</strong>
-    </div>
-
-    <hr/>
-
-    <div class="content">
-        <form id="login_form" method="post" action="{% url 'login' %}">
-        Username: <input type="text" name="username"/>
-
-        <br />
-        Password: <input type="password" name="password"/>
->>>>>>> 219e6a19a9e31be40f45ee78b5ab14e33b92de29
         <br />
 
         <input type="submit" value="submit" />
