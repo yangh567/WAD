@@ -100,7 +100,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+<<<<<<< HEAD
         'OPTIONS': { 'min_length': 6, }
+=======
+>>>>>>> 219e6a19a9e31be40f45ee78b5ab14e33b92de29
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -110,10 +113,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+<<<<<<< HEAD
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 )
+=======
+>>>>>>> 219e6a19a9e31be40f45ee78b5ab14e33b92de29
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -135,5 +141,8 @@ MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 CSS_URL = '/css/'
+<<<<<<< HEAD
 LOGIN_URL = '/rango/login/'
 
+=======
+>>>>>>> 219e6a19a9e31be40f45ee78b5ab14e33b92de29
