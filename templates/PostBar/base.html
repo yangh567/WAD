@@ -12,7 +12,7 @@
 <body>
     <div class="navbar">
 
-        <a href="#">Post Bar</a>
+        <a href="{% url 'index' %}">Post Bar</a>
 		
 
         <div class="dropdown">
@@ -30,7 +30,7 @@
         <input type="text" placeholder="Search..">
 
         <a href="#">Add Question</a>
-        <a href="#">About</a>
+        <a href="{% url 'about' %}">About</a>
 		
 		
 		{% if user.is_authenticated %}

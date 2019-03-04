@@ -2,11 +2,10 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	Register
+	<title>Register</title>
 {% endblock %}
 
 {% block body_block %}
-	<h1>Register</h1>
 	{% if registered %}
 		<a href="{% url 'index' %}"> You are registered! </a><br />
 	{% else %}
