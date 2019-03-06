@@ -1,13 +1,11 @@
-from django.contrib.auth.models import User
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from PostBar.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect, HttpResponse
-from django.core.urlresolvers import reverse
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 
+from PostBar.forms import UserForm, UserProfileForm
 from PostBar.models import UserProfile
 
 
@@ -129,17 +127,12 @@ def user_logout(request):
     return HttpResponseRedirect(reverse('index'))
 
 
-@login_required
-def user_profile_detail(request, user_id):
+# @login_required
+def user_profile_detail(request, user_id: int):
     """view the user profile"""
-    profile_user = User.objects.get(id=user_id)
-    if profile_user:
-        profile = profile_user.userprofile
-    else:
-        profile = request.user.userprofile
     return render(request,
                   'PostBar/user_profile_detail.html',
-                  {'profile_form': profile})
+                  {'profile_form': get_object_or_404(UserProfile, user_id=user_id)})
 
 
 @login_required
@@ -147,7 +140,7 @@ def edit_user_profile(request):
     """edit the user profile or start an edition of user profile
     if the edition is success redirect back to the users own detail page
     """
-    user: User = request.user
+    user= request.user
     # edition if it is a post and one can only edit profile of itself
     if request.method == 'POST':
         # Get the form from update data and login user
@@ -157,7 +150,7 @@ def edit_user_profile(request):
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
             profile.save()
-            return redirect("user_profile_detail")
+            return redirect("user_profile_detail", user.id)
         else:
             print(profile_form.errors)
     else:
@@ -169,12 +162,60 @@ def edit_user_profile(request):
 
 
 # @login_required
-def user_profile_list(request):
-    print("here")
+def user_profile_list(request, page):
+    """page the user_profile_list and return """
     query_name = request.GET.get('query_name')
     query_location = request.GET.get('query_location')
     user_profiles = UserProfile.objects.filter(user__username__iexact=query_name, location__iexact=query_location).all()
-    #
+    profiles = page_list(user_profiles, page)
     return render(request,
                   'PostBar/user_profile_list.html',
-                  {'profile_form': user_profiles})
+                  {'profile_form': profiles})
+
+
+def following_list(request, user_id, page):
+    """page the flowing list and return """
+    user_profile = get_object_or_404(UserProfile, user_id=user_id)
+    followers = page_list(user_profile.followings.all(), page)
+    return render(request,
+                  'PostBar/following_list.html',
+                  {"followers": followers})
+
+
+def follower_list(request, user_id, page):
+    """page the follower list and return follower paginator"""
+    user_profile = get_object_or_404(UserProfile, user_id=user_id)
+    followers = page_list(user_profile.followers.all(), page)
+    return render(request,
+                  'PostBar/following_list.html',
+                  {"followers": followers})
+
+
+def page_list(object_list, page, max_page_number=25):
+    """take an object list and page it
+    return a paginator
+    """
+    paginator = Paginator(object_list, max_page_number)
+    if paginator.num_pages < page: page = 1
+    followers = paginator.page(page)
+    return followers
+
+
+@login_required
+def add_following(request):
+    """if id is right add to following then redirect"""
+    user= request.user
+    if request.method == 'POST':
+        follow_id = request.POST.get('follow_id')
+        user.userprofile.add_following(follow_id)
+        redirect("following_list", user.id, 1)
+
+
+@login_required
+def delete_following(request):
+    """if id is right delete the following then redirect"""
+    user= request.user
+    if request.method == 'POST':
+        follow_id = request.POST.get('follow_id')
+        user.userprofile.delete_following(follow_id)
+        redirect("following_list", user.id, 1)
