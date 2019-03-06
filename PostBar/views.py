@@ -165,11 +165,13 @@ def edit_user_profile(request):
                   {'profile_form': profile_form})
 
 
-@login_required
+# @login_required
 def user_profile_list(request):
+    print("here")
     query_name = request.GET.get('query_name')
     query_location = request.GET.get('query_location')
-    user_profiles = UserProfile.objects.filter(user__username__iexact=query_name, location__iexact=query_location)
+    user_profiles = UserProfile.objects.filter(user__username__iexact=query_name, location__iexact=query_location).all()
+    #
     return render(request,
                   'PostBar/user_profile_list.html',
                   {'profile_form': user_profiles})
