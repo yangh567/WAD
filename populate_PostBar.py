@@ -139,3 +139,4 @@ if __name__ == '__main__':
     gen_save(Category)
     gen_save(Question, 20)
     gen_save(Answer, 50)
+    gen_save(UserProfile, 10)
