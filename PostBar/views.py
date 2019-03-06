@@ -7,13 +7,15 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
+
 def index(request):
-    context_dict = {'boldmessage':"How's the day"}
+    context_dict = {'boldmessage': "How's the day"}
     return render(request, 'PostBar/index.html', context=context_dict)
 
+
 def about(request):
-	context_dict = {'boldmessage':"Zhouyang shen    ,   Yixuan Dai   ,   Ming Ho Wu"}
-	return render(request, 'PostBar/about.html', context=context_dict)
+    context_dict = {'boldmessage': "Zhouyang shen    ,   Yixuan Dai   ,   Ming Ho Wu"}
+    return render(request, 'PostBar/about.html', context=context_dict)
 
 
 def register(request):
@@ -45,7 +47,7 @@ def register(request):
             profile.user = user
             # Did the user provide a profile picture?
             # If so, we need to get it from the input form and
-            #put it in the UserProfile model.
+            # put it in the UserProfile model.
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
             # Now we save the UserProfile model instance.
@@ -113,6 +115,7 @@ def user_login(request):
 def restricted(request):
     return HttpResponse("Since you're logged in, you can see this text!")
 
+
 # Use the login_required() decorator to ensure only those logged in can
 # access the view.
 @login_required
@@ -121,3 +124,8 @@ def user_logout(request):
     logout(request)
     # Take the user back to the homepage.
     return HttpResponseRedirect(reverse('index'))
+
+
+@login_required
+def user_profile(request):
+    pass
