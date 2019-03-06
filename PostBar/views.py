@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
 from PostBar.forms import UserForm, UserProfileForm
@@ -6,6 +7,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+
+from PostBar.models import UserProfile
 
 
 def index(request):
@@ -127,5 +130,46 @@ def user_logout(request):
 
 
 @login_required
-def user_profile(request):
-    pass
+def user_profile_detail(request, user_id):
+    """view the user profile"""
+    profile_user = User.objects.get(id=user_id)
+    if profile_user:
+        profile = profile_user.userprofile
+    else:
+        profile = request.user.userprofile
+    return render(request,
+                  'PostBar/user_profile_detail.html',
+                  {'profile_form': profile})
+
+
+@login_required
+def edit_user_profile(request):
+    """edit the user profile or start and edition of user profile"""
+    user: User = request.user
+    # edition if it is a post and one can only edit profile of itself
+    if request.method == 'POST':
+        # Get the form from update data and login user
+        profile_form = UserProfileForm(data=request.POST, instance=user.userprofile)
+        if profile_form.is_valid():
+            profile = profile_form.save(commit=False)
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+            profile.save()
+        else:
+            print(profile_form.errors)
+    else:
+        # generate user profile from user
+        profile_form = UserProfileForm(instance=user.user_profile)
+    return render(request,
+                  'PostBar/edit_user_profile.html',
+                  {'profile_form': profile_form})
+
+
+@login_required
+def user_profile_list(request):
+    query_name = request.GET.get('query_name')
+    query_location = request.GET.get('query_location')
+    user_profiles = UserProfile.objects.filter(user__username__iexact=query_name, location__iexact=query_location)
+    return render(request,
+                  'PostBar/user_profile_list.html',
+                  {'profile_form': user_profiles})

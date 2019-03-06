@@ -9,5 +9,7 @@ urlpatterns = [
     url(r'^login/$', views.user_login, name='login'),
     url(r'^restricted/', views.restricted, name='restricted'),
     url(r'^logout/$', views.user_logout, name='logout'),
-    url(r'^userprofile/$', views.user_logout, name='userprofile'),
+    url(r'^user_profile/detail/(?P<user_id>\d+)/$', views.user_profile_detail, name='user_profile_detail'),
+    url(r'^user_profile/edit$', views.edit_user_profile, name='edit_user_profile'),
+    url(r'^user_profile/list$', views.edit_user_profile, name='user_profile_list'),
 ]
