@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from PostBar.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
@@ -144,7 +144,9 @@ def user_profile_detail(request, user_id):
 
 @login_required
 def edit_user_profile(request):
-    """edit the user profile or start and edition of user profile"""
+    """edit the user profile or start an edition of user profile
+    if the edition is success redirect back to the users own detail page
+    """
     user: User = request.user
     # edition if it is a post and one can only edit profile of itself
     if request.method == 'POST':
@@ -155,6 +157,7 @@ def edit_user_profile(request):
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
             profile.save()
+            return redirect("user_profile_detail")
         else:
             print(profile_form.errors)
     else:
