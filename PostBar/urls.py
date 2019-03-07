@@ -2,7 +2,7 @@ from django.conf.urls import url
 from PostBar import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.QuestionListView.as_view(), name='index'),
     url(r'^about/', views.about, name='about'),
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.user_login, name='login'),
@@ -20,13 +20,20 @@ urlpatterns = [
     url(r'^add_following/$', views.add_following, name='add_following'),
     url(r'^delete_following/$', views.delete_following, name='delete_following'),
 
+    # user profile
+    # url(r'^user_profile_detail/(?P<pk>\d+)$', views.UserProfileDetail.as_view(), name='user_profile_detail'),
+
     # Category
     url(r'^category_update/(?P<pk>\d+)$', views.CategoryUpdateView.as_view(), name='category_update'),
     url(r'^category_detail/(?P<pk>\d+)$', views.CategoryDetailView.as_view(), name='category_detail'),
     url(r'^category_list$', views.CategoryListView.as_view(), name='category_list'),
 
     # question
+    url(r'^question_create/$', views.QuestionCreateView.as_view(), name='question_create'),
     url(r'^question_update/(?P<pk>\d+)$', views.QuestionUpdateView.as_view(), name='question_update'),
     url(r'^question_detail/(?P<pk>\d+)$', views.QuestionDetailView.as_view(), name='question_detail'),
-    url(r'^question_list$', views.QuestionListView.as_view(), name='question_list')
+    url(r'^question_list$', views.QuestionListView.as_view(), name='question_list'),
+
+    # answer
+    url(r'^answer_detail/(?P<question_id>\d+)$', views.QuestionUpdateView.as_view(), name='answer_detail'),
 ]

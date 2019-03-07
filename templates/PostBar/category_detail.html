@@ -1,2 +1,6 @@
-<h1>category id: {{ object.id }}</h1>
-<p>name: {{ object.name }}</p>
+{% extends 'PostBar/base.html' %}
+{% block body_block %}
+    <h1>category id: {{ object.id }}</h1>
+    <p>name: {{ object.name }}</p>
+    <a href="{% url 'question_list' %}?page=1&category_id={{ object.id }}">questions</a>
+{% endblock %}

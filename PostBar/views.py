@@ -3,14 +3,14 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.db.models import QuerySet
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404, reverse
-from django.views.generic import DetailView, ListView
-from django.views.generic.edit import UpdateView
+from django.views.generic import DetailView, ListView, FormView
+from django.views.generic.edit import ModelFormMixin, CreateView, FormMixin
 
-from PostBar.forms import UserForm, UserProfileForm
-from PostBar.models import UserProfile, Category, Question
+from PostBar.meta_views import IUpdateView, IDetailView, IListView, ICreateView
+from PostBar.forms import UserForm, UserProfileForm, QuestionForm
+from PostBar.models import UserProfile, Category, Question, Answer
 
 
 def index(request):
@@ -131,7 +131,6 @@ def user_logout(request):
     return HttpResponseRedirect(reverse('index'))
 
 
-# @login_required
 def user_profile_detail(request, user_id: int):
     """view the user profile"""
     return render(request,
@@ -225,51 +224,9 @@ def delete_following(request):
         redirect("following_list", user.id, 1)
 
 
-class IUpdateView(UpdateView, LoginRequiredMixin):
-    template_name_suffix = '_update'
-
-    def dispatch(self, request, *args, **kwargs):
-        return super(IUpdateView, self).dispatch(request, *args, **kwargs)
-
-
-class IDetailView(UpdateView):
-    template_name_suffix = '_detail'
-
-
-class IListView(ListView):
-    template_name_suffix = '_list'
-    filter_keys = []
-    ordering = None
-
-    def get_queryset(self):
-        new_context: QuerySet = self.model.objects.filter(**self.get_filter_kwargs())
-        ordering = self.request.GET.get("ordering", None)
-        self.ordering = ordering if ordering else self.ordering
-        if self.ordering is not None:
-            new_context = new_context.order_by(self.ordering)
-            # new_context["ordering"]
-        return new_context
-
-    def get_filter_kwargs(self):
-        kwargs = {}
-        for key in self.filter_keys:
-            value = self.request.GET.get(key, None)
-            if value:
-                kwargs.setdefault(key, value)
-        return kwargs
-
-    def get_context_data(self, **kwargs):
-        """add filter keys back to context so you can get it from template"""
-        context = super().get_context_data(**kwargs)
-        for key in self.filter_keys:
-            value = self.request.GET.get(key, None)
-            if value:
-                context.setdefault(key, value)
-
-        ordering = self.request.GET.get("ordering", None)
-        self.ordering = ordering if ordering else self.ordering
-        context["ordering"] = self.ordering
-        return context
+# @login_required
+class UserProfileDetail(FormView):
+    model = UserProfileForm
 
 
 class CategoryUpdateView(IUpdateView):
@@ -277,14 +234,26 @@ class CategoryUpdateView(IUpdateView):
     fields = ['name']
 
 
-class CategoryDetailView(DetailView):
+class CategoryDetailView(IDetailView):
     model = Category
+    fields = ['name']
 
 
 class CategoryListView(ListView):
     model = Category
     context_object_name = "category_list"
     paginate_by = 5
+
+
+class QuestionCreateView(ICreateView):
+    model = Question
+    fields = ['title', 'content', 'category']
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        m = form.save(commit=False)
+        m.user = self.request.user
+        return form
 
 
 class QuestionUpdateView(IUpdateView):
@@ -298,13 +267,50 @@ class QuestionUpdateView(IUpdateView):
         return obj
 
 
-class QuestionDetailView(DetailView):
+class QuestionDetailView(IDetailView):
     model = Question
 
 
 class QuestionListView(IListView):
     model = Question
     context_object_name = "question_list"
-    paginate_by = 5
+    paginate_by = 3
     ordering = 'title'
     filter_keys = ['category_id']
+
+    def get_queryset(self):
+        """ search for question title
+        """
+        new_context = super().get_queryset()
+        new_context = new_context.filter(**self.get_filter_kwargs())
+        query = self.request.GET.get("query")
+        print(query)
+        if query:
+            new_context = new_context.filter(title__contains=query)
+        return new_context
+
+    def get_context_data(self, **kwargs):
+        """add filter keys back to context so you can get it from template"""
+        query = self.request.GET.get("query")
+        context = super().get_context_data(**kwargs)
+        if query:
+            context["query"] = query
+        return context
+
+
+class AnswerListView(IListView):
+    model = Answer
+    context_object_name = "answers_list"
+    paginate_by = 5
+    ordering = 'last_modified'
+    filter_keys = ['Question_id']
+
+    # def get_context_data(self, **kwargs):
+    #     """add filter keys back to context so you can get it from template"""
+    #     context = super().get_context_data(**kwargs)
+    #     return context
+
+    def get_queryset(self):
+        new_context = super().get_queryset()
+        new_context = self.model.objects.filter(**self.get_filter_kwargs())
+        return new_context

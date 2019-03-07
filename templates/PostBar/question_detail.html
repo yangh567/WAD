@@ -1,7 +1,10 @@
-<p>category name: {{ object.category.name }}</p>
-<p>id: {{ object.id }}</p>
-<p>title: {{ object.title }}</p>
-<p>content: {{ object.content }}</p>
-<p>likes: {{ object.likes }}</p>
-<p>completed: {{ object.views }}</p>
-<p>last modified: {{ object.last_modified }}</p>
+{% extends 'PostBar/base.html' %}
+{% block body_block %}
+    <p>category name: {{ object.category.name }}</p>
+    <p>id: {{ object.id }}</p>
+    <p>title: {{ object.title }}</p>
+    <p>content: {{ object.content }}</p>
+    <p>likes: {{ object.likes }}</p>
+    <p>completed: {{ object.views }}</p>
+    <p>last modified: {{ object.last_modified }}</p>
+{% endblock %}

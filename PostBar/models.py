@@ -9,7 +9,7 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
 
-    def get_absolute_url(self, ):
+    def get_absolute_url(self):
         return reverse('category_detail', args=[self.id])
 
 
@@ -24,7 +24,7 @@ class Question(models.Model):
     user = models.ForeignKey(User, related_name="questions", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name="questions", on_delete=models.CASCADE)
 
-    def get_absolute_url(self, ):
+    def get_absolute_url(self):
         return reverse('question_detail', args=[self.id])
 
 
@@ -36,6 +36,9 @@ class Answer(models.Model):
 
     question = models.ForeignKey(Question, related_name="answers", on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name="answers", on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return reverse('category_detail', args=[self.id])
 
 
 class UserProfile(models.Model):
@@ -61,6 +64,9 @@ class UserProfile(models.Model):
             self.followings.remove(user.userprofile)
             return True
         return False
+
+    def get_absolute_url(self):
+        return reverse('category_detail', args=[self.id])
 
     def __str__(self):
         return self.user.username

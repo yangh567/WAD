@@ -1,29 +1,49 @@
-{% if question_list %}
-    <table id="question">
-        {% for question in question_list %}
-            <tr>
-                <td>{{ question.title }}</td>
-                <td>{{ question.last_modified }}</td>
-                <td><a href="{% url 'question_detail' question.id %}" class="see_detail">detail</a></td>
-            </tr>
-        {% endfor %}
-    </table>
-    {% if is_paginated %}
-        <div class="pagination">
+{% extends 'PostBar/base.html' %}
+{% block title_block %}
+    <title>Home</title>
+{% endblock %}
+
+{% block body_block %}
+    <div class="title">
+        {% if category_id %}
+            <strong>{{ question_list.0.category.name }} category</strong>
+        {% else %}
+            <strong>popular questions</strong>
+        {% endif %}
+    </div>
+
+    <hr/>
+
+    <div class="content">
+        {% if question_list %}
+            <table id="question">
+                {% for question in question_list %}
+                    <tr>
+                        <td>{{ question.title }}</td>
+                        <td>{{ question.last_modified }}</td>
+                        <td><a href="{% url 'question_detail' question.id %}" class="see_detail">detail</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {% if is_paginated %}
+                <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
-                    <a href="{% url 'question_list' %}?page={{ page_obj.previous_page_number }}&category_id={{ category_id }}&ordering={{ ordering }}">previous</a>
+                    <a href="{% url 'question_list' %}?page={{ page_obj.previous_page_number }}&category_id={{ category_id }}&ordering={{ ordering }}&query={{ query }}">previous</a>
                 {% endif %}
                 <span class="page-current">
                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                 </span>
                 {% if page_obj.has_next %}
-                    <a href="{% url 'question_list' %}?page={{ page_obj.next_page_number }}&category_id={{ category_id }}&ordering={{ ordering }}">previous</a>
+                    <a href="{% url 'question_list' %}?page={{ page_obj.next_page_number }}&category_id={{ category_id }}&ordering={{ ordering }}&query={{ query }}">previous</a>
                 {% endif %}
             </span>
-        </div>
-    {% endif %}
-{% else %}
-    <h3>My question</h3>
-    <p>No question found!!! :(</p>
-{% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            <h3>My question</h3>
+            <p>No question found!!! :(</p>
+        {% endif %}
+    </div>
+
+{% endblock %}
