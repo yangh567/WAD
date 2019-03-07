@@ -12,6 +12,8 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('category_detail', args=[self.id])
 
+    def __str__(self):
+        return self.name
 
 class Question(models.Model):
     title = models.CharField(max_length=128)
@@ -24,8 +26,17 @@ class Question(models.Model):
     user = models.ForeignKey(User, related_name="questions", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name="questions", on_delete=models.CASCADE)
 
+    def get_answers(self):
+        return self.answers.all()
+
+    def add_views(self):
+        self.views += 1
+        self.save()
+
     def get_absolute_url(self):
         return reverse('question_detail', args=[self.id])
+
+
 
 
 class Answer(models.Model):
@@ -38,7 +49,7 @@ class Answer(models.Model):
     user = models.ForeignKey(User, related_name="answers", on_delete=models.CASCADE)
 
     def get_absolute_url(self):
-        return reverse('category_detail', args=[self.id])
+        return reverse('answer_detail', args=[self.id])
 
 
 class UserProfile(models.Model):
@@ -55,6 +66,7 @@ class UserProfile(models.Model):
         user = User.objects.get(user_id=user_id)
         if user:
             self.followings.add(user.userprofile)
+            self.save()
             return True
         return False
 
@@ -62,6 +74,7 @@ class UserProfile(models.Model):
         user = User.objects.get(user_id=user_id)
         if user:
             self.followings.remove(user.userprofile)
+            self.save()
             return True
         return False
 

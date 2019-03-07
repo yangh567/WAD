@@ -1,16 +1,16 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from django.db.models import Count
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404, reverse
-from django.views.generic import DetailView, ListView, FormView
-from django.views.generic.edit import ModelFormMixin, CreateView, FormMixin
+from django.views.generic import ListView
 
 from PostBar.meta_views import IUpdateView, IDetailView, IListView, ICreateView
-from PostBar.forms import UserForm, UserProfileForm, QuestionForm
+from PostBar.forms import UserForm, UserProfileForm
 from PostBar.models import UserProfile, Category, Question, Answer
+from PostBar.util import to_int
 
 
 def index(request):
@@ -224,9 +224,10 @@ def delete_following(request):
         redirect("following_list", user.id, 1)
 
 
-# @login_required
-class UserProfileDetail(FormView):
-    model = UserProfileForm
+### Category
+class CategoryCreateView(ICreateView):
+    model = Category
+    fields = ['name']
 
 
 class CategoryUpdateView(IUpdateView):
@@ -245,15 +246,18 @@ class CategoryListView(ListView):
     paginate_by = 5
 
 
+### Question
 class QuestionCreateView(ICreateView):
     model = Question
     fields = ['title', 'content', 'category']
 
     def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        m = form.save(commit=False)
-        m.user = self.request.user
-        return form
+        """fetch in a user to the form if it is a post"""
+        if self.request.method == 'POST':
+            form = super().get_form(form_class)
+            m = form.save(commit=False)
+            m.user = self.request.user
+            return form
 
 
 class QuestionUpdateView(IUpdateView):
@@ -270,12 +274,24 @@ class QuestionUpdateView(IUpdateView):
 class QuestionDetailView(IDetailView):
     model = Question
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        object: Question = self.get_object()
+        object.add_views()
+
+        page = to_int(self.request.GET.get('page'))
+        page_obj = page_list(object.answers.all(), page, 5)
+        context["is_paginated"] = True
+        context['page_obj'] = page_obj
+        context['answer_list'] = page_obj.object_list
+        return context
+
 
 class QuestionListView(IListView):
     model = Question
     context_object_name = "question_list"
     paginate_by = 3
-    ordering = 'title'
+    ordering = 'last_modified'
     filter_keys = ['category_id']
 
     def get_queryset(self):
@@ -284,33 +300,58 @@ class QuestionListView(IListView):
         new_context = super().get_queryset()
         new_context = new_context.filter(**self.get_filter_kwargs())
         query = self.request.GET.get("query")
-        print(query)
         if query:
             new_context = new_context.filter(title__contains=query)
+        # new_context = new_context.annotate(num_submissions=Count('answers')).order_by('-answers')
         return new_context
 
     def get_context_data(self, **kwargs):
         """add query keys back to context so you can get it from template"""
-        query = self.request.GET.get("query")
         context = super().get_context_data(**kwargs)
+        query = self.request.GET.get("query")
         if query:
             context["query"] = query
         return context
 
 
+### Answer
 class AnswerListView(IListView):
     model = Answer
     context_object_name = "answers_list"
     paginate_by = 5
     ordering = 'last_modified'
-    filter_keys = ['Question_id']
+    filter_keys = ['question_id']
 
-    # def get_context_data(self, **kwargs):
-    #     """add filter keys back to context so you can get it from template"""
-    #     context = super().get_context_data(**kwargs)
-    #     return context
 
-    def get_queryset(self):
-        new_context = super().get_queryset()
-        new_context = self.model.objects.filter(**self.get_filter_kwargs())
-        return new_context
+class AnswerCreateView(ICreateView):
+    model = Answer
+    fields = ['content']
+
+    def get_form(self, form_class=None):
+        """get the form and attach users"""
+        try:
+            question_id = self.kwargs['question_id']
+            question = Question.objects.get(id=question_id)
+        except:
+            raise Http404
+        else:
+            form = super().get_form(form_class)
+            m: Answer = form.save(commit=False)
+            m.user = self.request.user
+            m.question = question
+            return form
+
+
+class AnswerDetailView(IDetailView):
+    model = Answer
+
+
+class AnswerUpdateView(IUpdateView):
+    model = Answer
+    fields = ['content']
+
+    def get_object(self, *args, **kwargs):
+        obj: Answer = super().get_object(*args, **kwargs)
+        if not obj.user == self.request.user:
+            raise Http404
+        return obj

@@ -3,19 +3,23 @@ from django.db.models import QuerySet
 from django.views.generic import UpdateView, ListView, FormView, DetailView, CreateView
 
 
-class ICreateView(CreateView, LoginRequiredMixin):
+class ILoginRequiredMixin(LoginRequiredMixin):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
+
+class ICreateView(ILoginRequiredMixin, CreateView):
+    """ in order to create user have login  """
     template_name_suffix = '_Create'
 
 
-class IUpdateView(UpdateView, LoginRequiredMixin):
+class IUpdateView(ILoginRequiredMixin, UpdateView):
+    """ in order to create user have login  """
+
     template_name_suffix = '_update'
 
     def dispatch(self, request, *args, **kwargs):
         return super(IUpdateView, self).dispatch(request, *args, **kwargs)
-
-
-class IFormView(FormView):
-    template_name_suffix = '_detail'
 
 
 class IDetailView(DetailView):

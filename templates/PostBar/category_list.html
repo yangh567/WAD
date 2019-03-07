@@ -1,5 +1,7 @@
 {% extends 'PostBar/base.html' %}
 {% block body_block %}
+    <a href="{% url 'category_create' %}">category_create</a>
+
     {% if category_list %}
         <table id="category">
             {% for category in category_list %}

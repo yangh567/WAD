@@ -24,6 +24,7 @@ urlpatterns = [
     # url(r'^user_profile_detail/(?P<pk>\d+)$', views.UserProfileDetail.as_view(), name='user_profile_detail'),
 
     # Category
+    url(r'^category_create/$', views.CategoryCreateView.as_view(), name='category_create'),
     url(r'^category_update/(?P<pk>\d+)$', views.CategoryUpdateView.as_view(), name='category_update'),
     url(r'^category_detail/(?P<pk>\d+)$', views.CategoryDetailView.as_view(), name='category_detail'),
     url(r'^category_list$', views.CategoryListView.as_view(), name='category_list'),
@@ -35,5 +36,8 @@ urlpatterns = [
     url(r'^question_list$', views.QuestionListView.as_view(), name='question_list'),
 
     # answer
-    url(r'^answer_detail/(?P<question_id>\d+)$', views.QuestionUpdateView.as_view(), name='answer_detail'),
+    url(r'^answer_detail/(?P<pk>\d+)$', views.AnswerDetailView.as_view(), name='answer_detail'),
+    url(r'^answer_create/(?P<question_id>\d+)$', views.AnswerCreateView.as_view(), name='answer_create'),
+    url(r'^answer_update/(?P<pk>\d+)$', views.AnswerUpdateView.as_view(), name='answer_update'),
+
 ]
