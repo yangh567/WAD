@@ -1,12 +1,16 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect, HttpResponse
+from django.db.models import QuerySet
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404, reverse
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import UpdateView
 
 from PostBar.forms import UserForm, UserProfileForm
-from PostBar.models import UserProfile
+from PostBar.models import UserProfile, Category, Question
 
 
 def index(request):
@@ -140,7 +144,7 @@ def edit_user_profile(request):
     """edit the user profile or start an edition of user profile
     if the edition is success redirect back to the users own detail page
     """
-    user= request.user
+    user = request.user
     # edition if it is a post and one can only edit profile of itself
     if request.method == 'POST':
         # Get the form from update data and login user
@@ -204,7 +208,7 @@ def page_list(object_list, page, max_page_number=25):
 @login_required
 def add_following(request):
     """if id is right add to following then redirect"""
-    user= request.user
+    user = request.user
     if request.method == 'POST':
         follow_id = request.POST.get('follow_id')
         user.userprofile.add_following(follow_id)
@@ -214,8 +218,93 @@ def add_following(request):
 @login_required
 def delete_following(request):
     """if id is right delete the following then redirect"""
-    user= request.user
+    user = request.user
     if request.method == 'POST':
         follow_id = request.POST.get('follow_id')
         user.userprofile.delete_following(follow_id)
         redirect("following_list", user.id, 1)
+
+
+class IUpdateView(UpdateView, LoginRequiredMixin):
+    template_name_suffix = '_update'
+
+    def dispatch(self, request, *args, **kwargs):
+        return super(IUpdateView, self).dispatch(request, *args, **kwargs)
+
+
+class IDetailView(UpdateView):
+    template_name_suffix = '_detail'
+
+
+class IListView(ListView):
+    template_name_suffix = '_list'
+    filter_keys = []
+    ordering = None
+
+    def get_queryset(self):
+        new_context: QuerySet = self.model.objects.filter(**self.get_filter_kwargs())
+        ordering = self.request.GET.get("ordering", None)
+        self.ordering = ordering if ordering else self.ordering
+        if self.ordering is not None:
+            new_context = new_context.order_by(self.ordering)
+            # new_context["ordering"]
+        return new_context
+
+    def get_filter_kwargs(self):
+        kwargs = {}
+        for key in self.filter_keys:
+            value = self.request.GET.get(key, None)
+            if value:
+                kwargs.setdefault(key, value)
+        return kwargs
+
+    def get_context_data(self, **kwargs):
+        """add filter keys back to context so you can get it from template"""
+        context = super().get_context_data(**kwargs)
+        for key in self.filter_keys:
+            value = self.request.GET.get(key, None)
+            if value:
+                context.setdefault(key, value)
+
+        ordering = self.request.GET.get("ordering", None)
+        self.ordering = ordering if ordering else self.ordering
+        context["ordering"] = self.ordering
+        return context
+
+
+class CategoryUpdateView(IUpdateView):
+    model = Category
+    fields = ['name']
+
+
+class CategoryDetailView(DetailView):
+    model = Category
+
+
+class CategoryListView(ListView):
+    model = Category
+    context_object_name = "category_list"
+    paginate_by = 5
+
+
+class QuestionUpdateView(IUpdateView):
+    model = Question
+    fields = ['title', 'content']
+
+    def get_object(self, *args, **kwargs):
+        obj: Question = super().get_object(*args, **kwargs)
+        if not obj.user == self.request.user:
+            raise Http404
+        return obj
+
+
+class QuestionDetailView(DetailView):
+    model = Question
+
+
+class QuestionListView(IListView):
+    model = Question
+    context_object_name = "question_list"
+    paginate_by = 5
+    ordering = 'title'
+    filter_keys = ['category_id']

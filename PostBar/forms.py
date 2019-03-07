@@ -2,7 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django import forms
 from django.contrib.auth.models import User
-from PostBar.models import UserProfile
+from PostBar.models import UserProfile, Question
+
 
 def index(request):
     context_dict = {'boldmessage':"How's the day"}
@@ -27,4 +28,10 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('website', 'picture', 'location', 'background')
+
+
+# class QuestionUpdateForm(forms.ModelForm):
+#     class Meta:
+#         model = Question
+#         fields = ['title', 'content']
 

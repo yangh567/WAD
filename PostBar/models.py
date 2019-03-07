@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import reverse
 
 
 class Category(models.Model):
@@ -7,6 +8,9 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'Categories'
+
+    def get_absolute_url(self, ):
+        return reverse('category_detail', args=[self.id])
 
 
 class Question(models.Model):
@@ -19,6 +23,9 @@ class Question(models.Model):
 
     user = models.ForeignKey(User, related_name="questions", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name="questions", on_delete=models.CASCADE)
+
+    def get_absolute_url(self, ):
+        return reverse('question_detail', args=[self.id])
 
 
 class Answer(models.Model):
