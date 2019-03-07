@@ -19,6 +19,7 @@
             <table id="question">
                 {% for question in question_list %}
                     <tr>
+                        <td>likes: {{ question.likes }}</td>
                         <td>{{ question.title }}</td>
                         <td>{{ question.last_modified }}</td>
                         <td><a href="{% url 'question_detail' question.id %}" class="see_detail">detail</a></td>

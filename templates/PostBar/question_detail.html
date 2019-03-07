@@ -14,13 +14,22 @@
         <a href="{% url 'question_update' question.id %}" class="see_detail">edit</a>
     {% endif %}
 
-    <a href="{% url 'answer_create' object.id %}">create new answer</a>
+    <div>
+        <a href="{% url 'answer_create' object.id %}">create new answer</a>
+    </div>
+    <div>
+        <a href="{% url 'question_like_up' object.id %}">like it </a>
+    </div>
+
+    <div>
+        <a href="{% url 'question_like_down' object.id %}">unlike it </a>
+    </div>
 
     {% if answer_list %}
         <table id="answer">
             {% for answer in answer_list %}
                 <tr>
-                    <td>{{ answer.content }}</td>
+                    <td>{{ answer.preview }}</td>
                     <td>{{ answer.last_modified }}</td>
                     <td><a href="{% url 'answer_detail' answer.id %}" class="see_detail">detail</a></td>
                 </tr>

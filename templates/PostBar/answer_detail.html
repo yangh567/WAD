@@ -1,12 +1,20 @@
 {% extends 'PostBar/base.html' %}
 {% block body_block %}
-    <p>answer for title: {{ object.question.title }}</p>
+
+
+    <a href="{% url 'question_detail' object.question.id %}" class="see_detail">
+        answer for question: {{ object.question.title }}
+    </a>
     <p>id: {{ object.id }}</p>
     <p>content: {{ object.content }}</p>
     <p>last modified: {{ object.last_modified }}</p>
     <p>creator : {{ object.user.username }}</p>
+    <p>ranks: {{ object.rank_count}}</p>
     {# only the one create create the answer could edit it#}
     {% if user.is_authenticated and user.id == object.user.id %}
         <a href="{% url 'answer_update' answer.id %}" class="see_detail">edit</a>
     {% endif %}
+
+    <a href="{% url 'answer_rank_up' answer.id %}" class="see_detail">rank_up</a>
+    <a href="{% url 'answer_rank_down' answer.id %}" class="see_detail">rank_down</a>
 {% endblock %}

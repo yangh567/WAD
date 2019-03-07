@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from PostBar import views
+from PostBar.views import question_like_up, answer_rank_up, answer_rank_down, question_like_down
 
 urlpatterns = [
     url(r'^$', views.QuestionListView.as_view(), name='index'),
@@ -34,10 +35,14 @@ urlpatterns = [
     url(r'^question_update/(?P<pk>\d+)$', views.QuestionUpdateView.as_view(), name='question_update'),
     url(r'^question_detail/(?P<pk>\d+)$', views.QuestionDetailView.as_view(), name='question_detail'),
     url(r'^question_list$', views.QuestionListView.as_view(), name='question_list'),
+    url(r'^question_like_up/(?P<pk>\d+)$', views.question_like_up, name='question_like_up'),
+    url(r'^question_like_down/(?P<pk>\d+)$', views.question_like_down, name='question_like_down'),
 
     # answer
     url(r'^answer_detail/(?P<pk>\d+)$', views.AnswerDetailView.as_view(), name='answer_detail'),
     url(r'^answer_create/(?P<question_id>\d+)$', views.AnswerCreateView.as_view(), name='answer_create'),
     url(r'^answer_update/(?P<pk>\d+)$', views.AnswerUpdateView.as_view(), name='answer_update'),
+    url(r'^answer_rank_up/(?P<pk>\d+)$', views.answer_rank_up, name='answer_rank_up'),
+    url(r'^answer_rank_down/(?P<pk>\d+)$', views.answer_rank_down, name='answer_rank_down'),
 
 ]

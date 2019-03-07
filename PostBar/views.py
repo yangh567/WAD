@@ -253,11 +253,11 @@ class QuestionCreateView(ICreateView):
 
     def get_form(self, form_class=None):
         """fetch in a user to the form if it is a post"""
+        form = super().get_form(form_class)
         if self.request.method == 'POST':
-            form = super().get_form(form_class)
             m = form.save(commit=False)
             m.user = self.request.user
-            return form
+        return form
 
 
 class QuestionUpdateView(IUpdateView):
@@ -277,10 +277,12 @@ class QuestionDetailView(IDetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         object: Question = self.get_object()
-        object.add_views()
+
+        if self.request.user.is_authenticated:
+            object.add_views(self.request.user)
 
         page = to_int(self.request.GET.get('page'))
-        page_obj = page_list(object.answers.all(), page, 5)
+        page_obj = page_list(object.answers.all().order_by('-last_modified'), page, 5)
         context["is_paginated"] = True
         context['page_obj'] = page_obj
         context['answer_list'] = page_obj.object_list
@@ -291,7 +293,7 @@ class QuestionListView(IListView):
     model = Question
     context_object_name = "question_list"
     paginate_by = 3
-    ordering = 'last_modified'
+    ordering = '-likes'
     filter_keys = ['category_id']
 
     def get_queryset(self):
@@ -355,3 +357,34 @@ class AnswerUpdateView(IUpdateView):
         if not obj.user == self.request.user:
             raise Http404
         return obj
+
+
+@login_required
+def question_like_up(request, pk):
+    question: Question = get_object_or_404(Question, pk=pk)
+    if request.user.is_authenticated():
+        question.add_likes(request.user)
+
+    return redirect("question_detail", pk)
+
+@login_required
+def question_like_down(request, pk):
+    question: Question = get_object_or_404(Question, pk=pk)
+    if request.user.is_authenticated():
+        question.sub_likes(request.user)
+    return redirect("question_detail", pk)
+
+
+@login_required
+def answer_rank_up(request, pk):
+    answer: Answer = get_object_or_404(Answer, pk=pk)
+    if request.user.is_authenticated():
+        answer.add_ranks(request.user)
+    return redirect("answer_detail", pk)
+
+@login_required
+def answer_rank_down(request, pk):
+    answer: Answer = get_object_or_404(Answer, pk=pk)
+    if request.user.is_authenticated():
+        answer.sub_ranks(request.user)
+    return redirect("answer_detail", pk)

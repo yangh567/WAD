@@ -15,13 +15,18 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Question(models.Model):
     title = models.CharField(max_length=128)
     content = models.TextField()
-    views = models.PositiveIntegerField(default=0)
-    likes = models.PositiveIntegerField(default=0)
     completed = models.BooleanField(default=False)
     last_modified = models.DateTimeField(auto_now=True)
+
+    viewed_users = models.ManyToManyField(User, related_name="viewed_questions")
+    views = models.PositiveIntegerField(default=0)
+
+    liked_users = models.ManyToManyField(User, related_name="liked_questions")
+    likes = models.PositiveIntegerField(default=0)
 
     user = models.ForeignKey(User, related_name="questions", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name="questions", on_delete=models.CASCADE)
@@ -29,27 +34,56 @@ class Question(models.Model):
     def get_answers(self):
         return self.answers.all()
 
-    def add_views(self):
-        self.views += 1
-        self.save()
+    def add_views(self, user):
+        if not self.viewed_users.filter(id=user.id).exists():
+            self.viewed_users.add(user)
+            self.views += 1
+            self.save()
+
+    def add_likes(self, user):
+        if not self.liked_users.filter(id=user.id).exists():
+            self.liked_users.add(user)
+            self.likes += 1
+            self.save()
+
+    def sub_likes(self, user):
+        if self.liked_users.filter(id=user.id).exists():
+            self.liked_users.remove(user)
+            self.likes -= 1
+            self.save()
 
     def get_absolute_url(self):
         return reverse('question_detail', args=[self.id])
-
-
 
 
 class Answer(models.Model):
     content = models.TextField()
     rank_points = models.IntegerField(default=0)
     rank_count = models.PositiveIntegerField(default=0)
+
+    ranked_users = models.ManyToManyField(User, related_name="ranked_answers")
     last_modified = models.DateTimeField(auto_now=True)
 
     question = models.ForeignKey(Question, related_name="answers", on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name="answers", on_delete=models.CASCADE)
 
+    def add_ranks(self, user):
+        if not self.ranked_users.filter(id=user.id).exists():
+            self.ranked_users.add(user)
+            self.rank_count += 1
+            self.save()
+
+    def sub_ranks(self, user):
+        if self.ranked_users.filter(id=user.id).exists():
+            self.ranked_users.remove(user)
+            self.rank_count -= 1
+            self.save()
+
     def get_absolute_url(self):
         return reverse('answer_detail', args=[self.id])
+
+    def preview(self):
+        return self.content[:50] + " ... "
 
 
 class UserProfile(models.Model):
