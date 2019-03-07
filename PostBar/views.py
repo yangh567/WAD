@@ -290,7 +290,7 @@ class QuestionListView(IListView):
         return new_context
 
     def get_context_data(self, **kwargs):
-        """add filter keys back to context so you can get it from template"""
+        """add query keys back to context so you can get it from template"""
         query = self.request.GET.get("query")
         context = super().get_context_data(**kwargs)
         if query:
