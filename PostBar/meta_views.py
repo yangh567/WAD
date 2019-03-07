@@ -32,16 +32,19 @@ class IListView(ListView):
     ordering = None
 
     def get_queryset(self):
-        new_context = super().get_queryset()
-        new_context: QuerySet = new_context.filter(**self.get_filter_kwargs())
+        """add additional constraint on query data set
+        first filter the data set
+        """
+        query_set = super().get_queryset()
+        query_set: QuerySet = query_set.filter(**self.get_filter_kwargs())
         ordering = self.request.GET.get("ordering", None)
         self.ordering = ordering if ordering else self.ordering
         if self.ordering is not None:
-            new_context = new_context.order_by(self.ordering)
-            # new_context["ordering"]
-        return new_context
+            query_set = query_set.order_by(self.ordering)
+        return query_set
 
     def get_filter_kwargs(self):
+        """get argument that appear in filter_keys and filter"""
         kwargs = {}
         for key in self.filter_keys:
             value = self.request.GET.get(key, None)
