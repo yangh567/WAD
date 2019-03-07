@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.shortcuts import reverse
@@ -20,7 +22,7 @@ class Question(models.Model):
     title = models.CharField(max_length=128)
     content = models.TextField()
     completed = models.BooleanField(default=False)
-    last_modified = models.DateTimeField(auto_now=True)
+    last_modified = models.DateTimeField(auto_now_add=True)
 
     viewed_users = models.ManyToManyField(User, related_name="viewed_questions")
     views = models.PositiveIntegerField(default=0)
@@ -30,6 +32,9 @@ class Question(models.Model):
 
     user = models.ForeignKey(User, related_name="questions", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name="questions", on_delete=models.CASCADE)
+
+    def update_last_modified(self):
+        self.last_modified = datetime.now()
 
     def get_answers(self):
         return self.answers.all()
@@ -62,10 +67,13 @@ class Answer(models.Model):
     rank_count = models.PositiveIntegerField(default=0)
 
     ranked_users = models.ManyToManyField(User, related_name="ranked_answers")
-    last_modified = models.DateTimeField(auto_now=True)
+    last_modified = models.DateTimeField(auto_now_add=True)
 
     question = models.ForeignKey(Question, related_name="answers", on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name="answers", on_delete=models.CASCADE)
+
+    def update_last_modified(self):
+        self.last_modified = datetime.now()
 
     def add_ranks(self, user):
         if not self.ranked_users.filter(id=user.id).exists():

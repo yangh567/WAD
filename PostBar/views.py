@@ -270,6 +270,12 @@ class QuestionUpdateView(IUpdateView):
             raise Http404
         return obj
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        question: Question = form.save(commit=False)
+        question.update_last_modified()
+        return form
+
 
 class QuestionDetailView(IDetailView):
     model = Question
@@ -358,6 +364,12 @@ class AnswerUpdateView(IUpdateView):
             raise Http404
         return obj
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        answer: Answer = form.save(commit=False)
+        answer.update_last_modified()
+        return form
+
 
 @login_required
 def question_like_up(request, pk):
@@ -366,6 +378,7 @@ def question_like_up(request, pk):
         question.add_likes(request.user)
 
     return redirect("question_detail", pk)
+
 
 @login_required
 def question_like_down(request, pk):
@@ -381,6 +394,7 @@ def answer_rank_up(request, pk):
     if request.user.is_authenticated():
         answer.add_ranks(request.user)
     return redirect("answer_detail", pk)
+
 
 @login_required
 def answer_rank_down(request, pk):
