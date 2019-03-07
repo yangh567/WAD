@@ -137,6 +137,6 @@ def save_all(objects: List[Category]):
 if __name__ == '__main__':
     gen_save(User)
     gen_save(Category)
-    gen_save(Question, 0)
+    gen_save(Question, 50)
     gen_save(Answer, 1500)
     gen_save(UserProfile, 10)
