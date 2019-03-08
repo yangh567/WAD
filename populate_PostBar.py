@@ -13,80 +13,112 @@ from django.contrib.auth.models import User
 
 
 def populate():
-    status = User.objects.filter(username='john', email='jlennon@beatles.com').exists()
-    if not status:
-        user = User.objects.create_user(username='john', email='jlennon@beatles.com', password='glass onion')
-    else:
-        user = User.objects.filter(username='john', email='jlennon@beatles.com').get()
+    user1, profile1 = create_or_get_user_profile("john", 'jlennon@beatles.com', "passowrd", "nyu", "a@b.com", "daycare")
+    user2, profile2 = create_or_get_user_profile("mary", 'mary@beatles.com', "passowrd", "nyu", "a@b.com", "daycare")
+    profile1.add_following(user2.id)
+    profile2.add_following(user1.id)
 
-    answers = [{"answer_id": 0,
-                "answer_content": "I can swim and you can not",
-                "answer_username": user.username,
-                "rank_counts": 12,
-                "rank_points": 115},
-               {"answer_id": 1,
-                "answer_content": "well that it to combine something togather",
-                "answer_username": user.username,
-                "rank_counts": 12,
-                "rank_points": 13},
-               {"answer_id": 2,
-                "answer_content": "study harder",
-                "answer_username": user.username,
-                "rank_counts": 2,
-                "rank_points": 23},
-               {"answer_id": 3,
-                "answer_content": "read them multiple times",
-                "answer_username": user.username,
-                "rank_counts": 12,
-                "rank_points": 13},
-               {"answer_id": 4,
-                "answer_content": "Yes of course ",
-                "answer_username": user.username,
-                "rank_counts": 12,
-                "rank_points": 131},
-               {"answer_id": 5,
-                "answer_content": "No doubt",
-                "answer_username": user.username, "rank_counts": 12,
-                "rank_points": 131}
-               ]
+    math_answers = [
+        {
+            "answer_content": "I can swim and you can not",
+            "answer_username": user1.username,
+            "rank_counts": 12,
+            "rank_points": 115},
+        {
+            "answer_content": "well that it to combine something togather",
+            "answer_username": user1.username,
+            "rank_counts": 12,
+            "rank_points": 13},
+    ]
 
-    math_questions = [{"question_title": "What is the differentiation?",
-                       "question_content": "I heard a lot about differentiation during hight school,what is that exactly",
-                       "username": user.username, "id": 0, "views": 31, "likes": 12, "question_isComplete": True,
-                       "latest_question_published": "2009-11-13",
-                       "answers": answers[:2]
-                       }]
+    computing_science_answers = [
+        {
+            "answer_content": "study harder",
+            "answer_username": user1.username,
+            "rank_counts": 2,
+            "rank_points": 23},
+        {
+            "answer_content": "read them multiple times",
+            "answer_username": user1.username,
+            "rank_counts": 12,
+            "rank_points": 13},
+    ]
+
+    other_answers = [
+        {
+            "answer_content": "Yes of course ",
+            "answer_username": user1.username,
+            "rank_counts": 12,
+            "rank_points": 131},
+        {
+            "answer_content": "No doubt",
+            "answer_username": user1.username, "rank_counts": 12,
+            "rank_points": 131}
+
+    ]
+
+    math_questions = [
+        {
+            "question_title": "What is the differentiation?",
+            "question_content": "I heard a lot about differentiation during hight school,what is that exactly",
+            "username": user1.username, "id": 0, "views": 31, "likes": 12, "question_isComplete": True,
+            "latest_question_published": "2009-11-13",
+            "answers": math_answers
+        }
+    ]
 
     computing_science_questions = [
-        {"question_title": "How am i supposed to learn Cs?", "question_content": "cause it is so difficult for me!",
-         "username": user.username, "id": 2, "views": 31, "likes": 12, "question_isComplete": True,
+        {
+            "question_title": "How am i supposed to learn Cs?",
+            "question_content": "cause it is so difficult for me!",
+            "username": user1.username,
+            "question_isComplete": True,
+            "latest_question_published": "2009-11-13",
+            "answers": computing_science_answers
+        }
+    ]
+
+    other_questions = [
+        {"question_title": "Do we have to attend any of the lectures?",
+         "question_content": "i know is not correct to skip any lectures,however i think some of them is not that kind of important",
+         "username": user1.username,
+         "views": 31,
+         "likes": 12,
+         "question_isComplete": True,
          "latest_question_published": "2009-11-13",
-         "answers": answers[2:4]
-         }]
+         "answers": other_answers
+         }
+    ]
 
-    other_questions = [{"question_title": "Do we have to attend any of the lectures?",
-                        "question_content": "i know is not correct to skip any lectures,however i think some of them is not that kind of important",
-                        "username": user.username, "id": 4, "views": 31, "likes": 12,
-                        "question_isComplete": True, "latest_question_published": "2009-11-13",
-                        "answers": answers[4:6]
-                        }]
+    Cats = {
+        "Math": math_questions,
+        "Computing_Science": computing_science_questions,
+        "Other_Questions": other_questions
+    }
 
-    Cats = {"Math": {"question": math_questions}, "Computing_Science": {"question": computing_science_questions},
-            "Other_Questions": {"question": other_questions}}
-
-    userprofile = {"popular": 120, "user": user}
-
-    add_profile(userprofile["popular"], userprofile["user"])
     for c, qs in Cats.items():
         cat = add_cat(c)
-        for i, q in enumerate(qs["question"]):
-            qa = add_question(cat, user, q['id'], q["question_title"], q["question_content"], q["views"], q["likes"],
+        for i, q in enumerate(qs):
+            qa = add_question(cat, user1, ["question_title"], q["question_content"], q["views"], q["likes"],
                               q["latest_question_published"], q["question_isComplete"])
             q_answers = q["answers"]
             for ans in q_answers:
-                add_answer(user, qa, content=ans["answer_content"],
+                add_answer(user1, qa, content=ans["answer_content"],
                            rank_count=ans["rank_counts"],
                            rank_points=ans["rank_points"])
+
+
+def create_or_get_user_profile(username, email, password, location, webside, background):
+    status = User.objects.filter(username=username, email=email).exists()
+    if not status:
+        user = User.objects.create_user(username=username, email=email, password=password)
+        user.save()
+        user_profile = UserProfile.objects.create(user=user, location=location, website=webside, background=background)
+        user_profile.save()
+    else:
+        user = User.objects.filter(username=username, email=email).get()
+        user_profile = user.userprofile
+    return user, user_profile
 
 
 def add_cat(name):
@@ -95,9 +127,9 @@ def add_cat(name):
     return c
 
 
-def add_question(category, user, id, title, content, views, likes, last_modified, completed):
+def add_question(category, user, title, content, views, likes, last_modified, completed):
     last_modified = datetime.strptime(last_modified, "%Y-%m-%d")
-    q, _ = Question.objects.get_or_create(id=id, user=user, category=category)
+    q = Question.objects.create(user=user, category=category)
     q.title = title
     q.content = content
     q.views = views
@@ -116,12 +148,6 @@ def add_answer(user: User, question: Question, content, rank_count=0, rank_point
     return a
 
 
-def add_profile(popular, user):
-    p = UserProfile.objects.get_or_create(popular=popular, user=user)[0]
-    p.save()
-    return p
-
-
 def gen_save(class_type, n=10):
     fixture = AutoFixture(class_type)
     objs: List[Category] = fixture.create(n)
@@ -135,8 +161,9 @@ def save_all(objects: List[Category]):
 
 
 if __name__ == '__main__':
-    gen_save(User)
-    gen_save(Category)
-    gen_save(Question, 50)
-    gen_save(Answer, 1500)
-    gen_save(UserProfile, 10)
+    populate()
+    # gen_save(User)
+    # gen_save(Category)
+    # gen_save(Question, 50)
+    # gen_save(Answer, 1500)
+    # gen_save(UserProfile, 10)
