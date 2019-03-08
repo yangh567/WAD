@@ -5,9 +5,10 @@ from django.core.paginator import Paginator
 from django.db.models import Count
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404, reverse
+from django.urls import reverse_lazy
 from django.views.generic import ListView
 
-from PostBar.meta_views import IUpdateView, IDetailView, IListView, ICreateView
+from PostBar.meta_views import IUpdateView, IDetailView, IListView, ICreateView, IDeleteView
 from PostBar.forms import UserForm, UserProfileForm
 from PostBar.models import UserProfile, Category, Question, Answer
 from PostBar.util import to_int
@@ -372,11 +373,20 @@ class AnswerUpdateView(IUpdateView):
 
 
 @login_required
+def answer_delete(request, pk, question_id):
+    answer = get_object_or_404(Answer, pk=pk, user=request.user)
+    if request.method == "POST":
+        answer.delete()
+        return redirect("question_detail", question_id)
+    else:
+        return render(request, template_name="PostBar/answer_confirm_delete.html", context={"object": answer})
+
+
+@login_required
 def question_like_up(request, pk):
     question: Question = get_object_or_404(Question, pk=pk)
     if request.user.is_authenticated():
         question.add_likes(request.user)
-
     return redirect("question_detail", pk)
 
 

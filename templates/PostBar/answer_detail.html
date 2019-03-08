@@ -9,7 +9,13 @@
     <p>content: {{ object.content }}</p>
     <p>last modified: {{ object.last_modified }}</p>
     <p>creator : {{ object.user.username }}</p>
-    <p>ranks: {{ object.rank_count}}</p>
+    <p>ranks: {{ object.rank_count }}</p>
+
+    {% if user.is_authenticated and user.id == object.user.id %}
+        <div>
+            <a href="{% url 'answer_delete' answer.id answer.question.id %}" class="see_detail">answer_delete</a>
+        </div>
+    {% endif %}
     {# only the one create create the answer could edit it#}
     {% if user.is_authenticated and user.id == object.user.id %}
         <a href="{% url 'answer_update' answer.id %}" class="see_detail">edit</a>

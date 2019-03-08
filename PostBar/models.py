@@ -105,7 +105,7 @@ class UserProfile(models.Model):
     followings = models.ManyToManyField('self', related_name='followers', symmetrical=False)
 
     def add_following(self, user_id):
-        user = User.objects.get(user_id=user_id)
+        user = User.objects.get(id=user_id)
         if user:
             self.followings.add(user.userprofile)
             self.save()
@@ -113,7 +113,7 @@ class UserProfile(models.Model):
         return False
 
     def delete_following(self, user_id):
-        user = User.objects.get(user_id=user_id)
+        user = User.objects.get(id=user_id)
         if user:
             self.followings.remove(user.userprofile)
             self.save()

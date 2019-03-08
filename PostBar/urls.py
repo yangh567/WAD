@@ -44,5 +44,6 @@ urlpatterns = [
     url(r'^answer_update/(?P<pk>\d+)$', views.AnswerUpdateView.as_view(), name='answer_update'),
     url(r'^answer_rank_up/(?P<pk>\d+)$', views.answer_rank_up, name='answer_rank_up'),
     url(r'^answer_rank_down/(?P<pk>\d+)$', views.answer_rank_down, name='answer_rank_down'),
+    url(r'^answer_delete/(?P<pk>\d+)/(?P<question_id>\d+)$', views.answer_delete, name='answer_delete'),
 
 ]

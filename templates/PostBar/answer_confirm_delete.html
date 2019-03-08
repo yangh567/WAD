@@ -1,0 +1,8 @@
+{% extends 'PostBar/base.html' %}
+{% block body_block %}
+    <form action="" method="post">{% csrf_token %}
+        <p>Are you sure you want to delete your answer "{{ object.preview }} ..." on question which titled
+            "{{ object.question.title }}?"</p>
+        <input type="submit" value="Confirm"/>
+    </form>
+{% endblock %}

@@ -39,8 +39,8 @@ class UserProfileForm(forms.ModelForm):
 #
 #
 #
-class QuestionForm(forms.ModelForm):
-    class Meta:
-        model = Question
-        fields = ('title', 'content', 'category')
-        private_fields= []
+# class QuestionForm(forms.ModelForm):
+#     class Meta:
+#         model = Question
+#         fields = ('title', 'content', 'category')
+#         private_fields= []

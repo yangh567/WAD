@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import QuerySet
-from django.views.generic import UpdateView, ListView, FormView, DetailView, CreateView
+from django.views.generic import UpdateView, ListView, FormView, DetailView, CreateView, DeleteView
 
 
 class ILoginRequiredMixin(LoginRequiredMixin):
@@ -8,9 +8,14 @@ class ILoginRequiredMixin(LoginRequiredMixin):
     redirect_field_name = 'redirect_to'
 
 
+class IDeleteView(ILoginRequiredMixin, DeleteView):
+    """ in order to create user have login  """
+    template_name_suffix = '_confirm_Delete'
+
+
 class ICreateView(ILoginRequiredMixin, CreateView):
     """ in order to create user have login  """
-    template_name_suffix = '_Create'
+    template_name_suffix = '_create'
 
 
 class IUpdateView(ILoginRequiredMixin, UpdateView):
