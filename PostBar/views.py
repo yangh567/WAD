@@ -200,7 +200,7 @@ def page_list(object_list, page, max_page_number=25):
     return a paginator
     """
     paginator = Paginator(object_list, max_page_number)
-    if paginator.num_pages < page: page = 1
+    if paginator.num_pages < to_int(page): page = 1
     followers = paginator.page(page)
     return followers
 
