@@ -100,8 +100,8 @@ class UserProfile(models.Model):
     # The additional attributes we wish to include.
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
-    location = models.CharField(max_length=128, default="")
-    background = models.TextField(default="")
+    location = models.CharField(max_length=128, blank=True, default="")
+    background = models.TextField(default="", blank=True)
     followings = models.ManyToManyField('self', related_name='followers', symmetrical=False)
 
     def add_following(self, user_id):
