@@ -61,7 +61,8 @@ def populate():
         {
             "question_title": "What is the differentiation?",
             "question_content": "I heard a lot about differentiation during hight school,what is that exactly",
-            "username": user1.username, "id": 0,
+            "username": user1.username,
+            "id": 0,
             "views": 31,
             "likes": 12,
             "question_isComplete": True,
@@ -104,7 +105,7 @@ def populate():
     for c, qs in Cats.items():
         cat = add_cat(c)
         for i, q in enumerate(qs):
-            qa = add_question(cat, user1, ["question_title"], q["question_content"], q["views"], q["likes"],
+            qa = add_question(cat, user1, q["question_title"], q["question_content"], q["views"], q["likes"],
                               q["latest_question_published"], q["question_isComplete"])
             q_answers = q["answers"]
             for ans in q_answers:
