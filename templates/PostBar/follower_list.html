@@ -1,10 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Follower</title>
-</head>
-<body>
+{% extends 'PostBar/base.html' %}
+{% load staticfiles %}
 
-</body>
-</html>
+{% block title_block %}
+    <title>Follower</title>
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="title">
+        <strong>Follower</strong>
+    </div>
+
+    <hr/>
+
+    <div class="content">
+        {% if follower_list %}
+            {% for follower in follower_list %}
+
+            {% endfor %}
+        {% else %}
+            You have no followers.
+        {% endif %}
+    </div>
+
+{% endblock %}

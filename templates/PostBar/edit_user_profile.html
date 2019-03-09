@@ -1,0 +1,23 @@
+{% extends 'PostBar/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    <title>Edit</title>
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="title">
+        <strong>Edit your information</strong>
+    </div>
+
+    <hr/>
+
+    <div class="content">
+        <p>
+            {{ user.username }}
+        </p>
+
+    </div>
+
+{% endblock %}

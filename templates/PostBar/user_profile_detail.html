@@ -1,0 +1,30 @@
+{% extends 'PostBar/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    <title>Home</title>
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="title">
+        <strong>About Us</strong>
+    </div>
+
+    <hr/>
+
+    <div class="content">
+        <p>
+            Hello, {{ user.username }}
+        </p>
+
+        <p>
+            Your Questions:
+        </p>
+
+        <p>
+            Your Answers:
+        </p>
+    </div>
+
+{% endblock %}

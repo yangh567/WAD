@@ -1,0 +1,27 @@
+{% extends 'PostBar/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    <title>Following</title>
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="title">
+        <strong>Following</strong>
+    </div>
+
+    <hr/>
+
+    <div class="content">
+        {% if following_list %}
+            {% for following in following_list %}
+
+            {% endfor %}
+
+        {% else %}
+            You are not following anyone.
+        {% endif %}
+    </div>
+
+{% endblock %}
