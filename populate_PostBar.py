@@ -61,7 +61,10 @@ def populate():
         {
             "question_title": "What is the differentiation?",
             "question_content": "I heard a lot about differentiation during hight school,what is that exactly",
-            "username": user1.username, "id": 0, "views": 31, "likes": 12, "question_isComplete": True,
+            "username": user1.username, "id": 0,
+            "views": 31,
+            "likes": 12,
+            "question_isComplete": True,
             "latest_question_published": "2009-11-13",
             "answers": math_answers
         }
@@ -72,6 +75,8 @@ def populate():
             "question_title": "How am i supposed to learn Cs?",
             "question_content": "cause it is so difficult for me!",
             "username": user1.username,
+            "views": 34,
+            "likes": 12,
             "question_isComplete": True,
             "latest_question_published": "2009-11-13",
             "answers": computing_science_answers
