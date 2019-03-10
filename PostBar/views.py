@@ -205,26 +205,6 @@ def page_list(object_list, page, max_page_number=25):
     return followers
 
 
-@login_required
-def add_following(request):
-    """if id is right add to following then redirect"""
-    user = request.user
-    if request.method == 'POST':
-        follow_id = request.POST.get('follow_id')
-        user.userprofile.add_following(follow_id)
-        redirect("following_list", user.id, 1)
-
-
-@login_required
-def delete_following(request):
-    """if id is right delete the following then redirect"""
-    user = request.user
-    if request.method == 'POST':
-        follow_id = request.POST.get('follow_id')
-        user.userprofile.delete_following(follow_id)
-        redirect("following_list", user.id, 1)
-
-
 ### Category
 class CategoryCreateView(ICreateView):
     model = Category
@@ -412,3 +392,22 @@ def answer_rank_down(request, pk):
     if request.user.is_authenticated():
         answer.sub_ranks(request.user)
     return redirect("answer_detail", pk)
+
+
+@login_required
+def add_following(request, user_id):
+    """if id is right add to following then redirect"""
+    user: UserProfile = request.user
+    if user.is_authenticated():
+        user.userprofile.add_following(user_id)
+    return redirect("following_list", user.id, 1)
+
+
+@login_required
+def delete_following(request, user_id):
+    """if id is right delete the following then redirect"""
+    user: UserProfile = request.user
+    if user.is_authenticated():
+        user.userprofile.delete_following(user_id)
+    return redirect("following_list", user.id, 1)
+

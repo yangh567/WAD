@@ -18,8 +18,9 @@ urlpatterns = [
     # following system
     url(r'^following_list/(?P<user_id>\d+)/(?P<page>\d+)$', views.following_list, name='following_list'),
     url(r'^follower_list/(?P<user_id>\d+)/(?P<page>\d+)$', views.follower_list, name='follower_list'),
-    url(r'^add_following/$', views.add_following, name='add_following'),
-    url(r'^delete_following/$', views.delete_following, name='delete_following'),
+
+    url(r'^add_following/(?P<user_id>\d+)$', views.add_following, name='add_following'),
+    url(r'^delete_following/(?P<user_id>\d+)$', views.delete_following, name='delete_following'),
 
     # user profile
     # url(r'^user_profile_detail/(?P<pk>\d+)$', views.UserProfileDetail.as_view(), name='user_profile_detail'),
