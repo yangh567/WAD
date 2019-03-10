@@ -159,7 +159,7 @@ def edit_user_profile(request):
             print(profile_form.errors)
     else:
         # generate user profile from user
-        profile_form = UserProfileForm(instance=user.user_profile)
+        profile_form = UserProfileForm(instance=user.userprofile)
     return render(request,
                   'PostBar/edit_user_profile.html',
                   {'profile_form': profile_form})
