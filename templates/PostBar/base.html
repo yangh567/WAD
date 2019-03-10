@@ -20,20 +20,16 @@
     <div class="dropdown">
 
         <button class="dropbtn">Category</button>
-
-
         <div class="dropdown-content">
-            <a href="{% url 'category_list' %}?page=1">categories</a>
+            <a href="{% url 'category_list' %}?page=1">Categories</a>
             {% for category in category_list %}
-                <tr>
-                    <td><a href="{% url 'category_detail' category.id %}" class="see_detail">{{ category }}</a></td>
-                </tr>
+                <a href="{% url 'category_detail' category.id %}">{{ category }}</a>
             {% endfor %}
         </div>
 
     </div>
 
-    <input type="text" placeholder="Search..">
+    <input class="searchbar" type="text" placeholder="Search...">
 
     <a href="{% url 'question_create' %}">Add Question</a>
     <a href="{% url 'about' %}">About</a>

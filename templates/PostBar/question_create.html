@@ -17,41 +17,11 @@
     <hr/>
 
     <div class="container">
-        <form method="post">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-25">
-                    <label for="category">Category</label>
-                </div>
-
-                <div class="col-75">
-                    <select id="category" name="category">
-                    <option value="maths">Maths</option>
-                    <option value="computing_science">Computing Science</option>
-                    <option value="economics">Economics</option>
-                    </select>
-                </div>
-
-                <div class="col-75">
-                    <a href="{% url 'category_create' %}">Create a category</a>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-25">
-                    <label for="subject">Question</label>
-                </div>
-
-                <div class="col-75">
-                    <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
-                </div>
-            </div>
-
-            <div class="row">
-                <input type="submit" value="Submit">
-            </div>
+        <form method="post">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
         </form>
-        </div>
+    </div>
 
 
 {% endblock %}
