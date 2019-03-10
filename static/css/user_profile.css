@@ -1,11 +1,9 @@
 /* The sidebar menu */
 .sidebar {
   /*height: 100%; !* Full-height: remove this if you want "auto" height *!*/
-    margin-top: 105px;
-    width: 200px; /* Set the width of the sidebar */
+    margin-top: -8px;
+    width: 300px; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-    z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
     left: 0;
     background-color: #d0d0d0; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
@@ -47,14 +45,14 @@
 
 .my_questions {
     height: 400px;
-    margin-left: 250px;
+    margin-left: 350px;
     margin-right: 50px;
     border-color: #313131;
     overflow: auto;
 }
 
 .my_answers {
-    margin-left: 250px;
+    margin-left: 350px;
     margin-right: 50px;
     border-color: #313131;
     overflow: auto;

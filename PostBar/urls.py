@@ -18,7 +18,6 @@ urlpatterns = [
     # following system
     url(r'^following_list/(?P<user_id>\d+)/(?P<page>\d+)$', views.following_list, name='following_list'),
     url(r'^follower_list/(?P<user_id>\d+)/(?P<page>\d+)$', views.follower_list, name='follower_list'),
-
     url(r'^add_following/(?P<user_id>\d+)$', views.add_following, name='add_following'),
     url(r'^delete_following/(?P<user_id>\d+)$', views.delete_following, name='delete_following'),
 
@@ -30,6 +29,7 @@ urlpatterns = [
     url(r'^category_update/(?P<pk>\d+)$', views.CategoryUpdateView.as_view(), name='category_update'),
     url(r'^category_detail/(?P<pk>\d+)$', views.CategoryDetailView.as_view(), name='category_detail'),
     url(r'^category_list$', views.CategoryListView.as_view(), name='category_list'),
+
 
     # question
     url(r'^question_create/$', views.QuestionCreateView.as_view(), name='question_create'),

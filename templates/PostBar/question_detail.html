@@ -31,7 +31,7 @@
     </div>
 
     <div>
-        <a href="{% url 'user_profile_detail' object.id %}">Author's profile </a>
+        <a href="{% url 'user_profile_detail' object.user.userprofile.id %}">Author's profile </a>
     </div>
 
     {% if answer_list %}

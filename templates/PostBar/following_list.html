@@ -15,8 +15,8 @@
 
     <div class="content">
         {% if following_list %}
-            {% for following in following_list %}
-
+            {% for follower in following_list %}
+                {{ follower }}
             {% endfor %}
 
         {% else %}

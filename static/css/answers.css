@@ -1,0 +1,17 @@
+.c
+
+
+#create_answer_text {
+    float: right;
+    margin-top: 100px;
+    margin-left: 100px;
+    margin-right: 100px;
+    width: 700px;
+    height: 100px;
+}
+
+#answer_submit {
+    margin-left: 100px;
+    margin-right: 100px;
+    float: inherit;
+}
