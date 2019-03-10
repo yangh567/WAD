@@ -24,9 +24,11 @@
 
         <div class="dropdown-content">
             <a href="{% url 'category_list' %}?page=1">categories</a>
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
+            {% for category in category_list %}
+                <tr>
+                    <td><a href="{% url 'category_detail' category.id %}" class="see_detail">{{ category }}</a></td>
+                </tr>
+            {% endfor %}
         </div>
 
     </div>

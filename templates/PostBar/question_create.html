@@ -17,7 +17,8 @@
     <hr/>
 
     <div class="container">
-        <form action="#">
+        <form method="post">
+            {% csrf_token %}
             <div class="row">
                 <div class="col-25">
                     <label for="category">Category</label>
