@@ -192,7 +192,7 @@ def follower_list(request, user_id, page):
     followers = page_list(user_profile.followers.all(), page)
     return render(request,
                   'PostBar/following_list.html',
-                  {"following_list": followers})
+                  {"follower_list": followers})
 
 
 def page_list(object_list, page, max_page_number=25):
