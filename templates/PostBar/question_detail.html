@@ -30,6 +30,10 @@
         <a href="{% url 'question_like_down' object.id %}">unlike it </a>
     </div>
 
+    <div>
+        <a href="{% url 'user_profile_detail' object.id %}">Author's profile </a>
+    </div>
+
     {% if answer_list %}
         <table id="answer">
             {% for answer in answer_list %}
