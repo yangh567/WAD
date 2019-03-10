@@ -20,10 +20,21 @@
         <div class="content">
             {{ user.username }} <br>
             {{ user.usesimage }}<br>
+            {{ user.email }} <br>
             <a href="{% url 'edit_user_profile' %}">Edit Profile</a> <br>
             <a href="{% url 'following_list' user.userprofile.id 1 %}">My Followings</a> <br>
             <a href="{% url 'follower_list' user.userprofile.id  1 %}">My Followers</a>
         </div>
     </div>
+
+    <p class="my_questions">
+        example content example content example content example content example content example content
+    </p>
+
+    <br>
+
+    <p class="my_answers">
+        example content example content example content example content example content example content
+    </p>
 
 {% endblock %}

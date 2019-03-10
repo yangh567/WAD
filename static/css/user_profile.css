@@ -43,3 +43,19 @@
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
+
+
+.my_questions {
+    height: 400px;
+    margin-left: 250px;
+    margin-right: 50px;
+    border-color: #313131;
+    overflow: auto;
+}
+
+.my_answers {
+    margin-left: 250px;
+    margin-right: 50px;
+    border-color: #313131;
+    overflow: auto;
+}
