@@ -161,7 +161,7 @@ def edit_user_profile(request):
         # generate user profile from user
         profile_form = UserProfileForm(instance=user.user_profile)
     return render(request,
-                  'PostBar/user_profile_edit.html',
+                  'PostBar/edit_user_profile.html',
                   {'profile_form': profile_form})
 
 

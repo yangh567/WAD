@@ -1,4 +1,9 @@
 {% extends 'PostBar/base.html' %}
+{% load staticfiles %}
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="../../static/css/question.css">
+{% endblock %}
+
 {% block body_block %}
     <p>category name: {{ object.category.name }}</p>
     <p>id: {{ object.id }}</p>
