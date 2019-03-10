@@ -191,7 +191,7 @@ def follower_list(request, user_id, page):
     user_profile = get_object_or_404(UserProfile, user_id=user_id)
     followers = page_list(user_profile.followers.all(), page)
     return render(request,
-                  'PostBar/following_list.html',
+                  'PostBar/follower_list.html',
                   {"follower_list": followers})
 
 
