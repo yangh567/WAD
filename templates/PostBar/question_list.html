@@ -3,6 +3,7 @@
 {% block css_block %}
     <link rel="stylesheet" type="text/css" href="../../static/css/home.css">
 {% endblock %}
+
 {% block title_block %}
     <title>Home</title>
 {% endblock %}
@@ -18,32 +19,34 @@
 
     <hr/>
 
-    <div class="content">
+    <div class="content_home">
         {% if question_list %}
-            <table id="question">
+            <h1 id="question">
                 {% for question in question_list %}
-                    <p class="likes">likes: {{ question.likes }}<br>
-                    <p class="time"{{ question.last_modified }}><br>
-                    <a href="{% url 'question_detail' question.id %}" class="question_title">
-                        {{ question.title }}
-                    </a><br>
+{#                    <p class="time"{{ question.last_modified }}> </p> <br>#}
+                    <a href="{% url 'question_detail' question.id %}" class="question_title">[ {{ question.category }} ] {{ question.title }}</a> <br>
+                    <p class="question_content">{{ question.content }}</p> <br>
+{#                     <p class="likes">likes: {{ question.likes }} </p>#}
+                    <p class="answer_part"> {{ question.get_answers }} </p>
                 {% endfor %}
-            </table>
-            {% if is_paginated %}
-                <div class="pagination">
-            <span class="page-links">
-                {% if page_obj.has_previous %}
-                    <a href="{% url 'question_list' %}?page={{ page_obj.previous_page_number }}&category_id={{ category_id }}&ordering={{ ordering }}&query={{ query }}">previous</a>
+            </h1>
+
+                {% if is_paginated %}
+                    <div class="pagination">
+                        <span class="page-links">
+                            {% if page_obj.has_previous %}
+                                <a href="{% url 'question_list' %}?page={{ page_obj.previous_page_number }}&category_id={{ category_id }}&ordering={{ ordering }}&query={{ query }}">Previous</a>
+                            {% endif %}
+
+                            <span class="page-current">
+                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                            </span>
+                            {% if page_obj.has_next %}
+                                <a href="{% url 'question_list' %}?page={{ page_obj.next_page_number }}&category_id={{ category_id }}&ordering={{ ordering }}&query={{ query }}">Next</a>
+                            {% endif %}
+                        </span>
+                    </div>
                 {% endif %}
-                <span class="page-current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-                {% if page_obj.has_next %}
-                    <a href="{% url 'question_list' %}?page={{ page_obj.next_page_number }}&category_id={{ category_id }}&ordering={{ ordering }}&query={{ query }}">previous</a>
-                {% endif %}
-            </span>
-                </div>
-            {% endif %}
         {% else %}
             <h3>My question</h3>
             <p>No question found!!! :(</p>

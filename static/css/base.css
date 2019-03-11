@@ -1,5 +1,5 @@
 body{
-    margin: 0px;
+    margin: 0;
     font-family: Arial, serif;
 }
 
@@ -9,6 +9,8 @@ body{
     overflow: hidden;
     background-color: #61d07c;
     z-index:999;
+    min-width: 1000px;
+    width: auto !important;
 
 }
 
