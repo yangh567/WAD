@@ -26,11 +26,13 @@ def populate():
 		{
 			"answer_content": "I can swim and you can not",
 			"answer_username": user1.username,
+			"user": user1,
 			"rank_counts": 12,
 			"rank_points": 115},
 		{
 			"answer_content": "well that it to combine something togather",
 			"answer_username": user1.username,
+			"user": user1,
 			"rank_counts": 12,
 			"rank_points": 13},
 	]
@@ -39,11 +41,13 @@ def populate():
 		{
 			"answer_content": "i think that is just representing sum of how many same number adding together",
 			"answer_username": user3.username,
+			"user": user3,
 			"rank_counts": 13,
 			"rank_points": 15},
 		{
 			"answer_content": "Try to understand it like group of number adding together,for example,2*3 = 3 + 3",
 			"answer_username": user1.username,
+			"user": user1,
 			"rank_counts": 120,
 			"rank_points": 1138},
 	]
@@ -52,11 +56,13 @@ def populate():
 		{
 			"answer_content": "i think that is just representing sum of how many same number adding together",
 			"answer_username": user2.username,
+			"user": user2,
 			"rank_counts": 13,
 			"rank_points": 15},
 		{
 			"answer_content": "Try to understand it like group of number adding together,for example,2*3 = 3 + 3",
 			"answer_username": user1.username,
+			"user": user1,
 			"rank_counts": 120,
 			"rank_points": 1138},
 	]
@@ -65,11 +71,13 @@ def populate():
 		{
 			"answer_content": "i think that you could take look of the vido that has been uploaded",
 			"answer_username": user2.username,
+			"user": user2,
 			"rank_counts": 134,
 			"rank_points": 151},
 		{
 			"answer_content": "the taylor series is ...............",
 			"answer_username": user3.username,
+			"user": user3,
 			"rank_counts": 121,
 			"rank_points": 118},
 	]
@@ -78,11 +86,13 @@ def populate():
 		{
 			"answer_content": "just to take the exercise at page 121",
 			"answer_username": user1.username,
+			"user": user1,
 			"rank_counts": 22,
 			"rank_points": 230},
 		{
 			"answer_content": "read them multiple times",
 			"answer_username": user1.username,
+			"user": user1,
 			"rank_counts": 12,
 			"rank_points": 13},
 	]
@@ -91,11 +101,13 @@ def populate():
 		{
 			"answer_content": "Yes of course ",
 			"answer_username": user1.username,
+			"user": user1,
 			"rank_counts": 12,
 			"rank_points": 131},
 		{
 			"answer_content": "No doubt",
 			"answer_username": user1.username, "rank_counts": 12,
+			"user": user1,
 			"rank_points": 131}
 
 	]
@@ -104,7 +116,8 @@ def populate():
 		{
 			"question_title": "What is the differentiation?",
 			"question_content": "I heard a lot about differentiation during hight school,what is that exactly",
-			"username": user1.username,
+			"answer_username": user1.username,
+			"user": user1,
 			"id": 0,
 			"views": 31,
 			"likes": 12,
@@ -115,8 +128,7 @@ def populate():
 		{
 			"question_title": "What is the multiplication?",
 			"question_content": "basically,can anybody explain t to me?",
-			"username": user2.username,
-			"id": 1,
+			"user": user3,
 			"views": 310,
 			"likes": 121,
 			"question_isComplete": True,
@@ -126,7 +138,7 @@ def populate():
 		{
 			"question_title": "What is the assignment for math1R?",
 			"question_content": "I totally missed the lecture,and i wasn't informed",
-			"username": user3.username,
+			"user": user3,
 			"id": 2,
 			"views": 21,
 			"likes": 10,
@@ -137,7 +149,7 @@ def populate():
 		{
 			"question_title": "could any body give me any suggestion of how to do the question on the text book at page 121?",
 			"question_content": "that question is basically talking about taylor series",
-			"username": user4.username,
+			"user": user4,
 			"id": 3,
 			"views": 30,
 			"likes": 11,
@@ -151,7 +163,7 @@ def populate():
 		{
 			"question_title": "How am i supposed to learn Cs?",
 			"question_content": "cause it is so difficult for me!",
-			"username": user1.username,
+			"user": user1,
 			"views": 34,
 			"likes": 12,
 			"question_isComplete": True,
@@ -163,7 +175,7 @@ def populate():
 	other_questions = [
 		{"question_title": "Do we have to attend any of the lectures?",
 		 "question_content": "i know is not correct to skip any lectures,however i think some of them is not that kind of important",
-		 "username": user1.username,
+		 "user": user1,
 		 "views": 31,
 		 "likes": 12,
 		 "question_isComplete": True,
@@ -181,11 +193,11 @@ def populate():
 	for c, qs in Cats.items():
 		cat = add_cat(c)
 		for i, q in enumerate(qs):
-			qa = add_question(cat, user1, q["question_title"], q["question_content"], q["views"], q["likes"],
+			qa = add_question(cat, q["user"], q["question_title"], q["question_content"], q["views"], q["likes"],
 							  q["latest_question_published"], q["question_isComplete"])
 			q_answers = q["answers"]
 			for ans in q_answers:
-				add_answer(user1, qa, content=ans["answer_content"],
+				add_answer(ans["user"], qa, content=ans["answer_content"],
 						   rank_count=ans["rank_counts"],
 						   rank_points=ans["rank_points"])
 
