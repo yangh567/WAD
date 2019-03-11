@@ -14,9 +14,10 @@
     <hr/>
 
     <div class="content">
-        <p>
-            {{ user.username }}
-        </p>
+        <form method="post">{% csrf_token %}
+            {{ profile_form.as_p }}
+            <input type="submit" value="Submit">
+        </form>
 
     </div>
 
