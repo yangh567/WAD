@@ -13,14 +13,16 @@
 
     <hr/>
 
-    <div class="content">
+    <ul class="content">
         {% if follower_list %}
             {% for follower in follower_list %}
-
+                <li>
+                    {{ follower }}
+                </li>
             {% endfor %}
         {% else %}
             You have no followers.
         {% endif %}
-    </div>
+    </ul>
 
 {% endblock %}
