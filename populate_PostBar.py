@@ -223,7 +223,7 @@ def add_cat(name):
 
 def add_question(category, user, title, content, views, likes, last_modified, completed):
 	last_modified = datetime.strptime(last_modified, "%Y-%m-%d")
-	q = Question.objects.get_or_create(user=user, category=category)[0]
+	q = Question.objects.create(user=user, category=category)
 	q.title = title
 	q.content = content
 	q.views = views
@@ -235,7 +235,7 @@ def add_question(category, user, title, content, views, likes, last_modified, co
 
 
 def add_answer(user: User, question: Question, content, rank_count=0, rank_points=0):
-	a = Answer.objects.get_or_create(question=question, user=user, content=content)[0]
+	a = Answer.objects.create(question=question, user=user, content=content)
 	a.rank_count = rank_count
 	a.rank_points = rank_points
 	a.save()
