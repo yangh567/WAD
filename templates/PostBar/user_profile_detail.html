@@ -27,37 +27,36 @@
                 <a href="{% url 'follower_list' user.userprofile.id  1 %}">My Followers</a>
             {% else %}
                 {{ profile_form.user.get_username }}
-                {{ profile_form.user.email}}
-                <div>
-                    <form action="add_following/{{ profile_form.user_id }}" method="post">
-                        <button type="button">Follow</button>
-                    </form>
-                </div>
+                {{ profile_form.user.email }}
+
+                <a href="{% url 'add_following' profile_form.user_id%}">add_following</a>
             {% endif %}
         </div>
     </div>
 
-    <p class="my_questions">
-        {% if user.question_list %}
-            {% for question in user.question_list %}
-                {{ question }}
+    <ul class="my_questions">
+        {% if profile_form.user.questions.all %}
+            {% for question in profile_form.user.questions.all %}
+                <li>
+                    {{ question.title }}
+                </li>
             {% endfor %}
         {% else %}
             You don't have any questions.
         {% endif %}
         <br>
-    </p>
+    </ul>
 
     <br>
 
-    <p class="my_answers">
-        {% if user.answer_list %}
-            {% for answer in user.answer_list %}
-                {{ asnwer }}
+    <ul class="my_answers">
+        {% if profile_form.user.answers.all %}
+            {% for answer in profile_form.user.answers.all %}
+                <li>{{ answer.content }}</li>
             {% endfor %}
         {% else %}
             You don't have any answers.
         {% endif %}
-    </p>
+    </ul>
 
 {% endblock %}
