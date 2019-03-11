@@ -38,13 +38,26 @@
     </div>
 
     <p class="my_questions">
-        example content example content example content example content example content example content <br>
+        {% if user.question_list %}
+            {% for question in user.question_list %}
+                {{ question }}
+            {% endfor %}
+        {% else %}
+            You don't have any questions.
+        {% endif %}
+        <br>
     </p>
 
     <br>
 
     <p class="my_answers">
-        example content example content example content example content example content example content
+        {% if user.answer_list %}
+            {% for answer in user.answer_list %}
+                {{ asnwer }}
+            {% endfor %}
+        {% else %}
+            You don't have any answers.
+        {% endif %}
     </p>
 
 {% endblock %}
