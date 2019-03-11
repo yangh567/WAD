@@ -27,7 +27,7 @@
                     <a href="{% url 'question_detail' question.id %}" class="question_title">[ {{ question.category }} ] {{ question.title }}</a> <br>
                     <p class="question_content">{{ question.content }}</p> <br>
 {#                     <p class="likes">likes: {{ question.likes }} </p>#}
-                    <p class="answer_part"> {{ question.get_answers }} </p>
+                    <p class="answer_part"> {{ question.answers }} </p>
                 {% endfor %}
             </h1>
 

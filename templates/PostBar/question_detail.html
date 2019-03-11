@@ -5,62 +5,98 @@
 {% endblock %}
 
 {% block body_block %}
-    <p>category name: {{ object.category.name }}</p>
-    <p>id: {{ object.id }}</p>
-    <p>title: {{ object.title }}</p>
-    <p>content: {{ object.content }}</p>
-    <p>likes: {{ object.likes }}</p>
-    <p>views: {{ object.views }}</p>
-    <p>creator: {{ object.user.username }}</p>
-    <p>last modified: {{ object.last_modified }}</p>
-    <p>answer: {{ object.get_answers }}</p>
-    {#    append question id to create#}
-    {% if user.is_authenticated and user.id == object.user.id %}
-        <a href="{% url 'question_update' question.id %}" class="see_detail">edit</a>
-    {% endif %}
-
-    <div>
-        <a href="{% url 'answer_create' object.id %}">create new answer</a>
-    </div>
-    <div>
-        <a href="{% url 'question_like_up' object.id %}">like it </a>
+    <div class="title">
+        <strong>{{ object.title }}</strong>
     </div>
 
-    <div>
-        <a href="{% url 'question_like_down' object.id %}">unlike it </a>
-    </div>
+    <hr/>
 
-    <div>
-        <a href="{% url 'user_profile_detail' object.user.id %}">Author's profile </a>
-    </div>
-
-    {% if answer_list %}
-        <table id="answer">
-            {% for answer in answer_list %}
-                <tr>
-                    <td>{{ answer.preview }}</td>
-                    <td>{{ answer.last_modified }}</td>
-                    <td><a href="{% url 'answer_detail' answer.id %}" class="see_detail">detail</a></td>
-                </tr>
-            {% endfor %}
-        </table>
-        {% if is_paginated %}
-            <div class="pagination">
-            <span class="page-links">
-                {% if page_obj.has_previous %}
-                    <a href="{% url 'question_detail' object.id %}?page={{ page_obj.previous_page_number }}">previous</a>
-                {% endif %}
-                <span class="page-current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-                {% if page_obj.has_next %}
-                    <a href="{% url 'question_detail' object.id %}?page={{ page_obj.next_page_number }}">previous</a>
-                {% endif %}
+    <div class="question_sidebar">
+        <div class="content">
+            <span>
+                Author
             </span>
+            <p class="auth_info">
+                <picture class="auth_image"> {{ object.user.userprofile.picture }}</picture>
+                {{ object.user.username }}
+                {{ object.user.email }}
+            </p>
+            {% if user.is_authenticated and user.id == object.user.id %}
+                <a href="{% url 'question_update' question.id %}" class="see_detail">edit</a>
+            {% endif %}
+            <div>
+                <a href="{% url 'answer_create' object.id %}">create new answer</a>
             </div>
+            <div>
+                <a href="{% url 'question_like_up' object.id %}">like it </a>
+            </div>
+
+            <div>
+                <a href="{% url 'question_like_down' object.id %}">unlike it </a>
+            </div>
+
+            <div>
+                <a href="{% url 'user_profile_detail' object.user.id %}">Author's profile </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>
+            {{ object.content }}
+        </p>
+    </div>
+
+    <div class="answer_part">
+        {% if answer_list %}
+            <h1 class="answer">
+                {% for answer in answer_list %}
+                    <p class="per_answer">
+                        {{ answer.preview }} <br>
+                        {{ answer.last_modified }}
+                        <a href="{% url 'answer_detail' answer.id %}">Detail</a>
+                    </p>
+                {% endfor %}
+            </h1>
+
+            {% if is_paginated %}
+                <div class="pagination">
+                <span class="page-links">
+                    {% if page_obj.has_previous %}
+                        <a href="{% url 'question_detail' object.id %}?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+                    <span class="page-current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next %}
+                        <a href="{% url 'question_detail' object.id %}?page={{ page_obj.next_page_number }}">previous</a>
+                    {% endif %}
+                </span>
+                </div>
+            {% endif %}
+        {% else %}
+            <h3>My answer</h3>
+            <p>No answer found!!! :(</p>
         {% endif %}
-    {% else %}
-        <h3>My answer</h3>
-        <p>No answer found!!! :(</p>
-    {% endif %}
-{% endblock %}
+    </div>
+ {% endblock %}
+
+
+
+
+
+
+
+
+
+
+{#    <p>category name: {{ object.category.name }}</p>#}
+{#    <p>id: {{ object.id }}</p>#}
+{#    <p>title: {{ object.title }}</p>#}
+{#    <p>content: {{ object.content }}</p>#}
+{#    <p>likes: {{ object.likes }}</p>#}
+{#    <p>views: {{ object.views }}</p>#}
+{#    <p>creator: {{ object.user.username }}</p>#}
+{#    <p>last modified: {{ object.last_modified }}</p>#}
+{#    <p>answer: {{ object.get_answers }}</p>#}
+    {#    append question id to create#}
