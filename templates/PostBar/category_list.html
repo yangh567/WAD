@@ -1,34 +1,43 @@
 {% extends 'PostBar/base.html' %}
-{% block body_block %}
-    <a href="{% url 'category_create' %}">category_create</a>
+{% load staticfiles %}
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="../../static/css/category.css">
+{% endblock %}
 
-    {% if category_list %}
-        <table id="category">
+
+{% block body_block %}
+    <div class="title">
+        <strong>All category</strong>
+    </div>
+
+    <hr/>
+
+    <h1>
+        <a class="create_category" href="{% url 'category_create' %}">Create a category</a>
+        {% if category_list %}
             {% for category in category_list %}
-                <tr>
-                    <td>{{ category.name }}</td>
-                    <td><a href="{% url 'category_detail' category.id %}" class="see_detail">detail</a></td>
-                    <td><a href="{% url 'question_list' %}?page=1&category_id={{ category.id }}">questions</a></td>
-                </tr>
+                <p class=category_link><a href="{% url 'question_list' %}?page=1&category_id={{ category.id }}">{{ category.name }}</a>
+                </p>
             {% endfor %}
-        </table>
-        {% if is_paginated %}
+
+            {% if is_paginated %}
             <div class="pagination">
-            <span class="page-links">
-                {% if page_obj.has_previous %}
-                    <a href="{% url 'category_list' %}?page={{ page_obj.previous_page_number }}">previous</a>
-                {% endif %}
-                <span class="page-current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                <span class="page-links">
+                    {% if page_obj.has_previous %}
+                        <a href="{% url 'category_list' %}?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+                    <span class="page-current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next %}
+                        <a href="{% url 'category_list' %}?page={{ page_obj.next_page_number }}">previous</a>
+                    {% endif %}
                 </span>
-                {% if page_obj.has_next %}
-                    <a href="{% url 'category_list' %}?page={{ page_obj.next_page_number }}">previous</a>
-                {% endif %}
-            </span>
             </div>
+            {% endif %}
+        {% else %}
+            <h2>My category</h2>
+            <p>No category found!!! :(</p>
         {% endif %}
-    {% else %}
-        <h3>My category</h3>
-        <p>No category found!!! :(</p>
-    {% endif %}
+    </h1>
 {% endblock %}

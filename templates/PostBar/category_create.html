@@ -1,9 +1,23 @@
 {% extends 'PostBar/base.html' %}
+{% load staticfiles %}
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="../../static/css/category.css">
+{% endblock %}
 {% block body_block %}
-    <form method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="submit">
-    </form>
+
+    <div class="create_category_form_body">
+        <div class="title">
+            <strong>Create a category</strong>
+        </div>
+
+        <hr/>
+
+        <form method="post" class="create_category_form">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="submit">
+        </form>
+    </div>
+
 {% endblock %}
 
 

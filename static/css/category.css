@@ -1,0 +1,38 @@
+h1 {
+    text-align: center;
+}
+
+.category_link {
+    background-color: rgba(67, 124, 255, 0.64);
+    padding-left: 20px;
+    padding-right: 30px;
+    border-radius: 25px;
+    margin-top: 13px;
+    color: white;
+    margin-left: 400px;
+    margin-right: 400px;
+    height: 50px;
+}
+
+.create_category {
+    background-color: rgba(99, 228, 171, 0.64);
+    padding-left: 20px;
+    padding-right: 30px;
+    border-radius: 25px;
+    margin-top: 13px;
+    color: white;
+    margin-left: 400px;
+    margin-right: 400px;
+    height: 50px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    font-size: large;
+}
+
+.create_category_form_body {
+    text-align: center;
+    margin-top: 200px;
+}
