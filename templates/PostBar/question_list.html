@@ -1,4 +1,8 @@
 {% extends 'PostBar/base.html' %}
+{% load staticfiles %}
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="../../static/css/home.css">
+{% endblock %}
 {% block title_block %}
     <title>Home</title>
 {% endblock %}
@@ -8,7 +12,7 @@
         {% if category_id %}
             <strong>{{ question_list.0.category.name }} category</strong>
         {% else %}
-            <strong>popular questions</strong>
+            <strong>Popular Questions</strong>
         {% endif %}
     </div>
 
@@ -18,12 +22,11 @@
         {% if question_list %}
             <table id="question">
                 {% for question in question_list %}
-                    <tr>
-                        <td>likes: {{ question.likes }}</td>
-                        <td>{{ question.title }}</td>
-                        <td>{{ question.last_modified }}</td>
-                        <td><a href="{% url 'question_detail' question.id %}" class="see_detail">detail</a></td>
-                    </tr>
+                    <p class="likes">likes: {{ question.likes }}<br>
+                    <p class="time"{{ question.last_modified }}><br>
+                    <a href="{% url 'question_detail' question.id %}" class="question_title">
+                        {{ question.title }}
+                    </a><br>
                 {% endfor %}
             </table>
             {% if is_paginated %}
