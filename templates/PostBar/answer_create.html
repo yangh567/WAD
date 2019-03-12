@@ -1,12 +1,7 @@
 {% extends 'PostBar/base.html' %}
-{% load staticfiles %}
-{% block css_block %}
-    <link rel="stylesheet" type="text/css" href="../../static/css/answers.css">
-{% endblock %}
 {% block body_block %}
-    <form class="answer_form" method="post">{% csrf_token %}
-        <input id="create_answer_text" type="text" placeholder="Write your answer here: ">
-        <br>
-        <input id="answer_submit" type="submit" value="Submit">
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save">
     </form>
 {% endblock %}

@@ -6,27 +6,56 @@
 
 
 {% block body_block %}
+    <div class="title">
+        <strong>[Answer]: {{ object.question.title }}</strong>
+    </div>
 
+    <hr/>
 
-    <a href="{% url 'question_detail' object.question.id %}" class="see_detail">
-        answer for question: {{ object.question.title }}
-    </a>
-    <p>id: {{ object.id }}</p>
-    <p>content: {{ object.content }}</p>
-    <p>last modified: {{ object.last_modified }}</p>
-    <p>creator : {{ object.user.username }}</p>
-    <p>ranks: {{ object.rank_count }}</p>
-
-    {% if user.is_authenticated and user.id == object.user.id %}
-        <div>
-            <a href="{% url 'answer_delete' answer.id answer.question.id %}" class="see_detail">answer_delete</a>
+    <div class="answer_sidebar">
+        <div class="content">
+            <span>
+                Author
+            </span>
+            <p class="auth_info">
+                <picture class="auth_image"> {{ object.user.userprofile.picture }}</picture>
+                {{ object.user.username }}
+                {{ object.user.email }}
+            </p>
+            {% if user.is_authenticated and user.id == object.user.id %}
+                <a href="{% url 'answer_update' answer.id %}" class="see_detail">Edit</a> <br>
+                <a href="{% url 'answer_delete' answer.id answer.question.id %}" class="see_detail">Delete</a>
+            {% endif %}
+            <div>
+                <a href="{% url 'answer_rank_up' answer.id %}" class="see_detail">Agree</a> <br>
+                <a href="{% url 'answer_rank_down' answer.id %}" class="see_detail">Disagree</a>
+            </div>
         </div>
-    {% endif %}
-    {# only the one create create the answer could edit it#}
-    {% if user.is_authenticated and user.id == object.user.id %}
-        <a href="{% url 'answer_update' answer.id %}" class="see_detail">edit</a>
-    {% endif %}
+    </div>
 
-    <a href="{% url 'answer_rank_up' answer.id %}" class="see_detail">rank_up</a>
-    <a href="{% url 'answer_rank_down' answer.id %}" class="see_detail">rank_down</a>
+    <div class="answer_content">
+        {{ object.content }} <br>
+        {{ object.last_modified }} <br>
+        {{ object.rank_count }}
+    </div>
+
 {% endblock %}
+
+
+{#    <a href="{% url 'question_detail' object.question.id %}" class="see_detail">#}
+
+{#    </a>#}
+{#    <p>id: {{ object.id }}</p>#}
+{#    <p>content: {{ object.content }}</p>#}
+{#    <p>last modified: {{ object.last_modified }}</p>#}
+{#    <p>creator : {{ object.user.username }}</p>#}
+{#    <p>ranks: {{ object.rank_count }}</p>#}
+{##}
+{#    {% if user.is_authenticated and user.id == object.user.id %}#}
+{#        <div>#}
+{#        </div>#}
+{#    {% endif %}#}
+    {# only the one create create the answer could edit it#}
+{#    {% if user.is_authenticated and user.id == object.user.id %}#}
+{##}
+{#    {% endif %}#}

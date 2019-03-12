@@ -1,17 +1,49 @@
-.c
+.answer_sidebar {
+  /*height: 100%; !* Full-height: remove this if you want "auto" height *!*/
+    margin-top: -8px;
+    width: 300px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    left: 0;
+    background-color: #d0d0d0; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+    padding-bottom: 750px;
 
-
-#create_answer_text {
-    float: right;
-    margin-top: 100px;
-    margin-left: 100px;
-    margin-right: 100px;
-    width: 700px;
-    height: 100px;
 }
 
-#answer_submit {
-    margin-left: 100px;
-    margin-right: 100px;
-    float: inherit;
+/* The navigation menu links */
+.content {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #313131;
+    display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.answer_sidebar a:hover {
+  color: #66ffb8;
+}
+
+.answer_sidebar a:visited {
+  color: #ffffff;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+.answer_content {
+    margin-left: 320px;
+    margin-right: 30px;
+    padding-left: 20px;
+    text-align: left;
+    border-radius: 25px;
+    background-color: rgba(67, 124, 255, 0.64);
+    color: white;
+    height: 150px;
+    overflow: scroll;
 }
