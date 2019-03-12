@@ -4,6 +4,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="../../static/css/base.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/post.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/form.css">
 
     {#    <script src="{% static "js/jquery.js" %}"></script>   #}
     <meta charset="UTF-8">
@@ -50,10 +51,25 @@
 
     <br>
     {% block body_block %}
-            <div class="container">
-            <form method="post">{% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Submit">
+        <div class="container">
+            <form class="main" method="post">{% csrf_token %}
+
+                <div class="row">
+                    <label>Title:</label>
+                    <p class="field-box"> {{ form.title }}</p>
+                </div>
+
+                <div class="row">
+                    <label>Content:</label>
+                    <p class="field-box">{{ form.content }}</p>
+                </div>
+
+                <div class="row">
+                    <label>Category:</label>
+                    <p class="field-box">{{ form.category }}</p>
+                </div>
+
+                <p class="field-box"><input class="button" type="submit" value="Submit"></p>
             </form>
         </div>
 

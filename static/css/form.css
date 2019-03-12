@@ -1,0 +1,22 @@
+.main {
+    margin: 100px auto;
+    display: table;
+    padding: 20px;
+    background-color: #dbdbdb;
+    border-radius: 25px;
+
+}
+
+.row {
+    display: table-row;
+}
+
+.row label {
+    display: table-cell;
+    padding: 2px;
+}
+
+.field-box {
+    display: table-cell;
+    padding: 2px;
+}

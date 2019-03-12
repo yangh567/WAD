@@ -1,7 +1,26 @@
 {% extends 'PostBar/base.html' %}
+{% load staticfiles %}
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="../../static/css/form.css">
+{% endblock %}
+
+{% block title_block %}
+    <title>Add your answer</title>
+{% endblock %}
+
 {% block body_block %}
-    <form method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Save">
+    <div class="title">
+        <strong>Add your answer</strong>
+    </div>
+
+    <hr/>
+
+    <form class="main" method="post">{% csrf_token %}
+        <div class="row">
+            <label>Content:</label>
+            <p class="field-box">{{ form.content }}</p>
+        </div>
+
+        <p class="field-box"><input class="button" type="submit" value="Submit"></p>
     </form>
 {% endblock %}
