@@ -38,7 +38,9 @@
         {% if profile_form.user.questions.all %}
             {% for question in profile_form.user.questions.all %}
                 <li>
-                    {{ question.title }}
+                    <p class="link">
+                        <a href="{% url 'question_detail' question.id %}">[ {{ question.category }} ] {{ question.title }}</a>
+                    </p>
                 </li>
             {% endfor %}
         {% else %}
@@ -52,7 +54,12 @@
     <ul class="my_answers">
         {% if profile_form.user.answers.all %}
             {% for answer in profile_form.user.answers.all %}
-                <li>{{ answer.content }}</li>
+                <li>
+                    <p class="link">
+                        <a href="{% url 'answer_detail' answer.id %}">{{ answer.question.title }} <br>
+                            My answer: {{ answer.content }}</a>
+                    </p>
+                </li>
             {% endfor %}
         {% else %}
             You don't have any answers.

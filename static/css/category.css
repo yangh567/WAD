@@ -3,6 +3,7 @@ h1 {
 }
 
 .category_link {
+    text-align: center;
     background-color: rgba(67, 124, 255, 0.64);
     padding-left: 20px;
     padding-right: 30px;
@@ -15,15 +16,15 @@ h1 {
 }
 
 .create_category {
+    text-align: center;
     background-color: rgba(99, 228, 171, 0.64);
     padding-left: 20px;
     padding-right: 30px;
     border-radius: 25px;
-    margin-top: 13px;
     color: white;
+    height: 50px;
     margin-left: 400px;
     margin-right: 400px;
-    height: 50px;
 }
 
 a {

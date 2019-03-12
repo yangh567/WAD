@@ -13,7 +13,9 @@
     <hr/>
 
     <h1>
-        <a class="create_category" href="{% url 'category_create' %}">Create a category</a>
+        <p class="create_category">
+            <a href="{% url 'category_create' %}">Create a category</a>
+        </p>
         {% if category_list %}
             {% for category in category_list %}
                 <p class=category_link><a href="{% url 'question_list' %}?page=1&category_id={{ category.id }}">{{ category.name }}</a>
