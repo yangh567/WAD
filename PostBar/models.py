@@ -45,6 +45,12 @@ class Question(models.Model):
             self.views += 1
             self.save()
 
+    def if_liked_by(self, user):
+        print(user.id)
+        for u in self.liked_users.all():
+            print(u)
+        return self.liked_users.filter(id=user.id).exists()
+
     def add_likes(self, user):
         if not self.liked_users.filter(id=user.id).exists():
             self.liked_users.add(user)
@@ -119,6 +125,9 @@ class UserProfile(models.Model):
             self.save()
             return True
         return False
+
+    def if_following(self, user_id):
+        return self.followings.filter(user_id=user_id).exists()
 
     def get_absolute_url(self):
         return reverse('category_detail', args=[self.id])

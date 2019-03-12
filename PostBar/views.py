@@ -1,9 +1,10 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Count
-from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.http import HttpResponseRedirect, HttpResponse, Http404, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.urls import reverse_lazy
 from django.views.generic import ListView
@@ -363,6 +364,15 @@ def answer_delete(request, pk, question_id):
 
 
 @login_required
+def question_liked(request, pk):
+    question: Question = get_object_or_404(Question, pk=pk)
+    if request.user.is_authenticated():
+        return JsonResponse({"result": question.if_liked_by(request.user)})
+    else:
+        return JsonResponse({"result": False})
+
+
+@login_required
 def question_like_up(request, pk):
     question: Question = get_object_or_404(Question, pk=pk)
     if request.user.is_authenticated():
@@ -397,7 +407,7 @@ def answer_rank_down(request, pk):
 @login_required
 def add_following(request, user_id):
     """if id is right add to following then redirect"""
-    user: UserProfile = request.user
+    user: User = request.user
     if user.is_authenticated():
         user.userprofile.add_following(user_id)
     return redirect("following_list", user.id, 1)
@@ -406,8 +416,15 @@ def add_following(request, user_id):
 @login_required
 def delete_following(request, user_id):
     """if id is right delete the following then redirect"""
-    user: UserProfile = request.user
+    user: User = request.user
     if user.is_authenticated():
         user.userprofile.delete_following(user_id)
     return redirect("following_list", user.id, 1)
 
+
+def if_following(request, user_id):
+    user: User = request.user
+    if user.is_authenticated():
+        return JsonResponse({"result": user.userprofile.if_following(user_id)})
+    else:
+        return JsonResponse({"result": False})
