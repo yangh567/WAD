@@ -13,16 +13,25 @@
 
     <hr/>
 
-    <ul class="content">
+    <div class="all_follower_list" style="
+        text-align: center;
+        background-color: rgba(67, 124, 255, 0.64);
+        padding-left: 20px;
+        padding-right: 30px;
+        border-radius: 25px;
+        margin: 0 auto;
+        color: white;
+        height: auto;
+        width: 200px">
         {% if follower_list %}
             {% for follower in follower_list %}
                 <li>
-                    {{ follower }}
+                    <a href="{% url 'user_profile_detail' follower.id %}">{{ follower }}</a>
                 </li>
             {% endfor %}
         {% else %}
             You have no followers.
         {% endif %}
-    </ul>
+    </div>
 
 {% endblock %}

@@ -1,5 +1,8 @@
 {% extends 'PostBar/base.html' %}
 {% load staticfiles %}
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="../../static/css/user_profile.css">
+{% endblock %}
 
 {% block title_block %}
     <title>Following</title>
@@ -12,17 +15,25 @@
     </div>
 
     <hr/>
-
-    <ul class="content">
+    <div class="all_follower_list" style="
+        text-align: center;
+        background-color: rgba(67, 124, 255, 0.64);
+        padding-left: 20px;
+        padding-right: 30px;
+        border-radius: 25px;
+        margin: 0 auto;
+        color: white;
+        height: auto;
+        width: 200px">
         {% if following_list %}
             {% for follower in following_list %}
                 <li>
-                    {{ follower }}
+                    <a href="{% url 'user_profile_detail' follower.id %}">{{ follower }}</a>
                 </li>
             {% endfor %}
         {% else %}
             You are not following anyone.
         {% endif %}
-    </ul>
+    </div>
 
 {% endblock %}

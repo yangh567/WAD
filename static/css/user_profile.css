@@ -57,3 +57,15 @@
     border-color: #313131;
     overflow: auto;
 }
+
+.all_follower_list {
+    text-align: center;
+    background-color: rgba(67, 124, 255, 0.64);
+    padding-left: 20px;
+    padding-right: 30px;
+    border-radius: 25px;
+    margin: 0 auto;
+    color: white;
+    height: auto;
+    width: 100px
+}
