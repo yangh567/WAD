@@ -1,6 +1,17 @@
 {% extends 'PostBar/base.html' %}
+{% load staticfiles %}
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="../../static/css/category.css">
+{% endblock %}
+
+
 {% block body_block %}
-    <h1>category id: {{ object.id }}</h1>
-    <p>name: {{ object.name }}</p>
+
+    <div class="title">
+        <strong>{{ object.name }}</strong>
+    </div>
+
+    <hr/>
+
     <a href="{% url 'question_list' %}?page=1&category_id={{ object.id }}">questions</a>
 {% endblock %}

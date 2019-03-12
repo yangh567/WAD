@@ -16,17 +16,15 @@
 
     <a href="{% url 'index' %}">Post Bar</a>
 
-
     <div class="dropdown">
 
         <button class="dropbtn">Category</button>
         <div class="dropdown-content">
-            <a href="{% url 'category_list' %}?page=1">Categories</a>
+            <a href="{% url 'category_list' %}?page=1">All Categories</a>
             {% for category in category_list %}
-                <a href="{% url 'category_detail' category.id %}">{{ category }}</a>
+                <a href="{% url 'question_list' %}?page=1&category_id={{ category.id }}">{{ category.name }}</a>
             {% endfor %}
         </div>
-
     </div>
 
     <input class="searchbar" type="text" placeholder="Search...">

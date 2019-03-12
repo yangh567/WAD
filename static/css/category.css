@@ -1,5 +1,6 @@
 h1 {
     margin: 100px auto;
+    overflow: scroll;
 }
 
 .category_link {

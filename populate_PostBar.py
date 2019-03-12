@@ -185,9 +185,9 @@ def populate():
 	]
 
 	Cats = {
-		"Math": math_questions,
-		"Computing_Science": computing_science_questions,
-		"Other_Questions": other_questions
+		"Maths": math_questions,
+		"Computing Science": computing_science_questions,
+		"Other Questions": other_questions
 	}
 
 	for c, qs in Cats.items():
