@@ -28,7 +28,7 @@
         {% if following_list %}
             {% for follower in following_list %}
                 <li>
-                    <a href="{% url 'user_profile_detail' follower.id %}">{{ follower }}</a>
+                    <a href="{% url 'user_profile_detail' follower.user_id %}">{{ follower }}</a>
                 </li>
             {% endfor %}
         {% else %}
