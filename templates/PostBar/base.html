@@ -19,7 +19,7 @@
         <button class="dropbtn">Category</button>
         <div class="dropdown-content">
             <a href="{% url 'category_list' %}?page=1">All Categories</a>
-            {% for category in category_list %}
+            {% for category in base_category_list %}
                 <a href="{% url 'question_list' %}?page=1&category_id={{ category.id }}">{{ category.name }}</a>
             {% endfor %}
         </div>
