@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/post.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/form.css">
 
-    {#    <script src="{% static "js/jquery.js" %}"></script>   #}
+       <script src="{% static "js/jquery.js" %}"></script>
     <meta charset="UTF-8">
 </head>
 <div class="navbar">
@@ -19,7 +19,7 @@
         <button class="dropbtn">Category</button>
         <div class="dropdown-content">
             <a href="{% url 'category_list' %}?page=1">Categories</a>
-            {% for category in category_list %}
+            {% for category in base_category_list %}
                 <a href="{% url 'category_detail' category.id %}">{{ category }}</a>
             {% endfor %}
         </div>
