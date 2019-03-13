@@ -27,11 +27,17 @@ class UserForm(forms.ModelForm):
 
 
 class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('website', 'location', 'background')
+
+
+class UserProfileUpdateForm(forms.ModelForm):
     picture = forms.ImageField()
+
     class Meta:
         model = UserProfile
         fields = ('website', 'picture', 'location', 'background')
-
 
 # class CategoryForm(forms.ModelForm):
 #     class Meta:

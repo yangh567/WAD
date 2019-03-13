@@ -10,7 +10,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView
 
 from PostBar.meta_views import IUpdateView, IDetailView, IListView, ICreateView, IDeleteView
-from PostBar.forms import UserForm, UserProfileForm
+from PostBar.forms import UserForm, UserProfileForm, UserProfileUpdateForm
 from PostBar.models import UserProfile, Category, Question, Answer
 from PostBar.util import to_int
 
@@ -149,7 +149,7 @@ def edit_user_profile(request):
     # edition if it is a post and one can only edit profile of itself
     if request.method == 'POST':
         # Get the form from update data and login user
-        profile_form = UserProfileForm(data=request.POST, instance=user.userprofile, files=request.FILES)
+        profile_form = UserProfileUpdateForm(data=request.POST, instance=user.userprofile, files=request.FILES)
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
             # if 'picture' in request.FILES:
@@ -160,7 +160,7 @@ def edit_user_profile(request):
             print(profile_form.errors)
     else:
         # generate user profile from user
-        profile_form = UserProfileForm(instance=user.userprofile)
+        profile_form = UserProfileUpdateForm(instance=user.userprofile)
     return render(request,
                   'PostBar/edit_user_profile.html',
                   {'profile_form': profile_form})
