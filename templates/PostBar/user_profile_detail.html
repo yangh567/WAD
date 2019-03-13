@@ -28,14 +28,22 @@
             </label>
             {% if user.id == profile_form.user_id %}
                 {{ user.username }} <br>
-                {{ user.usesimage }}<br>
+                {#                {{ user.usesimage }}<br>#}
+                {% if profile_form.picture %}
+                    <div><img src="{{ profile_form.picture.url }} " alt="no picture" width="100" height="100"></div>
+                {% endif %}
                 {{ user.email }} <br>
+
+
 
                 <a href="{% url 'edit_user_profile' %}">Edit Profile</a> <br>
                 <a href="{% url 'following_list' user.id 1 %}">My Followings</a> <br>
                 <a href="{% url 'follower_list' user.id  1 %}">My Followers</a>
             {% else %}
                 {{ profile_form.user.get_username }}
+                {% if profile_form.picture %}
+                    <div><img src="{{ profile_form.picture.url }} " alt="no picture" width="100" height="100"></div>
+                {% endif %}
                 {{ profile_form.user.email }}
 
                 <div>

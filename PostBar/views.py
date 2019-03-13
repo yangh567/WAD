@@ -149,11 +149,11 @@ def edit_user_profile(request):
     # edition if it is a post and one can only edit profile of itself
     if request.method == 'POST':
         # Get the form from update data and login user
-        profile_form = UserProfileForm(data=request.POST, instance=user.userprofile)
+        profile_form = UserProfileForm(data=request.POST, instance=user.userprofile, files=request.FILES)
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
-            if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
+            # if 'picture' in request.FILES:
+            #     profile.picture = request.FILES['picture']
             profile.save()
             return redirect("user_profile_detail", user.id)
         else:
