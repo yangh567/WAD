@@ -43,7 +43,8 @@ def register(request):
             user = user_form.save()
             # Now we hash the password with the set_password method.
             # Once hashed, we can update the user object.
-            user.set_password(user.password)
+            password = user.password
+            user.set_password(password)
             user.save()
             # Now sort out the UserProfile instance.
             # Since we need to set the user attribute ourselves,
@@ -62,6 +63,8 @@ def register(request):
             # Update our variable to indicate that the template
             # registration was successful.
             registered = True
+            login(request, authenticate(username=profile.user, password=password)
+)
         else:
             # Invalid form or forms - mistakes or something else?
             # Print problems to the terminal.
