@@ -4,14 +4,11 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/form.css">
 {% endblock %}
 {% block body_block %}
-
     <div class="create_category_form_body">
         <div class="title">
             <strong>Create a category</strong>
         </div>
-
         <hr/>
-
         <form method="post" class="main">{% csrf_token %}
              <div class="row">
                  <label>Name: </label>

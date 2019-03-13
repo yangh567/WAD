@@ -5,12 +5,10 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/base.css">
     {% block css_block %}
     {% endblock %}
-
-    {#    <script src="{% static "js/jquery.js" %}"></script>   #}
+    <script src="{% static "/js/jquery-3.3.1.min.js" %}"></script>
     <meta charset="UTF-8">
     {% block title_block %}
     {% endblock %}
-
 </head>
 <div class="navbar">
 
@@ -40,11 +38,13 @@
         <a href="{% url 'login' %}">Login</a>
         <a href="{% url 'register' %}">Register</a>
     {% endif %}
-
-
+    <a id="country" hidden>country:</a>
+    <a id="city" hidden>city:</a>
 </div>
-
 <br>
 {% block body_block %}
 {% endblock %}
+{% block js_block %}
+{% endblock %}
+<script src="{% static "/js/base.js" %}"></script>
 </html>

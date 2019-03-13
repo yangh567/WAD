@@ -1,17 +1,23 @@
 {% extends 'PostBar/base.html' %}
 {% load staticfiles %}
+
 {% block css_block %}
     <link rel="stylesheet" type="text/css" href="../../static/css/question.css">
+{% endblock %}
+
+{% block js_block %}
+    <script src="{% static "/js/question_detail.js" %}"></script>
 {% endblock %}
 
 {% block body_block %}
     <div class="title">
         <strong>{{ object.title }}</strong>
     </div>
-
     <hr/>
-
     <div class="question_sidebar">
+        <label hidden>
+            <input id="question_liked_url" value="{% url 'question_liked' object.id %}" hidden/>
+        </label>
         <div class="content">
             <span>
                 Author
@@ -28,16 +34,16 @@
                 <a href="{% url 'answer_create' object.id %}">create new answer</a>
             </div>
             <div>
-                <a href="{% url 'question_like_up' object.id %}">like it </a>
-            </div>
-
-            <div>
-                <a href="{% url 'question_like_down' object.id %}">unlike it </a>
-            </div>
-
-            <div>
                 <a href="{% url 'user_profile_detail' object.user.id %}">Author's profile </a>
             </div>
+            <div>
+                <a id="like" href="{% url 'question_like_up' object.id %}">like it </a>
+            </div>
+
+            <div>
+                <a id="unlike" href="{% url 'question_like_down' object.id %}">unlike it </a>
+            </div>
+
         </div>
     </div>
 
@@ -45,6 +51,9 @@
         <p>
             {{ object.content }}
         </p>
+        <div>
+            {{ object.likes }}
+        </div>
     </div>
 
     <div class="answer_part">
@@ -79,15 +88,7 @@
             <p>No answer found!!! :(</p>
         {% endif %}
     </div>
- {% endblock %}
-
-
-
-
-
-
-
-
+{% endblock %}
 
 
 {#    <p>category name: {{ object.category.name }}</p>#}
@@ -99,4 +100,4 @@
 {#    <p>creator: {{ object.user.username }}</p>#}
 {#    <p>last modified: {{ object.last_modified }}</p>#}
 {#    <p>answer: {{ object.get_answers }}</p>#}
-    {#    append question id to create#}
+{#    append question id to create#}
