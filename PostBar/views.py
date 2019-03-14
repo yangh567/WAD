@@ -1,3 +1,6 @@
+import json
+from urllib import request as i_request
+
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
@@ -64,7 +67,7 @@ def register(request):
             # registration was successful.
             registered = True
             login(request, authenticate(username=profile.user, password=password)
-)
+                  )
         else:
             # Invalid form or forms - mistakes or something else?
             # Print problems to the terminal.
@@ -431,3 +434,12 @@ def if_following(request, user_id):
         return JsonResponse({"result": user.userprofile.if_following(user_id)})
     else:
         return JsonResponse({"result": False})
+
+
+def query_ip(request):
+    key = "ffa9d73d03d582ee9d6b694a84ef6132"
+    if request.method == "GET" and "ip" in request.GET:
+        res = i_request.urlopen(f"http://api.ipstack.com/{request.GET['ip']}?access_key={key}").read()
+        return JsonResponse(json.loads(res))
+    else:
+        raise Http404

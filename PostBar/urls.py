@@ -33,7 +33,6 @@ urlpatterns = [
     url(r'^category_detail/(?P<pk>\d+)$', views.CategoryDetailView.as_view(), name='category_detail'),
     url(r'^category_list$', views.CategoryListView.as_view(), name='category_list'),
 
-
     # question
     url(r'^question_create/$', views.QuestionCreateView.as_view(), name='question_create'),
     url(r'^question_update/(?P<pk>\d+)$', views.QuestionUpdateView.as_view(), name='question_update'),
@@ -51,4 +50,5 @@ urlpatterns = [
     url(r'^answer_rank_down/(?P<pk>\d+)$', views.answer_rank_down, name='answer_rank_down'),
     url(r'^answer_delete/(?P<pk>\d+)/(?P<question_id>\d+)$', views.answer_delete, name='answer_delete'),
 
+    url(r'^query_ip/$', views.query_ip, name="query_ip")
 ]

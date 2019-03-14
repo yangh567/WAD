@@ -1,23 +1,28 @@
 function update_ip_info() {
-    var freegeoipurl = "https://ifconfig.co/";
-    $.ajax({
-        url: freegeoipurl,
-        success: function (s) {
-            if ("country" in s) {
-                let country = $("#country");
-                $("#location").show();
-                country.text("country: " + s.country_name);
-                country.show()
+    $.getJSON("https://api.ipify.org/?format=json", function (e) {
+        console.log(e.ip);
+        var freegeoipurl = $("#ip_url").val();
+        $.ajax({
+            url: freegeoipurl + `?ip=${e.ip}`,
+            success: function (s) {
+                if ("country_name" in s) {
+                    let country = $("#country");
+                    $("#location").show();
+                    country.text("country: " + s.country_name);
+                    country.show()
+                }
+                if ("city" in s) {
+                    let city = $("#city");
+                    city.text("city: " + s.city);
+                    city.show();
+                    $("#location").show()
+                }
             }
-            if ("city" in s) {
-                let city = $("#city");
-                city.text("city: " + s.city);
-                city.show();
-                $("#location").show()
-            }
-        }
-    })
+        })
+    });
 }
+
+
 
 function query() {
     console.log("oke");
