@@ -234,7 +234,7 @@ class CategoryListView(ListView):
 ### Question
 class QuestionCreateView(ICreateView):
     model = Question
-    fields = ['title', 'content', 'category']
+    fields = ['title', 'content', 'category', 'picture']
 
     def get_form(self, form_class=None):
         """fetch in a user to the form if it is a post"""
@@ -247,7 +247,7 @@ class QuestionCreateView(ICreateView):
 
 class QuestionUpdateView(IUpdateView):
     model = Question
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'picture']
 
     def get_object(self, *args, **kwargs):
         obj: Question = super().get_object(*args, **kwargs)

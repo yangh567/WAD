@@ -33,6 +33,8 @@ class Question(models.Model):
     user = models.ForeignKey(User, related_name="questions", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name="questions", on_delete=models.CASCADE)
 
+    picture = models.ImageField(upload_to='question_images', blank=True, null=True)
+
     def update_last_modified(self):
         self.last_modified = datetime.now()
 

@@ -53,7 +53,7 @@
 
         <br>
         <div class="container">
-            <form class="main" method="post">{% csrf_token %}
+            <form class="main" method="post" enctype="multipart/form-data">{% csrf_token %}
                 <div class="row">
                     <label>Title:</label>
                     <p class="field-box"> {{ form.title }}</p>
@@ -67,6 +67,11 @@
                 <div class="row">
                     <label>Category:</label>
                     <p class="field-box">{{ form.category }}</p>
+                </div>
+
+                <div class="row">
+                    <label>picture:</label>
+                    <p class="field-box">{{ form.picture}}</p>
                 </div>
 
                 <p class="field-box"><input class="button" type="submit" value="Submit"></p>
