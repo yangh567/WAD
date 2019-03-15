@@ -321,7 +321,7 @@ class AnswerListView(IListView):
 
 class AnswerCreateView(ICreateView):
     model = Answer
-    fields = ['content']
+    fields = ['content', 'picture']
 
     def get_form(self, form_class=None):
         """get the form and attach users"""
@@ -344,7 +344,7 @@ class AnswerDetailView(IDetailView):
 
 class AnswerUpdateView(IUpdateView):
     model = Answer
-    fields = ['content']
+    fields = ['content', 'picture']
 
     def get_object(self, *args, **kwargs):
         obj: Answer = super().get_object(*args, **kwargs)

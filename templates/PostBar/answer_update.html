@@ -16,11 +16,17 @@
 
     <hr/>
 
-    <form action="" method="post" class="main">{% csrf_token %}
+    <form action="" method="post" enctype="multipart/form-data" class="main">{% csrf_token %}
         <div class="row">
             <label>Content:</label>
             <p class="field-box">{{ form.content }}</p>
         </div>
+
+        <div class="row">
+            <label>picture:</label>
+            <p class="field-box">{{ form.picture }}</p>
+        </div>
+
         <p class="field-box"><input class="button" type="submit" value="Submit"></p>
     </form>
 {% endblock %}

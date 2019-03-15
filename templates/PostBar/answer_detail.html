@@ -40,6 +40,10 @@
         {{ object.content }} <br>
         {{ object.last_modified }} <br>
         {{ object.rank_count }}
+        <div> {% if object.picture %}
+            <div><img src="{{ object.picture.url }} " alt="no picture" width="100" height="100"></div>
+        {% endif %}</div>
+
     </div>
 
 {% endblock %}

@@ -79,6 +79,7 @@ class Answer(models.Model):
 
     question = models.ForeignKey(Question, related_name="answers", on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name="answers", on_delete=models.CASCADE)
+    picture = models.ImageField(upload_to='answer_images', blank=True, null=True)
 
     def update_last_modified(self):
         self.last_modified = datetime.now()
