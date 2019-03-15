@@ -13,6 +13,8 @@ from django.contrib.auth.models import User
 
 
 def populate():
+    default_question_image_url = "question_images/default.png"
+    default_answer_image_url = "answer_images/default.png"
     user1, profile1 = create_or_get_user_profile("john", 'jlennon@beatles.com', "passowrd", "nyu", "a@b.com", "daycare")
     user2, profile2 = create_or_get_user_profile("mary", 'mary@beatles.com', "passowrd", "nyu", "a@b.com", "daycare")
     user3, profile3 = create_or_get_user_profile("tom", 'Tom@beatles.com', "passowrd", "what", "a@b.com", "daycare")
@@ -40,7 +42,8 @@ def populate():
             "answer_username": user1.username,
             "user": user1,
             "rank_counts": 12,
-            "rank_points": 13},
+            "rank_points": 13
+        },
     ]
 
     math_answers1 = [
@@ -97,7 +100,8 @@ def populate():
             "answer_username": user3.username,
             "user": user3,
             "rank_counts": 2201,
-            "rank_points": 230},
+            "rank_points": 230,
+        },
         {
             "answer_content": "In insertion sort elements are bubbled into the sorted section, "
                               "while in bubble sort the maximums are bubbled out of the unsorted section.",
@@ -113,7 +117,9 @@ def populate():
             "answer_username": user5.username,
             "user": user5,
             "rank_counts": 221,
-            "rank_points": 230},
+            "rank_points": 230,
+            "image_url": "answer_images/25788.jpg"
+        },
         {
             "answer_content": "read them multiple times",
             "answer_username": user4.username,
@@ -359,7 +365,8 @@ def populate():
             "answer_username": user2.username,
             "user": user2,
             "rank_counts": 126,
-            "rank_points": 131},
+            "rank_points": 131,
+        },
         {
             "answer_content": "pompey, of course",
             "answer_username": user1.username, "rank_counts": 123,
@@ -515,7 +522,8 @@ def populate():
             "likes": 12,
             "question_isComplete": True,
             "latest_question_published": "2009-11-13",
-            "answers": computing_science_answers
+            "answers": computing_science_answers,
+            "image_url": "question_images/cs.jpg"
         },
         {
             "question_title": "Insertion sort vs Bubble Sort Algorithms",
@@ -620,7 +628,7 @@ def populate():
             "likes": 112,
             "question_isComplete": True,
             "latest_question_published": "2009-11-13",
-            "answers": history_answers
+            "answers": history_answers,
         },
         {
             "question_title": "please look the question",
@@ -713,12 +721,13 @@ def populate():
         cat = add_cat(c)
         for i, q in enumerate(qs):
             qa = add_question(cat, q["user"], q["question_title"], q["question_content"], q["views"], q["likes"],
-                              q["latest_question_published"], q["question_isComplete"])
+                              q["latest_question_published"], q["question_isComplete"], q.get("image_url", default_question_image_url))
             q_answers = q["answers"]
             for ans in q_answers:
                 add_answer(ans["user"], qa, content=ans["answer_content"],
                            rank_count=ans["rank_counts"],
-                           rank_points=ans["rank_points"])
+                           rank_points=ans["rank_points"],
+                           image_url=ans.get("image_url", default_answer_image_url))
 
 
 def create_or_get_user_profile(username, email, password, location, webside, background):
@@ -740,9 +749,10 @@ def add_cat(name):
     return c
 
 
-def add_question(category, user, title, content, views, likes, last_modified, completed):
+def add_question(category, user, title, content, views, likes, last_modified, completed, image_url=None):
     last_modified = datetime.strptime(last_modified, "%Y-%m-%d")
     q = Question.objects.create(user=user, category=category)
+    q.picture = image_url
     q.title = title
     q.content = content
     q.views = views
@@ -753,8 +763,9 @@ def add_question(category, user, title, content, views, likes, last_modified, co
     return q
 
 
-def add_answer(user: User, question: Question, content, rank_count=0, rank_points=0):
+def add_answer(user: User, question: Question, content, rank_count=0, rank_points=0, image_url=None):
     a = Answer.objects.create(question=question, user=user, content=content)
+    a.picture = image_url
     a.rank_count = rank_count
     a.rank_points = rank_points
     a.save()
