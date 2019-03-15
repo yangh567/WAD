@@ -118,7 +118,7 @@ def populate():
             "user": user5,
             "rank_counts": 221,
             "rank_points": 230,
-            "image_url": "answer_images/25788.jpg"
+            "image_url": "answer_images/cs.png"
         },
         {
             "answer_content": "read them multiple times",
@@ -523,7 +523,7 @@ def populate():
             "question_isComplete": True,
             "latest_question_published": "2009-11-13",
             "answers": computing_science_answers,
-            "image_url": "question_images/cs.jpg"
+            "image_url": "question_images/cs.png"
         },
         {
             "question_title": "Insertion sort vs Bubble Sort Algorithms",
