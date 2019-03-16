@@ -1,26 +1,44 @@
 {% extends 'PostBar/base.html' %}
 {% load staticfiles %}
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="../../static/css/about.css">
+{% endblock %}
 
 {% block title_block %}
-    <title>Home</title>
+    <title>About</title>
 {% endblock %}
 
 {% block body_block %}
 
-    <div class="title">
-        <strong>About Us</strong>
-    </div>
+    <img id="about_us_image" src="/static/images/about_us.png" alt="About us">
 
     <hr/>
 
-    <div class="content">
-        <p>
-            brief introduction:...
-        </p>
+    <br><br>
 
-        <p>
-            Contact information:
-        </p>
-    </div>
+    <h1>Contact Information:</h1>
+
+
+    <form class="main">
+
+        <div class="row">
+            <label> Zhouyang Sheng : </label>
+            <p class="field-box">2359009s@student.gla.ac.uk</p>
+        </div>
+
+        <div class="row">
+            <label> Yixuan Dai:  </label>
+            <p class="field-box">2397832d@student.gla.ac.uk</p>
+        </div>
+
+        <div class="row">
+            <label> Ming Ho Wu:  </label>
+            <p class="field-box">2133861w@student.gla.ac.uk</p>
+        </div>
+
+    </form>
+
+
+    <img src="/static/images/break_image.png"><img src="/static/images/break_image.png">
 
 {% endblock %}

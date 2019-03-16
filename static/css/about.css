@@ -1,0 +1,46 @@
+#about_us_image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+img {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.content_title {
+    text-align: center;
+}
+
+
+.main {
+    margin: 100px auto;
+    display: table;
+    padding: 20px;
+    background-color: antiquewhite;
+    border-radius: 25px;
+
+}
+
+.row {
+    display: table-row;
+}
+
+.row label {
+    display: table-cell;
+    padding: 2px;
+}
+
+.field-box {
+    display: table-cell;
+    padding: 2px;
+}
+
+h1 {
+    text-align: center;
+    font-size: x-large;
+}
