@@ -286,7 +286,7 @@ class QuestionDetailView(IDetailView):
 class QuestionListView(IListView):
     model = Question
     context_object_name = "question_list"
-    paginate_by = 3
+    paginate_by = 4
     ordering = '-likes'
     filter_keys = ['category_id']
 
