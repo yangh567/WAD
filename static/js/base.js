@@ -8,12 +8,12 @@ function update_ip_info() {
                 if ("country_name" in s) {
                     let country = $("#country");
                     $("#location").show();
-                    country.text("country: " + s.country_name);
+                    country.text("Country: " + s.country_name);
                     country.show()
                 }
                 if ("city" in s) {
                     let city = $("#city");
-                    city.text("city: " + s.city);
+                    city.text("City: " + s.city);
                     city.show();
                     $("#location").show()
                 }
