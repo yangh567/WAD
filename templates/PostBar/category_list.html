@@ -23,19 +23,19 @@
             {% endfor %}
 
             {% if is_paginated %}
-            <div class="pagination">
+            <h3 class="pagination" style="text-align: center; background-color: #d8d8d8;border-radius: 25px;margin-left: 450px;margin-right: 450px;font-size: medium; ">
                 <span class="page-links">
                     {% if page_obj.has_previous %}
                         <a href="{% url 'category_list' %}?page={{ page_obj.previous_page_number }}">previous</a>
                     {% endif %}
                     <span class="page-current">
-                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
                     </span>
                     {% if page_obj.has_next %}
-                        <a href="{% url 'category_list' %}?page={{ page_obj.next_page_number }}">previous</a>
+                        <a href="{% url 'category_list' %}?page={{ page_obj.next_page_number }}">next</a>
                     {% endif %}
                 </span>
-            </div>
+            </h3>
             {% endif %}
         {% else %}
             <h2>My category</h2>
