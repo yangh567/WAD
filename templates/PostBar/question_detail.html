@@ -31,7 +31,7 @@
                 <a href="{% url 'question_update' question.id %}" class="see_detail">edit</a>
             {% endif %}
             <div>
-                <a href="{% url 'answer_create' object.id %}">create new answer</a>
+                <a href="{% url 'answer_create' object.id %}">Create new answer</a>
             </div>
             <div>
                 <a href="{% url 'user_profile_detail' object.user.id %}">Author's profile </a>
@@ -47,16 +47,17 @@
         </div>
     </div>
 
-    <div class="question">
+    <div class="question" style="height: max-content; overflow: scroll">
         <p>
             {{ object.content }}
         </p>
-        <div>
-            {{ object.likes }}
-        </div>
-        {% if object.picture %}
-            <div><img src="{{ object.picture.url }} " alt="no picture" width="100" height="100"></div>
-        {% endif %}
+        <p class="likes">
+            Likes :{{ object.likes }}.
+            Last modified :{{ object.last_modified }}
+        </p>
+{#        {% if object.picture %}#}
+{#            <div><img src="{{ object.picture.url }} " alt="no picture" width="100" height="100"></div>#}
+{#        {% endif %}#}
     </div>
 
     <div class="answer_part">

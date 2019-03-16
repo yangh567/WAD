@@ -23,15 +23,19 @@
         {% if question_list %}
             <h1 id="question">
                 {% for question in question_list %}
-{#                    <p class="time"{{ question.last_modified }}> </p> <br>#}
                     <a href="{% url 'question_detail' question.id %}" class="question_title">[ {{ question.category }} ] {{ question.title }}</a> <br>
-                    <p class="question_content">{{ question.content }}</p> <br>
-{#                     <p class="likes">likes: {{ question.likes }} </p>#}
-                    <p class="author">author: {{ question.user}} </p>
-{#                    <p class="answer_part"> {{ question.answers }} </p>#}
+                    <p class="question_content" style="height: 100px; overflow: auto">
+                        {{ question.content }} <br><br>
+                        Likes: {{ question.likes }}<br>
+                        Last modified: {{ question.last_modified }}<br>
+                        Author: {{ question.user}}
+                    </p>
+                    <p class="likes">likes:  </p>
                 {% endfor %}
             </h1>
 
+
+            <br>
                 {% if is_paginated %}
                     <div class="pagination">
                         <span class="page-links">
@@ -42,6 +46,7 @@
                             <span class="page-current">
                                 Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                             </span>
+
                             {% if page_obj.has_next %}
                                 <a href="{% url 'question_list' %}?page={{ page_obj.next_page_number }}&category_id={{ category_id }}&ordering={{ ordering }}&query={{ query }}">Next</a>
                             {% endif %}
@@ -50,7 +55,7 @@
                 {% endif %}
         {% else %}
             <h3>My question</h3>
-            <p>No question found!!! :(</p>
+            <p>No question</p>
         {% endif %}
     </div>
 

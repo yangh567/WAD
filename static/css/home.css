@@ -39,8 +39,9 @@
     border-radius: inherit;
     background-color: rgba(67, 124, 255, 0.64);
     color: white;
-    height: 50px;
+    height: 100px;
 }
+
 .answer_part {
     text-align: left;
     padding-left: 20px;
@@ -49,6 +50,10 @@
     height: 100px;
     overflow: scroll;
     margin-top: -36px
+}
+
+.author {
+
 }
 
 a {
