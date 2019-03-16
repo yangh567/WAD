@@ -64,7 +64,7 @@
         {% if answer_list %}
             <h1 class="answer">
                 {% for answer in answer_list %}
-                    <p class="per_answer">
+                    <p class="per_answer" >
                         {{ answer.preview }} <br>
                         {{ answer.last_modified }}
                         <a href="{% url 'answer_detail' answer.id %}">Detail</a>

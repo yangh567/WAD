@@ -24,13 +24,12 @@
             <h1 id="question">
                 {% for question in question_list %}
                     <a href="{% url 'question_detail' question.id %}" class="question_title">[ {{ question.category }} ] {{ question.title }}</a> <br>
-                    <p class="question_content" style="height: 100px; overflow: auto">
+                    <p class="question_content" style="height: 120px; overflow: auto">
                         {{ question.content }} <br><br>
                         Likes: {{ question.likes }}<br>
                         Last modified: {{ question.last_modified }}<br>
                         Author: {{ question.user}}
                     </p>
-                    <p class="likes">likes:  </p>
                 {% endfor %}
             </h1>
 

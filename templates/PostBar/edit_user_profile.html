@@ -1,5 +1,8 @@
 {% extends 'PostBar/base.html' %}
 {% load staticfiles %}
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="../../static/css/form.css">
+{% endblock %}
 
 {% block title_block %}
     <title>Edit</title>
@@ -14,8 +17,28 @@
     <hr/>
 
     <div class="content">
-        <form method="post" enctype="multipart/form-data">{% csrf_token %}
-            {{ profile_form.as_p }}
+        <form class="main" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+            <div class="row">
+                <label>Website:</label>
+                <p class="field-box">{{ profile_form.website }}</p>
+            </div>
+
+            <div class="row">
+                <label>Choose a picture:</label>
+                <p class="field-box">{{ profile_form.picture }}</p>
+            </div>
+
+            <div class="row">
+                <label>Location: </label>
+                <p class="field-box">{{ profile_form.location }}</p>
+            </div>
+
+            <div class="row">
+                <label>Background:</label>
+                <p class="field-box">{{ profile_form.background }}</p>
+            </div>
+
             <input type="submit" value="Submit">
         </form>
 
