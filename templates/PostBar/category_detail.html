@@ -8,10 +8,15 @@
 {% block body_block %}
 
     <div class="title">
-        <strong>{{ object.name }}</strong>
+        <strong>Category Created!</strong>
     </div>
 
     <hr/>
 
-    <a href="{% url 'question_list' %}?page=1&category_id={{ object.id }}">questions</a>
+    <img src="/static/images/created.png" alt="created_pic" style="  display: block; margin-left: auto; margin-right: auto; width: 30%;">
+
+    <p  style="text-align: center">
+        <a href="{% url 'category_list' %}?page=1">Go to Category List</a>
+    </p>
+
 {% endblock %}

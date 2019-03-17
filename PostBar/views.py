@@ -212,7 +212,7 @@ def page_list(object_list, page, max_page_number=25):
     return followers
 
 
-### Category
+# Category
 class CategoryCreateView(ICreateView):
     model = Category
     fields = ['name']
@@ -234,7 +234,7 @@ class CategoryListView(ListView):
     paginate_by = 5
 
 
-### Question
+# Question
 class QuestionCreateView(ICreateView):
     model = Question
     fields = ['title', 'content', 'category', 'picture']
