@@ -4,6 +4,10 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/answers.css">
 {% endblock %}
 
+{% block js_block %}
+    <script src="{% static "/js/answer_detail.js" %}"></script>
+{% endblock %}
+
 
 {% block body_block %}
     <div class="title">
@@ -16,6 +20,9 @@
     <hr/>
 
     <div class="answer_sidebar">
+          <label hidden>
+            <input id="answer_ranked_url" value="{% url 'answer_ranked' object.id %}" hidden/>
+        </label>
         <div class="content">
             <span>
                 Author
@@ -30,8 +37,8 @@
                 <a href="{% url 'answer_delete' answer.id answer.question.id %}" class="see_detail">Delete</a>
             {% endif %}
             <div>
-                <a href="{% url 'answer_rank_up' answer.id %}" class="see_detail">Agree</a> <br>
-                <a href="{% url 'answer_rank_down' answer.id %}" class="see_detail">Disagree</a>
+                <a id="agree" href="{% url 'answer_rank_up' answer.id %}" class="see_detail">Agree</a> <br>
+                <a id="disagree" href="{% url 'answer_rank_down' answer.id %}" class="see_detail">Disagree</a>
             </div>
         </div>
     </div>

@@ -395,6 +395,15 @@ def question_like_down(request, pk):
 
 
 @login_required
+def answer_ranked(request, pk):
+    answer: Answer = get_object_or_404(Answer, pk=pk)
+    if request.user.is_authenticated():
+        return JsonResponse({"result1": answer.if_ranked_by(request.user)})
+    else:
+        return JsonResponse({"result1": False})
+
+
+@login_required
 def answer_rank_up(request, pk):
     answer: Answer = get_object_or_404(Answer, pk=pk)
     if request.user.is_authenticated():

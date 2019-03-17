@@ -84,6 +84,12 @@ class Answer(models.Model):
     def update_last_modified(self):
         self.last_modified = datetime.now()
 
+    def if_ranked_by(self, user):
+        print(user.id)
+        for u in self.ranked_users.all():
+            print(u)
+        return self.ranked_users.filter(id=user.id).exists()
+
     def add_ranks(self, user):
         if not self.ranked_users.filter(id=user.id).exists():
             self.ranked_users.add(user)
@@ -97,10 +103,10 @@ class Answer(models.Model):
             self.save()
 
     def get_absolute_url(self):
-        return reverse('answer_detail', args=[self.id])
+        return reverse('answer_detail.js', args=[self.id])
 
     def preview(self):
-        return self.content[:50] + " ... "
+        return self.content[:1000] + " ... "
 
 
 class UserProfile(models.Model):

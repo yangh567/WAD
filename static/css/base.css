@@ -7,7 +7,7 @@ body{
 /* Navbar container */
 .navbar {
     overflow: hidden;
-    background-color: #61d07c;
+    background-color: black;
     z-index:999;
     min-width: 1000px;
     width: auto !important;
