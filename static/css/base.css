@@ -7,7 +7,7 @@ body{
 /* Navbar container */
 .navbar {
     overflow: hidden;
-    background-color: #61d07c;
+    background-color: #4e4e4e;
     z-index:999;
     min-width: 1000px;
     width: auto !important;
@@ -43,7 +43,7 @@ body{
 
 /* Add a red background color to navbar links on hover */
 .navbar a:hover, .dropdown:hover .dropbtn {
-    background-color: #3e70ff;
+    background-color: #63e4ab;
     top: 0;
 
 }
