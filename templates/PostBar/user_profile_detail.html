@@ -34,13 +34,11 @@
                 {% endif %}
                 {{ user.email }} <br>
 
-
-
                 <a href="{% url 'edit_user_profile' %}">Edit Profile</a> <br>
                 <a href="{% url 'following_list' user.id 1 %}">My Followings</a> <br>
-                <a href="{% url 'follower_list' user.id  1 %}">My Followers</a>
+                <a href="{% url 'follower_list' user.id 1 %}">My Followers</a>
             {% else %}
-                {{ profile_form.user.get_username }}
+                {{ profile_form.user.get_username }}<br>
                 {% if profile_form.picture %}
                     <div><img src="{{ profile_form.picture.url }} " alt="no picture" width="100" height="100"></div>
                 {% endif %}
@@ -79,9 +77,10 @@
         {% if profile_form.user.answers.all %}
             {% for answer in profile_form.user.answers.all %}
                 <li>
-                    <p class="link">
+                    <p class="link_answer">
                         <a href="{% url 'answer_detail' answer.id %}">{{ answer.question.title }} <br>
-                            My answer: {{ answer.content }}</a>
+                            <span class="my_answers_content">[ My answer ]: {{ answer.content }}</span>
+                        </a>
                     </p>
                 </li>
             {% endfor %}

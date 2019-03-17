@@ -46,17 +46,18 @@
 .my_questions {
     height: 350px;
     margin-left: 350px;
-    margin-right: 50px;
+    margin-right: 80px;
     border-color: #313131;
     overflow: auto;
 }
 
 .my_answers {
     margin-left: 350px;
-    margin-right: 50px;
+    margin-right: 80px;
+    padding-right: 20px;
     border-color: #313131;
     height: 350px;
-    overflow: auto;
+    overflow: scroll;
 }
 
 .all_follower_list {
@@ -79,9 +80,22 @@
     border-radius: 25px;
     margin-top: 13px;
     color: white;
-    margin-right: 50px;
+    margin-right: 0;
     height: auto;
     width: max-content;
+}
+
+
+.link_answer {
+    text-align: center;
+    background-color: rgba(67, 124, 255, 0.64);
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 25px;
+    margin-top: 13px;
+    color: white;
+    margin-right: 0;
+    height: auto;
 }
 
 a {
