@@ -3,7 +3,7 @@
   /*height: 100%; !* Full-height: remove this if you want "auto" height *!*/
     margin-top: -8px;
     width: 300px; /* Set the width of the sidebar */
-    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    position: absolute; /* Fixed Sidebar (stay in place on scroll) */
     left: 0;
     background-color: #d0d0d0; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */

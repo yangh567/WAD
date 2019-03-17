@@ -15,13 +15,13 @@ from django.contrib.auth.models import User
 def populate():
     default_question_image_url = "question_images/default.png"
     default_answer_image_url = "answer_images/default.png"
-    user1, profile1 = create_or_get_user_profile("john", 'jlennon@beatles.com', "passowrd", "nyu", "a@b.com", "daycare")
-    user2, profile2 = create_or_get_user_profile("mary", 'mary@beatles.com', "passowrd", "nyu", "a@b.com", "daycare")
-    user3, profile3 = create_or_get_user_profile("tom", 'Tom@beatles.com', "passowrd", "what", "a@b.com", "daycare")
-    user4, profile4 = create_or_get_user_profile("jack", 'jack@beatles.com', "passowrd", "nyu", "a@b.com", "daycare")
-    user5, profile5 = create_or_get_user_profile("mr square", 'square@beatles.com', "passowrd", "nyu", "a@b.com",
+    user1, profile1 = create_or_get_user_profile("John", 'jlennon@beatles.com', "passowrd", "nyu", "a@b.com", "daycare")
+    user2, profile2 = create_or_get_user_profile("Mary", 'mary@beatles.com', "passowrd", "nyu", "a@b.com", "daycare")
+    user3, profile3 = create_or_get_user_profile("Tom", 'Tom@beatles.com', "passowrd", "what", "a@b.com", "daycare")
+    user4, profile4 = create_or_get_user_profile("Jack", 'jack@beatles.com', "passowrd", "nyu", "a@b.com", "daycare")
+    user5, profile5 = create_or_get_user_profile("Mr square", 'square@beatles.com', "passowrd", "nyu", "a@b.com",
                                                  "daycare")
-    user6, profile6 = create_or_get_user_profile("crazyworld", 'jack@beatles.com', "passowrd", "nyu", "a@b.com",
+    user6, profile6 = create_or_get_user_profile("Crazyworld", 'jack@beatles.com', "passowrd", "nyu", "a@b.com",
                                                  "daycare")
     profile1.add_following(user2.id)
     profile2.add_following(user1.id)
@@ -32,7 +32,7 @@ def populate():
 
     math_answers = [
         {
-            "answer_content": "I can swim and you can not",
+            "answer_content": "It is the derivation",
             "answer_username": user1.username,
             "user": user1,
             "rank_counts": 12,
