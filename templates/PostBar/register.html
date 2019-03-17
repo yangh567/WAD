@@ -16,7 +16,7 @@
 
         <div class="container">
             {% if registered %}
-            <a href="{% url 'index' %}"> You are registered! </a><br />
+            <a href="{% url 'index' %}"> You are now registered! --- go to profile </a>
             {% else %}
             <form id="register_form" method="post" action="{% url 'register' %}"
                 enctype="multipart/form-data">

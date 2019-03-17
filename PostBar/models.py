@@ -103,7 +103,7 @@ class Answer(models.Model):
             self.save()
 
     def get_absolute_url(self):
-        return reverse('answer_detail.js', args=[self.id])
+        return reverse('answer_detail', args=[self.id])
 
     def preview(self):
         return self.content[:1000] + " ... "
