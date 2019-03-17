@@ -33,7 +33,7 @@
                 {{ object.user.email }}
             </p>
             {% if user.is_authenticated and user.id == object.user.id %}
-                <a href="{% url 'question_update' question.id %}" class="see_detail">edit</a>
+                <a href="{% url 'question_update' question.id %}">edit</a>
             {% endif %}
             <div>
                 <a href="{% url 'answer_create' object.id %}">Create new answer</a>
