@@ -37,7 +37,9 @@
                 <a href="{% url 'answer_delete' answer.id answer.question.id %}" class="see_detail">Delete</a>
             {% endif %}
             <div>
-                <a id="agree" href="{% url 'answer_rank_up' answer.id %}" class="see_detail">Agree</a> <br>
+                <a id="agree" href="{% url 'answer_rank_up' answer.id %}" class="see_detail">Agree</a>
+            </div>
+            <div>
                 <a id="disagree" href="{% url 'answer_rank_down' answer.id %}" class="see_detail">Disagree</a>
             </div>
         </div>
