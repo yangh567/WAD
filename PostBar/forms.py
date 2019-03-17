@@ -33,7 +33,7 @@ class UserProfileForm(forms.ModelForm):
 
 
 class UserProfileUpdateForm(forms.ModelForm):
-    picture = forms.ImageField()
+    picture = forms.ImageField(required=False)
 
     class Meta:
         model = UserProfile
