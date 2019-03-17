@@ -4,7 +4,7 @@
     width: 300px; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     left: 0;
-    background-color: #d0d0d0; /* Black */
+    background-color: #e0e0e0;
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
     padding-bottom: 750px;
@@ -22,11 +22,11 @@
 
 /* When you mouse over the navigation links, change their color */
 .question_sidebar a:hover {
-  color: #66ffb8;
+  color: rgba(65, 131, 255, 0.69);
 }
 
 .question_sidebar a:visited {
-  color: #ffffff;
+  color: #4e4e4e;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
