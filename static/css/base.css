@@ -11,9 +11,6 @@ body{
     z-index:999;
     min-width: 1000px;
     width: auto !important;
-
-
-
 }
 
 /* Links inside the navbar */
@@ -39,6 +36,8 @@ body{
     outline: none;
     color: white;
     padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit; /* Important for vertical align on mobile phones */
     margin: 0; /* Important for vertical align on mobile phones */
 }
 
@@ -46,6 +45,7 @@ body{
 .navbar a:hover, .dropdown:hover .dropbtn {
     background-color: #3e70ff;
     top: 0;
+
 }
 
 /* Dropdown content (hidden by default) */
@@ -105,4 +105,3 @@ hr {
     height: 5px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(102, 214, 156, 0.75), rgba(0, 0, 0, 0));
 }
-
