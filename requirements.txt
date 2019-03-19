@@ -1,3 +1,4 @@
 Django==1.11.17
 django-autofixture==0.12.1
 pytz==2018.9
+pillow
