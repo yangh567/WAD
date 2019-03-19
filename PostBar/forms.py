@@ -1,3 +1,5 @@
+from django.contrib.auth.forms import UsernameField
+from django.core.exceptions import ValidationError
 from django.http import HttpResponse
 from django.shortcuts import render
 from django import forms
@@ -24,6 +26,18 @@ class UserForm(forms.ModelForm):
             'username': None,
         }
         fields = ('username', 'email', 'password')
+
+    def clean_username(self):
+        val = self.cleaned_data['username']
+        if User.objects.exclude(pk=self.instance.pk).filter(username__exact=val):
+            raise forms.ValidationError("username is duplicated")
+        return val
+
+    def clean_email(self):
+        val = self.cleaned_data['email']
+        if User.objects.exclude(pk=self.instance.pk).filter(email__exact=val):
+            raise forms.ValidationError("email is duplicated")
+        return val
 
 
 class UserProfileForm(forms.ModelForm):
