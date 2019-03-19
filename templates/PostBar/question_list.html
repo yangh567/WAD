@@ -28,7 +28,7 @@
                         {{ question.content }} <br><br>
                         Likes: {{ question.likes }}<br>
                         Last modified: {{ question.last_modified }}<br>
-                        Author: {{ question.user}}
+                        <a href="{% url 'user_profile_detail' question.user_id %}">Author: {{ question.user}} </a>
                     </p>
                 {% endfor %}
             </h1>
