@@ -31,10 +31,11 @@
                {% if object.user.userprofile.picture %}
                     <div><img src="{{ object.user.userprofile.picture.url }} " alt="no picture" width="100" height="100"></div>
                 {% endif %}
-
-
                 {{ object.user.username }}
                 {{ object.user.email }}
+                <div>
+                    <a href="{% url 'user_profile_detail' object.user.id %}">Author's profile </a>
+                </div>
             </p>
             {% if user.is_authenticated and user.id == object.user.id %}
                 <a href="{% url 'answer_update' answer.id %}" class="see_detail">Edit</a> <br>
