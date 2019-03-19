@@ -1,7 +1,7 @@
 {% extends 'PostBar/base.html' %}
 {% load staticfiles %}
 {% block css_block %}
-    <link rel="stylesheet" type="text/css" href="../../static/css/login_and_register.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/form.css">
 {% endblock %}
 
 {% block title_block %}
@@ -9,22 +9,30 @@
 {% endblock %}
 
 {% block body_block %}
+
+    <div class="title">
+        <strong>Login</strong>
+    </div>
+
+    <hr>
+
     <div id="main_body">
-        Login
-        <hr>
 
         <div class="container">
-            <form id="login_form" method="post" action="{% url 'login' %}">
-            {% csrf_token %}
+            <form class="main" method="post" action="{% url 'login' %}">{% csrf_token %}
 
             <div class="row">
                 <label>Username:</label>
-                <input type="text" name="username" value="" size="50"/>
+                <p class="field-box">
+                    <input type="text" name="username" value="" size="50">
+                </p>
             </div>
 
             <div class="row">
                 <label>Password:</label>
-                <input type="password" name="password" value="" size="50"/>
+                <p class="field-box">
+                    <input type="password" name="password" value="" size="50">
+                </p>
             </div>
 
             <div class="bottom">

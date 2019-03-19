@@ -1,7 +1,7 @@
 {% extends 'PostBar/base.html' %}
 {% load staticfiles %}
 {% block css_block %}
-    <link rel="stylesheet" type="text/css" href="../../static/css/login_and_register.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/form.css">
 {% endblock %}
 
 {% block title_block %}
@@ -9,38 +9,46 @@
 {% endblock %}
 
 {% block body_block %}
-    <div id="main_body">
-        Register
 
-        <hr>
+    <div class="title">
+        <strong>Register</strong>
+    </div>
+
+    <hr>
+
+    <div id="main_body">
 
         <div class="container">
             {% if registered %}
             <a href="{% url 'index' %}"> You are now registered! --- go to profile </a>
             {% else %}
-            <form id="register_form" method="post" action="{% url 'register' %}"
-                enctype="multipart/form-data">
+            <form class="main" method="post" action="{% url 'register' %}"
+                enctype="multipart/form-data">{% csrf_token %}
 
-            {% csrf_token %}
+                <div class="row">
+                    <label>Username:</label>
+                    <p class="field-box">
+                        <input type="text" name="username" value="" size="50"/>
+                    </p>
+                </div>
 
-            <div class="row">
-                <label>Username:</label>
-                <input type="text" name="username" value="" size="50"/>
-            </div>
+                <div class="row">
+                    <label>Password:</label>
+                    <p class="field-box">
+                        <input type="password" name="password" value="" size="50"/>
+                    </p>
+                </div>
 
-            <div class="row">
-                <label>Password:</label>
-                <input type="password" name="password" value="" size="50"/>
-            </div>
+                <div class="row">
+                    <label>Email:</label>
+                    <p class="field-box">
+                        <input type="Email" name="Email" value="" size="50"/>
+                    </p>
+                </div>
 
-            <div class="row">
-                <label>Email:</label>
-                <input type="Email" name="Email" value="" size="50"/>
-            </div>
-
-            <div class="bottom">
-                <input type="submit" name="submit" value="Register" />
-            </div>
+                <div class="bottom">
+                    <input type="submit" name="submit" value="Register" />
+                </div>
 
             </form>
 
