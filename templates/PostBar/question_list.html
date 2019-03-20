@@ -39,7 +39,7 @@
                     <div class="pagination">
                         <span class="page-links">
                             {% if page_obj.has_previous %}
-                                <a href="{% url 'question_list' %}?page={{ page_obj.previous_page_number }}&category_id={{ category_id }}&ordering={{ ordering }}&query={{ query }}">Previous</a>
+                                <a style="color: rgba(67,124,255,0.69)" href="{% url 'question_list' %}?page={{ page_obj.previous_page_number }}&category_id={{ category_id }}&ordering={{ ordering }}&query={{ query }}">Previous</a>
                             {% endif %}
 
                             <span class="page-current">
@@ -47,7 +47,7 @@
                             </span>
 
                             {% if page_obj.has_next %}
-                                <a href="{% url 'question_list' %}?page={{ page_obj.next_page_number }}&category_id={{ category_id }}&ordering={{ ordering }}&query={{ query }}">Next</a>
+                                <a style="color: rgba(67,124,255,0.69)" href="{% url 'question_list' %}?page={{ page_obj.next_page_number }}&category_id={{ category_id }}&ordering={{ ordering }}&query={{ query }}">Next</a>
                             {% endif %}
                         </span>
                     </div>

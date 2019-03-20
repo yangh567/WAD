@@ -2,8 +2,8 @@
     background: #f5f5f5;
     text-align: center;
     margin-top: -20px;
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: 150px;
+    margin-right: 150px;
     border-radius: 30px;
     height: 800px;
     min-width: 1000px;
@@ -65,6 +65,6 @@ a {
 .pagination {
     background-color: #d8d8d8;
     border-radius: 25px;
-    margin-left: 450px;
-    margin-right: 450px;
+    margin-left: 400px;
+    margin-right: 400px;
 }
