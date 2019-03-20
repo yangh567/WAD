@@ -24,10 +24,8 @@
             <input id="answer_ranked_url" value="{% url 'answer_ranked' object.id %}" hidden/>
         </label>
         <div class="content">
-            <span>
-                Author
-            </span>
             <p class="auth_info">
+                Author
                {% if object.user.userprofile.picture %}
                     <div><img src="{{ object.user.userprofile.picture.url }} " alt="no picture" width="100" height="100"></div>
                 {% endif %}
@@ -45,7 +43,7 @@
                 <a id="agree" href="{% url 'answer_rank_up' answer.id %}" class="see_detail">Agree</a>
             </div>
             <div>
-                <a id="disagree" href="{% url 'answer_rank_down' answer.id %}" class="see_detail">Disagree</a>
+                <a id="disagree" href="{% url 'answer_rank_down' answer.id %}" class="see_detail">Cancel agree</a>
             </div>
         </div>
     </div>

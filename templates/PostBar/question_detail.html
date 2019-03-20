@@ -39,11 +39,11 @@
                 <a href="{% url 'user_profile_detail' object.user.id %}">Author's profile </a>
             </div>
             <div>
-                <a id="like" href="{% url 'question_like_up' object.id %}">like it </a>
+                <a id="like" href="{% url 'question_like_up' object.id %}">Like it</a>
             </div>
 
             <div>
-                <a id="unlike" href="{% url 'question_like_down' object.id %}">unlike it </a>
+                <a id="unlike" href="{% url 'question_like_down' object.id %}">Cancel like</a>
             </div>
 
         </div>
