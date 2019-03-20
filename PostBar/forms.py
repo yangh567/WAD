@@ -30,15 +30,15 @@ class UserForm(forms.ModelForm):
     def clean_username(self):
         val = self.cleaned_data['username']
         if User.objects.exclude(pk=self.instance.pk).filter(username__exact=val):
-            raise forms.ValidationError("username is duplicated")
+            raise forms.ValidationError("username has been used")
         return val
 
     def clean_email(self):
         val = self.cleaned_data['email']
         if not val:
-            raise forms.ValidationError("email is required")
+            raise forms.ValidationError("You need to fill in the email field")
         elif User.objects.exclude(pk=self.instance.pk).filter(email__exact=val):
-            raise forms.ValidationError("email is duplicated")
+            raise forms.ValidationError("email has been used")
         else:
             return val
 
