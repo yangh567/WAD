@@ -26,3 +26,7 @@ body{
     background-repeat: no-repeat;
     background-size: auto;
 }
+
+a {
+    text-decoration: none;
+}

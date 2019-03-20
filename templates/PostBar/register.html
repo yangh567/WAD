@@ -20,7 +20,11 @@
 
         <div class="container">
             {% if registered %}
-            <a href="{% url 'index' %}"> You are now registered! --- go to profile </a>
+                <img src="/static/images/check_mark.png" style="display: block; margin-right: auto; margin-left: auto; width: 20%">
+                <p class="registered" style=" font-size: xx-large; text-align: center; padding: 50px;
+                    background: transparent; margin-left: 300px; margin-right: 300px;">
+                    <a style="text-decoration: none; color: white" href="{% url 'index' %}"> You are now registered! --- go to Home </a>
+                </p>
             {% else %}
             <form class="main" method="post" action="{% url 'register' %}"
                 enctype="multipart/form-data">{% csrf_token %}
