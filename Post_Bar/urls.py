@@ -26,6 +26,6 @@ urlpatterns = [  # url(r'^$', views.index, name='index'),
                   url(r'^admin/', admin.site.urls),
                   url(r'', include('PostBar.urls')),
                   url(r'^reset$', auth_views.password_change, name='password_change_form'),
-                  url(r'^reset/done/$', auth_views.password_reset_complete, name='password_change_done'),
+                  url(r'^reset/done$', auth_views.password_change_done, name='password_change_done'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
