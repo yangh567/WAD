@@ -19,7 +19,7 @@ from django.test import TestCase
 from django.test import Client
 from .forms import *   # import all forms
 from . import views
-
+from django.urls import resolve
 
 
 class Test_App(TestCase):
@@ -27,6 +27,8 @@ class Test_App(TestCase):
     def test_apps(self):
         self.assertEqual(PostbarConfig.name, 'PostBar')
         self.assertEqual(apps.get_app_config('PostBar').name, 'PostBar')
+
+
 
 
 # website used for index page and about page: https://wsvincent.com/django-testing-tutorial/
@@ -116,21 +118,21 @@ class Test_Login(TestCase):
         self.assertTrue(response.context['user'].is_authenticated)
 
     def test_user_login(self):
-        #self.user
         user_login = User.objects.create(username="use",email="user@mp.com", password="user")
-        #user_login = self.client.login(username="use",email="user@mp.com", password="user")
         self.assertTrue(user_login)
-        """
-        response = self.client.get("/restricted/")
-        self.assertEqual(response.status_code, 302)
-        """
         
-    def test_add_user_view(self):
+        response = self.client.get("/edit_user_profile/")
+        self.assertEqual(response.status_code, 302)
+        
+        
+    def test_login_status(self):
         response = self.client.get('/login/')
         self.assertEqual(response.status_code, 200)
+
+        
+    def test_login_template(self):
+        response = self.client.get('/login/')
         self.assertTemplateUsed(response, 'PostBar/login.html')
-
-
 
 
 class Test_View(TestCase):
@@ -141,6 +143,7 @@ class Test_View(TestCase):
 
         #Check title used correctly
         self.assertIn('<title>', response.content.decode('ascii'))
+
 
 
 
@@ -166,3 +169,15 @@ class User_Form_Test(TestCase):
 
 
 #-------------------------- test form.py    end
+
+class Test_Url(TestCase):
+
+    def test_Url_user_profile_detail(self):
+        url = reverse('user_profile_detail', args=[1988])
+        self.assertEqual(url, '/user_profile_detail/1988/')
+
+    def test_Url_user_following_list(self):
+        url = reverse('follower_list', args=[1988,1234])
+        self.assertEqual(url, '/follower_list/1988/1234')
+        
+        
