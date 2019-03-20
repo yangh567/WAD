@@ -35,9 +35,12 @@ class UserForm(forms.ModelForm):
 
     def clean_email(self):
         val = self.cleaned_data['email']
-        if User.objects.exclude(pk=self.instance.pk).filter(email__exact=val):
+        if not val:
+            raise forms.ValidationError("email is required")
+        elif User.objects.exclude(pk=self.instance.pk).filter(email__exact=val):
             raise forms.ValidationError("email is duplicated")
-        return val
+        else:
+            return val
 
 
 class UserProfileForm(forms.ModelForm):
