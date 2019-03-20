@@ -29,12 +29,7 @@ function addTrigger(link_element) {
     link_element.click(function (e) {
         e.preventDefault();
         url = link_element.attr("href");
-        $.ajax({
-            url: url,
-            success: function () {
-                location.reload()
-            }
-        });
+        window.location = url
     })
 
 }
