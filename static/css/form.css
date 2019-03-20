@@ -20,3 +20,9 @@
     display: table-cell;
     padding: 4px;
 }
+
+body{
+    background-image: url("/static/images/bg.jpg");
+    background-repeat: no-repeat;
+    background-size: auto;
+}
