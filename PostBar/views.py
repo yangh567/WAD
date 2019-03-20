@@ -425,7 +425,10 @@ def add_following(request, user_id):
     user: User = request.user
     if user.is_authenticated():
         user.userprofile.add_following(user_id)
-    return redirect("following_list", user.id, 1)
+        redirect_id= get_object_or_404(User, id=user_id).id
+        return redirect("user_profile_detail", redirect_id)
+    else:
+        return redirect("login")
 
 
 @login_required
@@ -434,7 +437,10 @@ def delete_following(request, user_id):
     user: User = request.user
     if user.is_authenticated():
         user.userprofile.delete_following(user_id)
-    return redirect("following_list", user.id, 1)
+        redirect_id= get_object_or_404(User, id=user_id).id
+        return redirect("user_profile_detail", redirect_id)
+    else:
+        return redirect("login")
 
 
 def if_following(request, user_id):
