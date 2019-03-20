@@ -22,7 +22,12 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = [STATIC_DIR,]
 MEDIA_ROOT = MEDIA_DIR
 
-
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'testsite_app'
+EMAIL_HOST_PASSWORD = 'mys3cr3tp4ssw0rd'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'TestSite Team <noreply@example.com>'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -47,6 +52,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'PostBar'
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

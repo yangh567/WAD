@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="../../static/css/base.css">
+    {% block css_block %}
+    {% endblock %}
+    <script src="{% static "/js/jquery-3.3.1.min.js" %}"></script>
+    <meta charset="UTF-8">
+    {% block title_block %}
+    {% endblock %}
+</head>
+
+{% block body_block %}
+{% endblock %}
+{% block js_block %}
+{% endblock %}
+<script src="{% static "/js/base.js" %}"></script>
+</html>

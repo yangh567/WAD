@@ -36,6 +36,7 @@
                 {{ user.email }} <br>
 
                 <a href="{% url 'edit_user_profile' %}">Edit Profile</a> <br>
+                <a href="{% url 'password_reset' %}">Reset Password</a><br>
                 <a href="{% url 'following_list' user.id 1 %}">My Followings</a> <br>
                 <a href="{% url 'follower_list' user.id 1 %}">My Followers</a>
             {% else %}
