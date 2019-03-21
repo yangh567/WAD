@@ -5,8 +5,6 @@
         <strong>Delete Question</strong>
     </div>
 
-    <hr/>
-
     <form action="" method="post" style="text-align: center">{% csrf_token %}
         <p>Are you sure you want to delete your answer "{{ object.preview }} ..." <br>
             on question: "{{ object.question.title }} ?"</p>
