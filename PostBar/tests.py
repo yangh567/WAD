@@ -189,15 +189,18 @@ class Test_Login_Out(TestCase):
         self.assertIn(reverse('login'), response.content.decode('ascii'))
         self.assertIn(reverse('about'), response.content.decode('ascii'))
 
-
 class Test_View(TestCase):
 
+    def create_category(self, name= "Maths question"):
+        return Category.objects.create(name=name)
+    
     def test_view_has_title(self):
         response = self.client.get(reverse('index'))
 
         # Check title used correctly
         self.assertIn('<title>', response.content.decode('ascii'))
 
+    
 
 # -------------------------- test form.py    start
 
@@ -231,6 +234,21 @@ class Test_Url(TestCase):
     def test_Url_user_following_list(self):
         url = reverse('follower_list', args=[1988, 1234])
         self.assertEqual(url, '/follower_list/1988/1234')
+
+
+
+class Test_category(TestCase):
+
+    def create_category(self, name= "Maths question"):
+        return Category.objects.create(name=name)
+
+    def test_category_creation(self):
+        w = self.create_category()
+        self.assertTrue(isinstance(w, Category))
+        
+    def tetst_category_name(self):
+        w = self.create_category()
+        self.assertEqual(w.__unicode__(), w.name)
 
 
 class Test_Population_Script(TestCase):
