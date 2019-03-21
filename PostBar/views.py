@@ -71,6 +71,7 @@ def register(request):
         else:
             # Invalid form or forms - mistakes or something else?
             # Print problems to the terminal.
+
             print(user_form.errors, profile_form.errors)
     else:
         # Not a HTTP POST, so we render our form using two ModelForm instances.
@@ -82,7 +83,10 @@ def register(request):
                   'PostBar/register.html',
                   {'user_form': user_form,
                    'profile_form': profile_form,
-                   'registered': registered})
+                   'registered': registered,
+                   'user_form_errors': user_form.errors,
+                   'profile_form.errors': profile_form.errors}
+                  )
 
 
 def user_login(request):
@@ -425,7 +429,7 @@ def add_following(request, user_id):
     user: User = request.user
     if user.is_authenticated():
         user.userprofile.add_following(user_id)
-        redirect_id= get_object_or_404(User, id=user_id).id
+        redirect_id = get_object_or_404(User, id=user_id).id
         return redirect("user_profile_detail", redirect_id)
     else:
         return redirect("login")
@@ -437,7 +441,7 @@ def delete_following(request, user_id):
     user: User = request.user
     if user.is_authenticated():
         user.userprofile.delete_following(user_id)
-        redirect_id= get_object_or_404(User, id=user_id).id
+        redirect_id = get_object_or_404(User, id=user_id).id
         return redirect("user_profile_detail", redirect_id)
     else:
         return redirect("login")
