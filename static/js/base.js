@@ -5,15 +5,15 @@ function update_ip_info() {
         $.ajax({
             url: freegeoipurl + `?ip=${e.ip}`,
             success: function (s) {
-                if ("country_name" in s) {
-                    let country = $("#country");
-                    $("#location").show();
-                    country.text("Country: " + s.country_name);
-                    country.show()
-                }
+                // if ("country_name" in s) {
+                //     let country = $("#country");
+                //     $("#location").show();
+                //     country.text("Country: " + s.country_name);
+                //     country.show()
+                // }
                 if ("city" in s) {
                     let city = $("#city");
-                    city.text("City: " + s.city);
+                    city.text("Location: " + s.city);
                     city.show();
                     $("#location").show()
                 }
