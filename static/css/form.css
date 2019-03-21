@@ -1,10 +1,11 @@
 .main {
-    margin: 100px auto;
+    margin: 200px auto;
     display: table;
-    padding: 20px;
-    background-color: #ebebeb;
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 25px;
-
+    width: 40%;
+    font-size: xx-large;
+    padding: 100px;
 }
 
 .row {
@@ -14,6 +15,8 @@
 .row label {
     display: table-cell;
     padding: 2px;
+    width: 100px;
+
 }
 
 .field-box {
