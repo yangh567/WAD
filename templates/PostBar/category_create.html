@@ -11,7 +11,8 @@
 
         <form method="post" class="main">{% csrf_token %}
              <div class="row">
-                 <p class="field-box">{{ form }}</p>
+                 <label>Name:</label>
+                 <p class="field-box">{{ form.name }}</p>
              </div>
             <input type="submit" value="submit">
         </form>
