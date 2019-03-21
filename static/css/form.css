@@ -15,13 +15,14 @@
 .row label {
     display: table-cell;
     padding: 2px;
-    width: 100px;
+    width: max-content;
 
 }
 
 .field-box {
     display: table-cell;
     padding: 4px;
+
 }
 
 body{
