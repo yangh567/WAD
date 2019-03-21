@@ -6,7 +6,14 @@ from django.urls import reverse
 from PostBar.apps import PostbarConfig
 from PostBar.models import Category
 from .forms import *  # import all forms
+from django.utils import timezone
 
+import datetime
+from .models import Question
+
+# website used for tesing:
+# https://wsvincent.com/django-testing-tutorial/
+# https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Testing
 
 class Test_App(TestCase):
 
@@ -14,9 +21,6 @@ class Test_App(TestCase):
         self.assertEqual(PostbarConfig.name, 'PostBar')
         self.assertEqual(apps.get_app_config('PostBar').name, 'PostBar')
 
-
-# website used for index page and about page: https://wsvincent.com/django-testing-tutorial/
-# https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Testing
 
 class Test_Index_Page(TestCase):
 
@@ -68,6 +72,97 @@ class Test_Index_Page(TestCase):
         self.assertIn(reverse('index'), response.content.decode('ascii'))
 
 
+
+class Test_Category(TestCase):
+
+    def create_category(self, name):
+        return Category.objects.create(name=name)
+
+    def test_category_creation_maths(self):
+        w = self.create_category("Maths question")
+        self.assertTrue(isinstance(w, Category))
+        
+    def tetst_category_name_maths(self):
+        w = self.create_category("Maths question")
+        self.assertEqual(w.__unicode__(), w.name)
+
+    def test_category_creation_computing(self):
+        w = self.create_category("Computing Science")
+        self.assertTrue(isinstance(w, Category))
+        
+    def tetst_category_name_computing(self):
+        w = self.create_category("Computing Science")
+        self.assertEqual(w.__unicode__(), w.name)
+
+    def test_category_creation_others(self):
+        w = self.create_category("Other Questions")
+        self.assertTrue(isinstance(w, Category))
+        
+    def tetst_category_name_others(self):
+        w = self.create_category("Other Questions")
+        self.assertEqual(w.__unicode__(), w.name)
+
+    def test_category_creation_history(self):
+        w = self.create_category("History question")
+        self.assertTrue(isinstance(w, Category))
+        
+    def tetst_category_name_history(self):
+        w = self.create_category("History question")
+        self.assertEqual(w.__unicode__(), w.name)
+
+    def test_category_creation_physics(self):
+        w = self.create_category("physics question")
+        self.assertTrue(isinstance(w, Category))
+        
+    def tetst_category_name_physics(self):
+        w = self.create_category("physics question")
+        self.assertEqual(w.__unicode__(), w.name)
+
+    def test_create_a_new_category(self):
+        cat = Category(name="ABC question")
+        cat.save()
+
+        # Check category is in database
+        categories_in_database = Category.objects.all()
+        self.assertEquals(len(categories_in_database), 1)
+        only_poll_in_database = categories_in_database[0]
+        self.assertEquals(only_poll_in_database, cat)
+
+    def create_category(self, name= "Astronmy question"):
+        return Category.objects.create(name=name)
+    
+    def test_view_has_title(self):
+        response = self.client.get(reverse('index'))
+
+        # Check title used correctly
+        self.assertIn('<title>', response.content.decode('ascii'))
+
+
+        
+
+class Add_Question(TestCase):
+    
+    def setUp(self):
+        self.credentials = {
+            'username': 'testuser',
+            'password': 'secret'}
+        User.objects.create_user(**self.credentials)
+
+    def test_add_question_login(self):
+        # login
+        response = self.client.post('/login/', self.credentials, follow=True)
+        # should be logged in now, fails however
+        self.assertTrue(response.context['user'].is_authenticated)
+
+    def test_add_question_user_login(self):
+        user_login = User.objects.create(username="use", email="user@mp.com", password="user")
+        self.assertTrue(user_login)
+
+        response = self.client.get(reverse("question_create"))
+        self.assertEqual(response.status_code, 302)
+        
+        
+            
 class Test_About_Page(TestCase):
 
     def test_about_page_status_code(self):
@@ -108,6 +203,19 @@ class Test_About_Page(TestCase):
 
         # Check if is there an image in index page
         self.assertIn('img src="/static/images/', response.content.decode('ascii'))
+
+
+
+class Test_Profile(TestCase):
+
+    def test_Url_user_profile_detail(self):
+        url = reverse('user_profile_detail', args=[1988])
+        self.assertEqual(url, '/user_profile_detail/1988/')
+
+    def test_Url_user_following_list(self):
+        url = reverse('follower_list', args=[1988, 1234])
+        self.assertEqual(url, '/follower_list/1988/1234')
+
 
 
 class Test_Login(TestCase):
@@ -177,6 +285,17 @@ class Test_Login(TestCase):
         self.assertIn(reverse('category_list'), response.content.decode('ascii'))
         self.assertIn(reverse('about'), response.content.decode('ascii'))
 
+    # Valid Form Data
+    def test_UserForm_valid(self):
+        form = UserForm(data={'username': "use", 'email': "user@mp.com", 'password': "user"})
+        self.assertTrue(form.is_valid())
+
+    # Invalid Form Data
+    def test_UserForm_invalid(self):
+        form = UserForm(data={'email': "", 'password': "mp"})
+        self.assertFalse(form.is_valid())
+
+
 
 class Test_Login_Out(TestCase):
 
@@ -189,78 +308,14 @@ class Test_Login_Out(TestCase):
         self.assertIn(reverse('login'), response.content.decode('ascii'))
         self.assertIn(reverse('about'), response.content.decode('ascii'))
 
-class Test_View(TestCase):
 
-    def create_category(self, name= "Maths question"):
-        return Category.objects.create(name=name)
-    
-    def test_view_has_title(self):
-        response = self.client.get(reverse('index'))
-
-        # Check title used correctly
-        self.assertIn('<title>', response.content.decode('ascii'))
 
     
 
-# -------------------------- test form.py    start
-
-class Setup_Class(TestCase):
-
-    def setUp(self):
-        self.user = User.objects.create(username="use", email="user@mp.com", password="user")
-
-
-class User_Form_Test(TestCase):
-
-    # Valid Form Data
-    def test_UserForm_valid(self):
-        form = UserForm(data={'username': "use", 'email': "user@mp.com", 'password': "user"})
-        self.assertTrue(form.is_valid())
-
-    # Invalid Form Data
-    def test_UserForm_invalid(self):
-        form = UserForm(data={'email': "", 'password': "mp"})
-        self.assertFalse(form.is_valid())
-
-
-# -------------------------- test form.py    end
-
-class Test_Url(TestCase):
-
-    def test_Url_user_profile_detail(self):
-        url = reverse('user_profile_detail', args=[1988])
-        self.assertEqual(url, '/user_profile_detail/1988/')
-
-    def test_Url_user_following_list(self):
-        url = reverse('follower_list', args=[1988, 1234])
-        self.assertEqual(url, '/follower_list/1988/1234')
 
 
 
-class Test_category(TestCase):
 
-    def create_category(self, name= "Maths question"):
-        return Category.objects.create(name=name)
 
-    def test_category_creation(self):
-        w = self.create_category()
-        self.assertTrue(isinstance(w, Category))
+
         
-    def tetst_category_name(self):
-        w = self.create_category()
-        self.assertEqual(w.__unicode__(), w.name)
-
-
-class Test_Population_Script(TestCase):
-
-    def test_create_a_new_category(self):
-        cat = Category(name="Maths question")
-        cat.save()
-
-        # Check category is in database
-        categories_in_database = Category.objects.all()
-        self.assertEquals(len(categories_in_database), 1)
-        only_poll_in_database = categories_in_database[0]
-        self.assertEquals(only_poll_in_database, cat)
-
-# class other_test(TestCase):
