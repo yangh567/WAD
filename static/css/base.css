@@ -97,7 +97,7 @@ body{
     color: #ffffff;
     text-shadow: 4px 4px #000000;
     padding: 15px;
-    /*width: max-content;*/
+    border-radius: 25px;
 }
 
 

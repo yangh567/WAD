@@ -1,47 +1,11 @@
-.question_sidebar {
-  /*height: 100%; !* Full-height: remove this if you want "auto" height *!*/
-    margin-top: -8px;
-    width: 300px; /* Set the width of the sidebar */
-    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-    left: 0;
-    background-color: #e0e0e0;
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 20px;
-    padding-bottom: 750px;
-
-}
-
-/* The navigation menu links */
-.content {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #313131;
-    display: block;
-}
-
-/* When you mouse over the navigation links, change their color */
-.question_sidebar a:hover {
-  color: rgba(65, 131, 255, 0.69);
-}
-
-.question_sidebar a:visited {
-  color: #4e4e4e;
-}
-
-/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-
 .question {
-    margin-left: 320px;
+    margin-top: 30px;
+    margin-left: 365px;
     margin-right: 130px;
     padding-left: 20px;
     text-align: left;
     border-radius: 25px;
-    background-color: rgba(67, 124, 255, 0.64);
+    background-color: rgba(67, 124, 255, 0.91);
     color: white;
 }
 
@@ -53,7 +17,7 @@
     padding-right: 20px;
     border-radius: 25px;
     text-align: right;
-    background: rgba(99,228,171,0.57);
+    background: rgba(99, 228, 171, 0.91);
     font-size: medium;
 }
 

@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% block css_block %}
     <link rel="stylesheet" type="text/css" href="../../static/css/user_profile.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/sidebar.css">
 {% endblock %}
 
 {% block title_block %}
@@ -25,6 +26,7 @@
             <label hidden>
                 <input id="if_following_link" value="{% url 'if_following' profile_form.user_id %}" hidden>
             </label>
+
             {% if user.id == profile_form.user_id %}
                 {{ user.username }} <br>
                 {#                {{ user.usesimage }}<br>#}

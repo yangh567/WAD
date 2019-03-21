@@ -3,6 +3,7 @@
 
 {% block css_block %}
     <link rel="stylesheet" type="text/css" href="../../static/css/question.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/sidebar.css">
 {% endblock %}
 
 {% block js_block %}
@@ -14,7 +15,7 @@
         <strong>{{ object.title }}</strong>
     </div>
 
-    <div class="question_sidebar">
+    <div class="sidebar">
         <label hidden>
             <input id="question_liked_url" value="{% url 'question_liked' object.id %}" hidden/>
         </label>

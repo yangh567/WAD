@@ -1,52 +1,8 @@
-/* The sidebar menu */
-.sidebar {
-    margin-left: 30px ;
-    height: 2%;
-    margin-top: 20px;
-    width: 300px;
-    position: absolute;
-    left: 0;
-    background-color: rgba(224, 224, 224, 0.8);
-    overflow: hidden;
-    padding-top: 20px;
-    padding-bottom: 750px;
-    border-radius: 25px;
-
-}
-
-/* The navigation menu links */
-.content {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: large;
-    color: #313131;
-    display: block;
-}
-
-/* When you mouse over the navigation links, change their color */
-.sidebar a:hover {
-    color: rgba(67,124,255,0.8);
-}
-
-
-/* Style page content */
-.main {
-    margin-left: 160px; /* Same as the width of the sidebar */
-    padding: 0 10px;
-}
-
-/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-
-
 .my_questions {
     height: 350px;
     margin-top: 20px;
     margin-left: 350px;
-    margin-right: 80px;
+    margin-right: 30px;
     border-color: #313131;
     overflow: auto;
     background-color: rgba(224, 224, 224, 0.8);
@@ -55,7 +11,7 @@
 
 .my_answers {
     margin-left: 350px;
-    margin-right: 80px;
+    margin-right: 30px;
     padding-right: 20px;
     border-color: #313131;
     height: 350px;
@@ -107,13 +63,6 @@
     color: inherit;
     text-decoration: none;
     font-size: x-large;
-}
-
-
-a {
-    color: inherit;
-    text-decoration: none;
-    font-size: large;
 }
 
 li {
