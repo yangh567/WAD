@@ -1,10 +1,8 @@
-from django.contrib.auth.forms import UsernameField
-from django.core.exceptions import ValidationError
-from django.http import HttpResponse
-from django.shortcuts import render
 from django import forms
 from django.contrib.auth.models import User
-from PostBar.models import UserProfile, Question, Category
+from django.shortcuts import render
+
+from PostBar.models import UserProfile
 
 
 def index(request):
@@ -55,16 +53,3 @@ class UserProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('website', 'picture', 'location', 'background')
-
-# class CategoryForm(forms.ModelForm):
-#     class Meta:
-#         model = Category
-#         fields = ("id")
-#
-#
-#
-# class QuestionForm(forms.ModelForm):
-#     class Meta:
-#         model = Question
-#         fields = ('title', 'content', 'category')
-#         private_fields= []

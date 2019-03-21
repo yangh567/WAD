@@ -21,8 +21,7 @@ from PostBar import views
 from django.conf import settings
 from django.conf.urls.static import static
 
-urlpatterns = [  # url(r'^$', views.index, name='index'),
-                  # url(r'^PostBar/', include('PostBar.urls')),
+urlpatterns = [
                   url(r'^admin/', admin.site.urls),
                   url(r'', include('PostBar.urls')),
                   url(r'^reset$', auth_views.password_change, name='password_change_form'),

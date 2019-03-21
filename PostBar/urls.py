@@ -1,6 +1,5 @@
 from django.conf.urls import url
 from PostBar import views
-from PostBar.views import question_like_up, answer_rank_up, answer_rank_down, question_like_down
 
 urlpatterns = [
     url(r'^$', views.QuestionListView.as_view(), name='index'),
