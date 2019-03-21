@@ -6,8 +6,8 @@
     margin-right: 150px;
     border-radius: 30px;
     height: 800px;
-    min-width: 1000px;
-    width: auto !important;
+    min-width: 700px;
+    width: auto;
 }
 
 #question {
