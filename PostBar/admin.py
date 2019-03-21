@@ -1,9 +1,5 @@
-from pprint import pprint
-
 from django.contrib import admin
 from PostBar.models import Category, Question, Answer, UserProfile
-
-from django.contrib import admin
 
 
 class AnswerInline(admin.TabularInline):

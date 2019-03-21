@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.shortcuts import reverse
@@ -71,7 +70,6 @@ class Question(models.Model):
 
 class Answer(models.Model):
     content = models.TextField()
-    rank_points = models.IntegerField(default=0)
     rank_count = models.PositiveIntegerField(default=0)
 
     ranked_users = models.ManyToManyField(User, related_name="ranked_answers")

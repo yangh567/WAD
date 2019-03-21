@@ -1,6 +1,5 @@
 import json
 from urllib import request as i_request
-
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
@@ -9,7 +8,6 @@ from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, HttpResponse, Http404, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.views.generic import ListView
-
 from PostBar.forms import UserForm, UserProfileForm, UserProfileUpdateForm
 from PostBar.meta_views import IUpdateView, IDetailView, IListView, ICreateView
 from PostBar.models import UserProfile, Category, Question, Answer
