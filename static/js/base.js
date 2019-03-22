@@ -13,7 +13,7 @@ function update_ip_info() {
                  }
                 if ("city" in s) {
                     let city = $("#city");
-                    city.text("Location: " + s.city);
+                    city.text("City: " + s.city);
                     city.show();
                     $("#location").show()
                 }
