@@ -21,9 +21,9 @@ img {
     margin: 100px auto;
     display: table;
     padding: 20px;
-    background-color: antiquewhite;
+    background-color: rgba(250, 235, 215, 0.85);
     border-radius: 25px;
-
+    font-size: x-large;
 }
 
 .row {
@@ -38,9 +38,4 @@ img {
 .field-box {
     display: table-cell;
     padding: 2px;
-}
-
-h1 {
-    text-align: center;
-    font-size: x-large;
 }

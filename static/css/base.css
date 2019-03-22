@@ -91,11 +91,10 @@ body{
 
 
 .title {
-    background-color: rgba(245,245,245,0.7);
+    background-color: rgba(245, 245, 245, 0.85);
     font-size: xx-large;
     text-align: center;
-    color: #ffffff;
-    text-shadow: 4px 4px #000000;
+    color: #000000;
     padding: 15px;
     border-radius: 25px;
 }

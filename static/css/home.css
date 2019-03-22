@@ -1,5 +1,5 @@
 .content_home {
-    background: rgba(245, 245, 245, 0.8);
+    background: rgba(245, 245, 245, 0.85);
     text-align: center;
     margin-top: -20px;
     margin-left: 150px;
@@ -71,4 +71,5 @@ a {
     border-radius: 25px;
     margin-left: 350px;
     margin-right: 350px;
+    min-width: max-content;
 }

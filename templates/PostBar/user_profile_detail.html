@@ -40,8 +40,7 @@
                 <a href="{% url 'following_list' user.id 1 %}">My Followings</a> <br>
                 <a href="{% url 'follower_list' user.id 1 %}">My Followers</a><br>
 
-
-
+                <p style="margin-top:10px; margin-bottom: 0"> Your IP location:</p>
                 <a id="country">Country:</a><br>
                 <a id="city" hidden>City:</a><br>
             {% else %}
@@ -64,6 +63,7 @@
 
     <ul class=" my_questions">
         {% if profile_form.user.questions.all %}
+            <strong>Questions:</strong>
             {% for question in profile_form.user.questions.all %}
                 <li>
                     <p class="link">
@@ -73,7 +73,7 @@
                 </li>
             {% endfor %}
         {% else %}
-            You don't have any questions.
+            <strong> You don't have any questions.</strong>
         {% endif %}
         <br>
     </ul>
@@ -82,6 +82,7 @@
 
     <ul class="my_answers">
         {% if profile_form.user.answers.all %}
+            <strong>Answers:</strong>
             {% for answer in profile_form.user.answers.all %}
                 <li>
                     <p class="link_answer">
@@ -92,7 +93,7 @@
                 </li>
             {% endfor %}
         {% else %}
-            You don't have any answers.
+            <strong>You don't have any answers.</strong>
         {% endif %}
     </ul>
 
