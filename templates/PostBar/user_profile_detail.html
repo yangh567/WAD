@@ -38,7 +38,12 @@
                 <a href="{% url 'edit_user_profile' %}">Edit Profile</a> <br>
                 <a href="{% url 'password_change_form' %}">Reset Password</a><br>
                 <a href="{% url 'following_list' user.id 1 %}">My Followings</a> <br>
-                <a href="{% url 'follower_list' user.id 1 %}">My Followers</a>
+                <a href="{% url 'follower_list' user.id 1 %}">My Followers</a><br>
+
+
+
+                <a id="country">Country:</a><br>
+                <a id="city" hidden>City:</a><br>
             {% else %}
                 {{ profile_form.user.get_username }}<br>
                 {% if profile_form.picture %}
