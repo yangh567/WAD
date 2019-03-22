@@ -197,12 +197,6 @@ class Test_About_Page(TestCase):
         # Check the template used to render about page
         self.assertTemplateUsed(response, 'PostBar/about.html')
 
-    def test_about_contain_correct_image(self):
-        self.client.get(reverse('index'))
-        response = self.client.get(reverse('about'))
-
-        # Check if is there an image in index page
-        self.assertIn('img src="/static/images/', response.content.decode('ascii'))
 
 
 
