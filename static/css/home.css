@@ -28,6 +28,8 @@
     border-radius: 10px;
     margin-top: 13px;
     color: white;
+    max-height: 20px;
+    overflow: hidden;
 }
 
 .question_category {

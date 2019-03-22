@@ -50,5 +50,5 @@ urlpatterns = [
     url(r'^answer_delete/(?P<pk>\d+)/(?P<question_id>\d+)$', views.answer_delete, name='answer_delete'),
     url(r'^answer_ranked/(?P<pk>\d+)$', views.answer_ranked, name='answer_ranked'),
 
-    url(r'^query_ip/$', views.query_ip, name="query_ip")
+    url(r'^query_ip/$', views.query_ip, name="query_ip"),
 ]
