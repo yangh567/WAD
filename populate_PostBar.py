@@ -17,11 +17,19 @@ def populate():
     default_answer_image_url = "answer_images/default.png"
     user1, profile1 = create_or_get_user_profile("John", 'jlennon@beatles.com', "passowrd", "nyu", "a@b.com", "daycare")
     user2, profile2 = create_or_get_user_profile("Mary", 'mary@beatles.com', "passowrd", "nyu", "a@b.com", "daycare")
-    user3, profile3 = create_or_get_user_profile("Tom", 'Tom@beatles.com', "passowrd", "what", "a@b.com", "daycare")
+    user3, profile3 = create_or_get_user_profile("Tom", 'tom@beatles.com', "passowrd", "what", "a@b.com", "daycare")
     user4, profile4 = create_or_get_user_profile("Jack", 'jack@beatles.com', "passowrd", "nyu", "a@b.com", "daycare")
     user5, profile5 = create_or_get_user_profile("Mr square", 'square@beatles.com', "passowrd", "nyu", "a@b.com",
                                                  "daycare")
     user6, profile6 = create_or_get_user_profile("Crazyworld", 'jack@beatles.com', "passowrd", "nyu", "a@b.com",
+                                                 "daycare")
+    user7, profile7 = create_or_get_user_profile("Jim", 'jim@beatles.com', "passowrd", "nyu", "a@b.com",
+                                                 "daycare")
+    user8, profile8 = create_or_get_user_profile("vens", 'vens@beatles.com', "passowrd", "nyu", "a@b.com",
+                                                 "daycare")
+    user9, profile9 = create_or_get_user_profile("Hash", 'hash@beatles.com', "passowrd", "nyu", "a@b.com",
+                                                 "daycare")
+    user10, profile10 = create_or_get_user_profile("Tag", 'tag@beatles.com', "passowrd", "nyu", "a@b.com",
                                                  "daycare")
     profile1.add_following(user2.id)
     profile2.add_following(user1.id)
@@ -29,6 +37,10 @@ def populate():
     profile4.add_following(user3.id)
     profile5.add_following(user4.id)
     profile6.add_following(user5.id)
+    profile7.add_following(user6.id)
+    profile8.add_following(user7.id)
+    profile9.add_following(user8.id)
+    profile10.add_following(user9.id)
 
     math_answers = [
         {
@@ -89,6 +101,74 @@ def populate():
             "user": user3,
             "rank_counts": 121,
             "rank_points": 118},
+    ]
+    math_answers4 = [
+        {
+            "answer_content": "Let the 1st paycheck be x (integer).Mrs. Rodger got a weekly raise of $ 145.So after "
+                              "completing the 1st week she will get $ (x+145).Similarly after completing the 2nd week "
+                              "she will get $ (x + 145) + $ 145.= $ (x + 145 + 145)= $ (x + 290)So in this way end of "
+                              "every week her salary will increase by $ 145.",
+            "answer_username": user1.username,
+            "user": user1,
+            "rank_counts": 12,
+            "rank_points": 115},
+        {
+            "answer_content": "145",
+            "answer_username": user1.username,
+            "user": user1,
+            "rank_counts": 12,
+            "rank_points": 13
+        },
+    ]
+    math_answers5 = [
+        {
+            "answer_content": "Solution:x + x(xx)Put the value of x = 2 in the above expression we get,2 + 2(22)= 2 + "
+                              "2(2 × 2)= 2 + 2(4)= 2 + 8= 10",
+            "answer_username": user1.username,
+            "user": user1,
+            "rank_counts": 128,
+            "rank_points": 115},
+        {
+            "answer_content": "i guess it's ten",
+            "answer_username": user1.username,
+            "user": user1,
+            "rank_counts": 121,
+            "rank_points": 133
+        },
+    ]
+    math_answers6 = [
+        {
+            "answer_content": "ISolution:20 % profit on $ 1.20 = $ 20/100 × 1.20= $ 0.20 × 1.20= $ 0.24 Similarly, "
+                              "20 % loss on $ 1.20 = $ 20/100 × 1.20= $ 0.20 × 1.20= $ 0.24Therefore, in one pipe his "
+                              "profit is $ 0.24 and in the other pipe his loss is $ 0.24.Since both profit and loss "
+                              "amount is same so, it’s broke even.",
+            "answer_username": user1.username,
+            "user": user1,
+            "rank_counts": 123,
+            "rank_points": 115},
+        {
+            "answer_content": "get to be a",
+            "answer_username": user1.username,
+            "user": user1,
+            "rank_counts": 121,
+            "rank_points": 133
+        },
+    ]
+    math_answers7 = [
+        {
+            "answer_content": "The distance of the light travels in 100 years is: 5,870,000,000,000 × 100 miles.= "
+                              "587,000,000,000,000 miles.= 587 × 1012 miles.",
+            "answer_username": user1.username,
+            "user": user1,
+            "rank_counts": 125,
+            "rank_points": 15},
+        {
+            "answer_content": "is it d ?",
+            "answer_username": user1.username,
+            "user": user1,
+            "rank_counts": 126,
+            "rank_points": 130
+        },
     ]
 
     computing_science_answers1 = [
@@ -481,6 +561,7 @@ def populate():
         {
             "question_title": "What is the multiplication?",
             "question_content": "basically,can anybody explain t to me?",
+            "answer_username": user3.username,
             "user": user3,
             "views": 310,
             "likes": 121,
@@ -491,6 +572,7 @@ def populate():
         {
             "question_title": "What is the assignment for math1R?",
             "question_content": "I totally missed the lecture,and i wasn't informed",
+            "answer_username": user3.username,
             "user": user3,
             "id": 2,
             "views": 21,
@@ -503,6 +585,7 @@ def populate():
             "question_title": "could any body give me any suggestion of how to do the question on the "
                               "text book at page 121?",
             "question_content": "that question is basically talking about taylor series",
+            "answer_username": user4.username,
             "user": user4,
             "id": 3,
             "views": 30,
@@ -510,7 +593,61 @@ def populate():
             "question_isComplete": True,
             "latest_question_published": "2002-12-13",
             "answers": math_answers3
-        }
+        },
+        {
+            "question_title": "please see the question",
+            "question_content": "1. Mrs. Rodger got a weekly raise of $145. If she gets paid every other week, "
+                                "write an integer describing how the raise will affect her paycheck.",
+            "answer_username": user5.username,
+            "user": user5,
+            "id": 0,
+            "views": 316,
+            "likes": 121,
+            "question_isComplete": True,
+            "latest_question_published": "2009-11-13",
+            "answers": math_answers4
+        },
+        {
+            "question_title": "please take look of math question",
+            "question_content": "The value of x + x(xx) when x = 2 is:(a) 10, (b) 16, (c) 18, (d) 36, (e) 64",
+            "answer_username": user6.username,
+            "user": user6,
+            "id": 0,
+            "views": 312,
+            "likes": 120,
+            "question_isComplete": True,
+            "latest_question_published": "2009-11-13",
+            "answers": math_answers5
+        },
+        {
+            "question_title": "3. Mr. Jones sold two pipes at $1.20 each. Based on the cost, his profit one was 20% "
+                              "and his loss on the other was 20%. On the sale of the pipes, he:(a) broke even, "
+                              "(b) lost 4 cents, (c) gained 4 cents, (d) lost 10 cents, (e) gained 10 cents",
+            "question_content": "I heard a lot about differentiation during hight school,what is that exactly",
+            "answer_username": user7.username,
+            "user": user7,
+            "id": 0,
+            "views": 311,
+            "likes": 128,
+            "question_isComplete": True,
+            "latest_question_published": "2009-11-13",
+            "answers": math_answers6
+        },
+        {
+            "question_title": "4. The distance light travels in one year is approximately 5,870,000,000,000 miles. "
+                              "The distance light travels in 100 years is:(a) 587 × 108 miles, (b) 587 × 1010 miles, "
+                              "(c) 587 × 10-10 miles, (d) 587 × 1012 miles, (e) 587 × 10-12 miles ",
+            "question_content": "I heard a lot about differentiation during hight school,what is that exactly",
+            "answer_username": user8.username,
+            "user": user8,
+            "id": 0,
+            "views": 31,
+            "likes": 12,
+            "question_isComplete": True,
+            "latest_question_published": "2009-11-13",
+            "answers": math_answers7
+        },
+
     ]
 
     computing_science_questions = [
@@ -559,7 +696,8 @@ def populate():
             "question_isComplete": True,
             "latest_question_published": "2002-11-23",
             "answers": computing_science_answers3
-        }
+        },
+
     ]
 
     other_questions = [
@@ -614,7 +752,7 @@ def populate():
          "question_isComplete": True,
          "latest_question_published": "2018-11-13",
          "answers": other_answers3
-         }
+         },
     ]
 
     history_questions = [
@@ -662,7 +800,7 @@ def populate():
             "question_isComplete": True,
             "latest_question_published": "2003-11-13",
             "answers": history_answers3
-        }
+        },
     ]
 
     physics_questions = [
@@ -786,8 +924,3 @@ def save_all(objects: List[Category]):
 
 if __name__ == '__main__':
     populate()
-# gen_save(User)
-# gen_save(Category)
-# gen_save(Question, 50)
-# gen_save(Answer, 1500)
-# gen_save(UserProfile, 10)
